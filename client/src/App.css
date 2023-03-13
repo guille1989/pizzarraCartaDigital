@@ -1,0 +1,663 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: 300px;
+  background-color: rgb(29, 20, 94);
+  border-radius: 5%;
+}
+
+.containerPedidos{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: 300px;
+  background-color: rgb(173, 164, 28);
+  border-radius: 5%;
+}
+
+.menu{  
+  list-style-type: none;
+  width: auto;
+  display: flex;  
+  justify-content: space-evenly; 
+  padding: 0;
+}
+
+.menuitem{
+  margin: 3px;
+  width: 90px;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuitemCuenta{
+  margin: 3px;
+  width: 90px;
+  height: 50px;
+  color: black;
+  background-color: rgb(237, 91, 12);
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.link{
+  list-style-type: none;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.titulo{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pedido{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: auto;
+  background-color: white;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+.confirmarPedido{
+  margin: 15px;
+  font-size: 30%;
+  width: 50%;
+  height: auto;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center; 
+}
+
+.pizzaOrden{
+  list-style-type: none;
+  width: auto;
+  justify-content: space-evenly; 
+  padding: 0;
+  display: flex;
+}
+
+.pizzaOpcion{
+  font-size: 100%;
+}
+
+.pizzaItem{
+  margin: 3px;
+  width: 90px;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.uncuarto{
+  font-size: 10px;
+  margin: 3px;
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-top-left-radius: 100%;
+}
+.doscuarto{
+  font-size: 10px;
+  margin: 3px;
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-bottom-left-radius: 100%;
+}
+.trescuarto{
+  font-size: 10px;
+  margin: 3px;
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-top-right-radius: 100%;  
+}
+.cuatrcuarto{
+  font-size: 10px;
+  margin: 3px;
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-bottom-right-radius: 100%;
+}
+
+.pizzaforma{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.centroboton{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.seleccionpersonalsabor{
+  margin: 20px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: white;
+}
+
+.opcionpersonal{
+  margin: 5px;
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.mitaduno{
+    font-size: 11px;
+    margin: 3px;
+    width: 150px;
+    height: 70px; /* as the half of the width */
+    background-color:white;
+    border-top-left-radius: 110px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 110px; /* 100px of height + 10px of border */
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+.mitaddos{
+    font-size: 11px;
+    margin: 3px;
+    width: 150px;
+    height: 70px; /* as the half of the width */
+    background-color:white;
+    border-bottom-left-radius: 110px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 110px; /* 100px of height + 10px of border */
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.completa{
+  font-size: 15px;
+  margin: 3px;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 100%;
+}
+
+
+.lasagna{
+  margin: 3px;
+  width: 150px;
+  height: 90px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10%;
+}
+
+.completaPantalon{
+  margin: 3px;
+  width: 150px;
+  height: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 150px 150px 0 0;;
+}
+
+.completaPancook{
+  margin: 3px;
+  width: 150px;
+  height: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 100px 100px 150px 150px;;
+}
+
+.atras{
+  margin-left: 3%;
+  font-style: italic;
+  text-decoration: underline black;
+}
+
+.SaboresPizza{
+  list-style-type: none;
+  width: auto;
+  justify-content: space-evenly; 
+  padding: 0;
+  display: flex;
+}
+
+.saborItem{
+  margin: 3px;
+  width: 70px;
+  height: 40px;
+  background-color: white;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.pizzaOpcionSabor{
+  font-size: 70%;
+}
+
+.adicion{
+  padding: 0%;
+  margin-right: 0%;
+  background: greenyellow;
+  height: 30px;
+  position: relative;
+  width: 10px;
+}
+
+.adicion:after {
+  background: greenyellow;
+  content: "";
+  height: 10px;
+  left: -10px;
+  position: absolute;
+  top: 10px;
+  width: 30px;
+}
+
+.adiciondos{
+  margin-left: 30%;
+  background: greenyellow;
+  height: 30px;
+  position: relative;
+  width: 10px;
+  display: flex;
+}
+
+.adiciondos:after {
+  background: greenyellow;
+  content: "";
+  height: 10px;
+  left: -10px;
+  position: absolute;
+  top: 10px;
+  width: 30px;
+  display: flex;
+}
+
+.adicioncompleta{
+  margin-left: 40%;
+  background: greenyellow;
+  height: 30px;
+  position: relative;
+  width: 10px;
+}
+
+.adicioncompleta:after{
+  background: greenyellow;
+  content: "";
+  height: 10px;
+  left: -10px;
+  position: absolute;
+  top: 10px;
+  width: 30px;
+}
+
+.siningredientes{
+    margin-top: 10px;
+    margin-left: 30%;
+    width: 30px;
+    height: 10px;
+    background: red;
+  }
+
+  .siningredientesmitad{
+    margin-top: 10px;
+    margin-left: 70%;
+    width: 30px;
+    height: 10px;
+    background: red;
+  }
+
+  .siningredientescompleta{
+    margin-top: 10px;
+    margin-left: 15%;
+    width: 30px;
+    height: 10px;
+    background: red;
+  }
+
+  .confirmarPedidoPersonal{
+    margin: 15px;
+    margin-left: 0%;
+    font-size: 30%;
+    width: 20%;
+    height: auto;
+    background-color: rgb(12, 176, 241);
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+  }
+
+  .centrobotonConfirmar{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(12, 176, 241);
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    font-size: 30%;
+    width: 100%;
+    margin-top: 5%;
+  }
+
+.botonpedido{
+  display: flex;
+  flex-direction: 'row';
+  margin-left: 10px;  
+}
+
+.pedidoOrden{
+  margin-left: 0px;
+  line-height: 1.5;
+  padding-top: 0px;
+}
+
+.hr{
+	border: 0;
+	border-top: 2px solid #000000;
+}
+
+.contenedorPedido{
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.agregarapedido{
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #eda60d;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.agregarapedido:hover {background-color: #eda60d;}
+
+.agregarapedido:active {
+  background-color: #eda60d;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.buttonPromocion {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #eda60d;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonPromocion:hover {background-color: #eda60d}
+
+.buttonPromocion:active {
+  background-color: #eda60d;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.buttonPromocionOn {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #5fed0d;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonPromocionOn:hover {background-color: #5fed0d}
+
+.buttonPromocionOn:active {
+  background-color: #5fed0d;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.centrarButtonPromocion{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.itemOrden{
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: -15px;
+}
+
+.itemOrdenFinal{
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.itemSabor{
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: -15px;
+  text-indent: 10px;
+  font-style: italic;
+}
+
+.itemPrecio{
+  text-align: right;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: -34px;
+  font-style: italic;
+}
+
+.centrarButtonPromocionLasagna{
+  padding: 2%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.centrarEnpedidoOrden{
+  padding: 0%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.opcionPedidoOrden{
+  margin-left: 20px;
+}
+
+.buttonBolognesa {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #eb2f09;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonBolognesa:hover {background-color: #eb2f09}
+
+.buttonBolognesa:active {
+  background-color: #eb2f09;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.buttonQueso {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #dced5a;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonQueso:hover {background-color: #dced5a}
+
+.buttonQueso:active {
+  background-color: #dced5a;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.seguimientoCuentas{
+  text-decoration: underline;
+  font-style: italic;
+  font-weight: bold;
+  padding: 5%;
+}
+
+.cuadroPedido{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: auto;
+  padding: 2%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: #ebc509;
+}
+
+.cuadroPedidoAux{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: auto;
+  padding: 2%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: #91eb09;
+}
+
+.cuadroPedidoAux2{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  width: auto;
+  padding: 2%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: #09e7eb;
+}
+
+.datosOrdenFactura{
+  text-indent: 0px;
+  line-height: 10px;
+}
+
+.gestionPedidoPendienteFacturado{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.gestionPedidoPendienteFacturado2{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
