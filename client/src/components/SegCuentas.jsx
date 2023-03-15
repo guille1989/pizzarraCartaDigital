@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { getDatabase, ref, child, get, update, orderByChild} from "firebase/database";
-import firebase from 'firebase/compat/app';
-import configFirebase from '../configFirebase'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, CardBody, CardTitle, CardText, CardFooter, Card, CardHeader,CardColumns } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -51,7 +48,7 @@ class SegCuentas extends Component {
             method: 'GET',
             headers : {'Content-type':'application/json' }  
           }
-        fetch('http://192.168.10.77:8081/api/actualizarpedidossinpago', requestOptions)
+        fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/actualizarpedidossinpago`, requestOptions)
           .then(response => response.json())
           .then(data => {   
                 this.setState({
@@ -74,7 +71,7 @@ class SegCuentas extends Component {
             headers : {'Content-type':'application/json' }   
           }
 
-        fetch('http://192.168.10.77:8081/api/actualizarpedidosconpago', requestOptions)
+        fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/actualizarpedidosconpago`, requestOptions)
           .then(response => response.json())
           .then(data => {               
                 this.setState({
@@ -95,7 +92,7 @@ class SegCuentas extends Component {
             headers : {'Content-type':'application/json' }   
           }
 
-        fetch('http://192.168.10.77:8081/api/pedidos', requestOptions)
+        fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/pedidos`, requestOptions)
           .then(response => response.json())
           .then(data => {
                 //console.log(data.datos)
@@ -118,7 +115,7 @@ class SegCuentas extends Component {
             method: 'GET',
             headers : {'Content-type':'application/json' }   
         }          
-        fetch('http://localhost:8081/api/buscarmesapedidos/' + this.state.mesaFiltro, requestOptions)
+        fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/buscarmesapedidos/` + this.state.mesaFiltro, requestOptions)
             .then(response => response.json())
             .then(data => {
                 //********************************
@@ -268,7 +265,7 @@ class SegCuentas extends Component {
                 method: 'PUT',
                 headers : {'Content-type':'application/json' }   
             }          
-            fetch('http://localhost:8081/api/actualizarpedidos/' + index, requestOptions)
+            fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/actualizarpedidos/` + index, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                         console.log(data.datos)              
@@ -281,7 +278,7 @@ class SegCuentas extends Component {
                 headers : {'Content-type':'application/json' }   
               }
 
-            fetch('http://localhost:8081/api/pedidos', requestOptions)
+            fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/pedidos`, requestOptions)
               .then(response => response.json())
               .then(data => {
                     //console.log(data.datos)

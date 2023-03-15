@@ -70,7 +70,7 @@ handlePetete = () => {
 }
 
 handleCampesian = () => {
-    var dato = "CAMPESIAN"
+    var dato = "CAMPESINA"
     var porcion = this.props.porcion
     this.props.cuentamitad(porcion, dato);
     this.props.atrasMenuPersonalSabor(dato, porcion);

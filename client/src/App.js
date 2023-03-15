@@ -20,9 +20,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import firebase from 'firebase/compat/app';
-import { getDatabase, ref, set, child, get, onValue, push} from "firebase/database";
-import configFirebase from './configFirebase'
 
 class App extends Component {
   constructor(props){
@@ -280,7 +277,7 @@ writeUserData(pedido, pedidoAux) {
     body: JSON.stringify(pedidoAux)        
   }
   
-  fetch('http://localhost:8081/api/agregarpedidos', requestOptions)
+  fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
