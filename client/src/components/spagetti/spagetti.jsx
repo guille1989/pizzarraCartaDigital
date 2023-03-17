@@ -19,10 +19,14 @@ class spagetti extends Component {
             indAdicional: '',
             indicacionAdicional: '',
             promo: false,
+            promoS: false,
             textoBoton: 'SPAGHETTI',
+            textoBotonSalsa: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
             costoPizzaPersonal: 23000,
-            classSalsa: 'buttonBolognesa'
+            costoPizzaPersonalSalsa: 0,
+            classSalsa: 'buttonBolognesa',
+            classTipo: 'buttonBolognesa',
         }
     }
 onClickBack = () => {
@@ -125,22 +129,22 @@ toggleModalAceptar = () => {
     if(contPersonales[0] === null){
         //Guardamos en local Storage
         pedidoPizza = { 'key_id' : 1,
-                    'tipo' : 'PASTA' + ' TIPO: ' + this.state.textoBoton,
+                    'tipo' : 'PASTA' + ' TIPO: ' + this.state.textoBoton + ' SALSA: ' + this.state.textoBotonSalsa,
                     'sabor_pasta' : this.state.saborpizza,
                     'mod_sabor_pasta' : this.state.saborpizzaadicion,
                     'ind_pasta_adicional': this.state.indAdicional,
-                    'costo_pasta' : this.state.costoPizzaPersonal,
+                    'costo_pasta' : this.state.costoPizzaPersonal + this.state.costoPizzaPersonalSalsa,
                     'costo_adiciones_pasta' : costoadicion,
                     'id_pedido': 'Pedido_Pasta_0'};
         localStorage.setItem('Pedido_Pasta_0', JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Pastas', JSON.stringify({'Numero': 1}))
     }else{
         pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
-                    'tipo' : 'PASTA' + ' TIPO: ' + this.state.textoBoton,
+                    'tipo' : 'PASTA' + ' TIPO: ' + this.state.textoBoton + ' SALSA: ' + this.state.textoBotonSalsa,
                     'sabor_pasta' : this.state.saborpizza,
                     'mod_sabor_pasta' : this.state.saborpizzaadicion,
                     'ind_pasta_adicional': this.state.indAdicional,
-                    'costo_pasta' : this.state.costoPizzaPersonal,
+                    'costo_pasta' : this.state.costoPizzaPersonal + this.state.costoPizzaPersonalSalsa, 
                     'costo_adiciones_pasta' : costoadicion,
                     'id_pedido': `Pedido_Pasta_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Pasta_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
@@ -174,6 +178,24 @@ esPromocion = () => {
     ) 
 }
 
+pasSalsa = () => {
+    if(this.state.promoS === false){
+        this.setState({
+            promoS: true,
+            textoBotonSalsa: 'SALSA BLANCA',
+            classTipo: 'buttonQueso',
+            costoPizzaPersonalSalsa: 0
+        })
+    }else(
+        this.setState({
+            promoS: false,
+            textoBotonSalsa: 'NAPOLITANA',
+            classTipo: 'buttonBolognesa',
+            costoPizzaPersonalSalsa: 0
+        })
+    ) 
+}
+
 render(){
     const opcionPizza = () => {
         switch(this.state.estado) {
@@ -184,7 +206,12 @@ render(){
                     <p style={{textAlign: 'center'}}>PASTA - TIPO:</p>
                     <p> </p>  
                     <button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>
-                </div>          
+
+                    <p style={{textAlign: 'center'}}>PASTA - SALSA:</p>
+                    <p> </p>  
+                    <button className={this.state.classTipo} onClick={this.pasSalsa}>{this.state.textoBotonSalsa}</button>
+                </div>    
+
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <div className='adicioncompleta' onClick={this.adicionIngrediente}>                                
                     </div>

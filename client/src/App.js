@@ -58,6 +58,7 @@ class App extends Component {
   }  
 
   toggleModalAceptar = () => {     
+
     if(this.state.opcionOrden === "MESA"){
       if(this.state.mesaOrden === ''){
         alert('Porfavor coloque No. de mesa')
@@ -92,7 +93,8 @@ class App extends Component {
 
         this.setState({
           modalPedido: !this.state.modalPedido,
-          opcionCortesia: "No"
+          opcionCortesia: "No",
+          opcionOrden: "MESA"
         })
 
         alert('Pedido Registrado !')
@@ -134,7 +136,9 @@ class App extends Component {
         this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
         window.localStorage.clear()
         this.setState({
-          modalPedido: !this.state.modalPedido
+          modalPedido: !this.state.modalPedido,
+          opcionCortesia: "No",
+          opcionOrden: "MESA"
         })
         alert('Domicilio Registrado !')
     }
@@ -174,7 +178,9 @@ class App extends Component {
         this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
         window.localStorage.clear()
         this.setState({
-          modalPedido: !this.state.modalPedido
+          modalPedido: !this.state.modalPedido,
+          opcionCortesia: "No",
+          opcionOrden: "MESA"
         })
         alert('Pedido Recoge Registrado !')
   }
@@ -323,6 +329,8 @@ if(this.state.opcionOrden === "MESA"){
   cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
   cmds += newLine;
   cmds += newLine;
+
+  this.printerPedidosConnect()
   }
 }
 
@@ -347,6 +355,8 @@ if(this.state.opcionOrden === "DOMICILIO"){
   cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
   cmds += newLine;
   cmds += newLine;
+
+  this.printerPedidosConnect()
 }
 }
 
@@ -366,247 +376,258 @@ if(this.state.opcionOrden === "RECOGEN"){
   cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
   cmds += newLine;
   cmds += newLine;
+
+  this.printerPedidosConnect()
 }
 }
+}
 
-this.state.datoOrden.map((item, index)=>{   
-  ///BEBIDAS
-  if(item.tipo.includes('CAFÉ') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
-        {
-            if(item.tipo.includes('CAFÉ')){    
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine;            
-              cmds += item.mod_sabor_cafe;
-              cmds += newLine;
-              cmds += newLine;
-            }else if(item.tipo.includes('JUGO')){
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine; 
-              cmds += item.mod_sabor_jugo;
-              cmds += newLine;
-              cmds += newLine;
-            }else if(item.tipo.includes('GASEOSA')){
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine; 
-              cmds += item.mod_sabor_gaseosa;
-              cmds += newLine;
-              cmds += newLine;
-            }else if(item.tipo.includes('VINO')){
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine;
-              cmds += newLine;
-            }else if(item.tipo.includes('CERVEZA')){
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine;
-              cmds += item.mod_sabor_cerveza;
-              cmds += newLine;
-              cmds += newLine;
-            }else if(item.tipo.includes('BEBIDA')){
-              cmds += "Bebida: " + item.tipo;
-              cmds += newLine;
-              cmds += item.mod_sabor_bebida;
-              cmds += newLine;
-              cmds += newLine;
-            }
-        } 
-  ///
-    if(item.tipo.includes('GRANDE COMPLETA')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_grande;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_grande;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_grande_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('PERSONAL COMPLETA')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_personal;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_personal;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_personal_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('PERSONAL MITAD')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor mitad 1: " + item.mitad_uno;
-        cmds += newLine;
-        cmds += "Sabor mitad 2: " + item.mitad_dos;
-        cmds += newLine;
-        cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
-        cmds += newLine;
-        cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
-        cmds += newLine;
-        cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
-        cmds += newLine;
-        cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('GRANDE MITAD')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor mitad 1: " + item.mitad_uno;
-        cmds += newLine;
-        cmds += "Sabor mitad 2: " + item.mitad_dos;
-        cmds += newLine;
-        cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
-        cmds += newLine;
-        cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
-        cmds += newLine;
-        cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
-        cmds += newLine;
-        cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('GRANDE CUARTO')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor cuarto 1: " + item.cuarto_uno;
-        cmds += newLine;
-        cmds += "Sabor cuarto 2: " + item.cuarto_dos;
-        cmds += newLine;
-        cmds += "Sabor cuarto 3: " + item.cuarto_tres;
-        cmds += newLine;
-        cmds += "Sabor cuarto 4: " + item.cuarto_cuatro;
-        cmds += newLine;
-        cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
-        cmds += newLine;
-        cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
-        cmds += newLine;
-        cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
-        cmds += newLine;
-        cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
-        cmds += newLine;
-        cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
-        cmds += newLine;
-        cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
-        cmds += newLine;
-        cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
-        cmds += newLine;
-        cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('PIZZA PANCOOK')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_pancook;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_pancook_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('PIZZA PANTALON')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_pantalon;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_pantalon_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('LASAGNA')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_lasagna;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_lasagna_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('PASTA')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_pasta;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_pasta_adicional;
-        cmds += newLine;
-        cmds += newLine;
-    }else if(item.tipo.includes('SOPA')){
-        cmds += item.tipo;
-        cmds += newLine;
-        cmds += "Sabor: " + item.sabor_sopa;
-        cmds += newLine;
-        cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
-        cmds += newLine;
-        cmds += "Observaciones: " + item.ind_sopa_adicional;
-        cmds += newLine;
-    }else if(item.tipo.includes('PAN')){
-        cmds += "ENTRADA: " +  item.tipo;
-        cmds += newLine;
-        cmds += newLine;
-    }   
-     
-  })  
-  ////
-  navigator.bluetooth.requestDevice({
-    acceptAllDevices: true,    
-    optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
-  })    
-  .then(device => device.gatt.connect())
-  .then(server => {
-    // Getting Service…
-    return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
-  })
-  .then(service => {
-    // Getting Characteristic…
-    return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
-  })
-  .then(characteristic => {
-    // Enviamos datos !!!…
-    // Aqui crer los datos::::  
-    let tamaniodato = cmds.length / 512
-    let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
+printerPedidosConnect(){
 
-    let cmdsAux = ""
-    let countAux = 0
+  //Create ESP/POS commands for sample label
+  var esc = '\x1B'; //ESC byte in hex notation
+  var newLine = '\x0A'; //LF byte in hex notation
+  let cmds
 
-    var enc = new TextEncoder() 
-    //console.log('Tamanio Dato: ' + cmds.length)
-    //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
-
-    const forloop = async () => {
-      for(let i=1; i<=Math.ceil(tamaniodato); i++){
-
-        //console.log(`iteracion ${i},  countAux:` + countAux)
-        //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+  this.state.datoOrden.map((item, index)=>{   
+    ///BEBIDAS
+    if(item.tipo.includes('CAFÉ') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
+          {
+              if(item.tipo.includes('CAFÉ')){    
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine;            
+                cmds += item.mod_sabor_cafe;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('JUGO')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine; 
+                cmds += item.mod_sabor_jugo;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('GASEOSA')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine; 
+                cmds += item.mod_sabor_gaseosa;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('VINO')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('CERVEZA')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine;
+                cmds += item.mod_sabor_cerveza;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('BEBIDA')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine;
+                cmds += item.mod_sabor_bebida;
+                cmds += newLine;
+                cmds += newLine;
+              }
+          } 
+    ///
+      if(item.tipo.includes('GRANDE COMPLETA')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_grande;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_grande;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_grande_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('PERSONAL COMPLETA')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_personal;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_personal;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_personal_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('PERSONAL MITAD')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor mitad 1: " + item.mitad_uno;
+          cmds += newLine;
+          cmds += "Sabor mitad 2: " + item.mitad_dos;
+          cmds += newLine;
+          cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+          cmds += newLine;
+          cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+          cmds += newLine;
+          cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+          cmds += newLine;
+          cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('GRANDE MITAD')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor mitad 1: " + item.mitad_uno;
+          cmds += newLine;
+          cmds += "Sabor mitad 2: " + item.mitad_dos;
+          cmds += newLine;
+          cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+          cmds += newLine;
+          cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+          cmds += newLine;
+          cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+          cmds += newLine;
+          cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('GRANDE CUARTO')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor cuarto 1: " + item.cuarto_uno;
+          cmds += newLine;
+          cmds += "Sabor cuarto 2: " + item.cuarto_dos;
+          cmds += newLine;
+          cmds += "Sabor cuarto 3: " + item.cuarto_tres;
+          cmds += newLine;
+          cmds += "Sabor cuarto 4: " + item.cuarto_cuatro;
+          cmds += newLine;
+          cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
+          cmds += newLine;
+          cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
+          cmds += newLine;
+          cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
+          cmds += newLine;
+          cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
+          cmds += newLine;
+          cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
+          cmds += newLine;
+          cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
+          cmds += newLine;
+          cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
+          cmds += newLine;
+          cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('PIZZA PANCOOK')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_pancook;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_pancook_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('PIZZA PANTALON')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_pantalon;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_pantalon_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('LASAGNA')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_lasagna;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_lasagna_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('PASTA')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_pasta;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_pasta_adicional;
+          cmds += newLine;
+          cmds += newLine;
+      }else if(item.tipo.includes('SOPA')){
+          cmds += item.tipo;
+          cmds += newLine;
+          cmds += "Sabor: " + item.sabor_sopa;
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_sopa_adicional;
+          cmds += newLine;
+      }else if(item.tipo.includes('PAN')){
+          cmds += "ENTRADA: " +  item.tipo;
+          cmds += newLine;
+          cmds += newLine;
+      }   
+       
+    })  
   
-        for(let j=countAux; j<=tamaniodatoaux; j++){
-          if(cmds[j]){
-            cmdsAux = cmdsAux + cmds[j]
-            countAux = countAux + 1
-          }else{
+    ////
+    navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,    
+      optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
+    })    
+    .then(device => device.gatt.connect())
+    .then(server => {
+      // Getting Service…
+      return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
+    })
+    .then(service => {
+      // Getting Characteristic…
+      return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
+    })
+    .then(characteristic => {
+      // Enviamos datos !!!…
+      // Aqui crer los datos::::  
+      let tamaniodato = cmds.length / 512
+      let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
   
-          }        
+      let cmdsAux = ""
+      let countAux = 0
+  
+      var enc = new TextEncoder() 
+      //console.log('Tamanio Dato: ' + cmds.length)
+      //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
+  
+      const forloop = async () => {
+        for(let i=1; i<=Math.ceil(tamaniodato); i++){
+  
+          //console.log(`iteracion ${i},  countAux:` + countAux)
+          //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+    
+          for(let j=countAux; j<=tamaniodatoaux; j++){
+            if(cmds[j]){
+              cmdsAux = cmdsAux + cmds[j]
+              countAux = countAux + 1
+            }else{
+    
+            }        
+          }
+  
+          if(i === Math.ceil(tamaniodato)){
+            cmdsAux = cmdsAux + newLine; 
+            cmdsAux = cmdsAux + newLine;
+            cmdsAux = cmdsAux + newLine;
+          }
+    
+          await characteristic.writeValue(enc.encode(cmdsAux))           
+          
+          tamaniodatoaux = tamaniodatoaux + countAux    
+          //console.log('Tamanio del dato: ' + cmdsAux.length)
+          //console.log('Datos: ' + cmdsAux)
+          cmdsAux = "";
         }
-
-        if(i === Math.ceil(tamaniodato)){
-          cmdsAux = cmdsAux + newLine; 
-          cmdsAux = cmdsAux + newLine;
-          cmdsAux = cmdsAux + newLine;
-        }
-  
-        await characteristic.writeValue(enc.encode(cmdsAux))           
         
-        tamaniodatoaux = tamaniodatoaux + countAux    
-        //console.log('Tamanio del dato: ' + cmdsAux.length)
-        //console.log('Datos: ' + cmdsAux)
-        cmdsAux = "";
       }
-      
-    }
-    forloop()    
-    this.toggleModalAceptar() 
-  })
-  .catch(error => { console.error(error); }); 
+      forloop()    
+      this.toggleModalAceptar() 
+    })
+    .catch(error => { console.error(error); }); 
 }
 
   render(){
