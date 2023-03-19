@@ -88,7 +88,7 @@ class App extends Component {
         }        
         console.log({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
 
-        //this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+        this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
         window.localStorage.clear()
 
         this.setState({
