@@ -52,9 +52,14 @@ class App extends Component {
   }
 
   confirmarPedidoOrden = () => {
-    this.setState({
-      modalPedido: !this.state.modalPedido
-    })
+    //console.log(this.state.datoOrden)
+    if(this.state.datoOrden.length === 0){
+      alert('No hay pedido en registro !')
+    }else{
+      this.setState({
+        modalPedido: !this.state.modalPedido
+      })
+    }
   }  
 
   toggleModalAceptar = () => {    
@@ -86,7 +91,7 @@ class App extends Component {
             insumos: this.state.insumosOrden},  
           ]
         }        
-        console.log({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+        //console.log({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
 
         this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
         window.localStorage.clear()
@@ -309,7 +314,7 @@ let cmds = esc + "@"; //Initializes the printer (ESC @)
 cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
 cmds += 'PEDIDO COCINA'; //text to print
 cmds += newLine;
-cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+cmds += esc + '!' + '\x16'; //Character font A selected (ESC ! 0)
 
 //Acomodamos la fehca
 //var dia = new Date().getDate() + 1;
@@ -336,7 +341,7 @@ if(this.state.opcionOrden === "MESA"){
   }
 }
 
-console.log(cmds)
+//console.log(cmds)
 
 if(this.state.opcionOrden === "DOMICILIO"){
   if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
@@ -394,6 +399,7 @@ printerPedidosConnect(cmdsAux){
   let cmds
 
   cmds += cmdsAux
+  cmds += esc + '!' + '\x16'
 
   this.state.datoOrden.map((item, index)=>{   
     ///BEBIDAS
@@ -441,20 +447,29 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_grande;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_grande_adicional;
-          cmds += newLine;
+          console.log(item.mod_sabor_grande)
+          if(item.mod_sabor_grande){
+            cmds += "+/- Adiciones: " + item.mod_sabor_grande;
+            cmds += newLine;
+          }
+          if(item.ind_grande_adicional){
+            cmds += "Observaciones: " + item.ind_grande_adicional;
+            cmds += newLine;
+          }          
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_personal;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_personal;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_personal_adicional;
-          cmds += newLine;
+          if(item.mod_sabor_personal){
+            cmds += "+/- Adiciones: " + item.mod_sabor_personal;
+            cmds += newLine;
+          }
+          if(item.ind_personal_adicional){
+            cmds += "Observaciones: " + item.ind_personal_adicional;
+            cmds += newLine;
+          }          
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL MITAD')){
           cmds += item.tipo;
@@ -463,14 +478,22 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
           cmds += newLine;
-          cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
-          cmds += newLine;
-          cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
-          cmds += newLine;
-          cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
-          cmds += newLine;
-          cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
-          cmds += newLine;
+          if(item.mod_mitad_uno){
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+            cmds += newLine;
+          }
+          if(item.mod_mitad_dos){
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+            cmds += newLine;
+          }
+          if(item.ind_mitad_uno_adicional){
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+            cmds += newLine;
+          }
+          if(item.ind_mitad_dos_adicional){
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            cmds += newLine;
+          }
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE MITAD')){
           cmds += item.tipo;
@@ -479,14 +502,23 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
           cmds += newLine;
-          cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
-          cmds += newLine;
-          cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
-          cmds += newLine;
-          cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
-          cmds += newLine;
-          cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
-          cmds += newLine;
+          if(item.mod_mitad_uno){
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+            cmds += newLine;
+          }
+          if(item.mod_mitad_dos){
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+            cmds += newLine;
+          }
+          if(item.ind_mitad_uno_adicional){
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+            cmds += newLine;
+          }
+          if(item.ind_mitad_dos_adicional){
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            cmds += newLine;
+          }
+          
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE CUARTO')){
           cmds += item.tipo;
@@ -499,71 +531,113 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor cuarto 4: " + item.cuarto_cuatro;
           cmds += newLine;
-          cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
-          cmds += newLine;
-          cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
-          cmds += newLine;
-          cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
-          cmds += newLine;
-          cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
-          cmds += newLine;
-          cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
-          cmds += newLine;
-          cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
-          cmds += newLine;
-          cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
-          cmds += newLine;
-          cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
-          cmds += newLine;
+          if(item.mod_cuarto_uno){
+            cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
+            cmds += newLine;
+          }
+          if(item.mod_cuarto_dos){
+            cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
+            cmds += newLine;
+          }
+          if(item.mod_cuarto_tres){
+            cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
+            cmds += newLine;
+          }
+          if(item.mod_cuarto_cuatro){
+            cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
+            cmds += newLine;
+          }
+          if(item.ind_cuarto_uno_adicional){
+            cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
+            cmds += newLine;
+          }
+          if(item.ind_cuarto_dos_adicional){
+            cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
+            cmds += newLine;
+          }    
+          if(item.ind_cuarto_tres_adicional){
+            cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
+            cmds += newLine;
+          }
+          if(item.ind_cuarto_cuatro_adicional){
+            cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
+            cmds += newLine;
+          }
           cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANCOOK')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pancook;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_pancook_adicional;
-          cmds += newLine;
+          if(item.mod_sabor_pancook){
+            cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
+            cmds += newLine;
+          }
+          if(item.ind_pancook_adicional){
+            cmds += "Observaciones: " + item.ind_pancook_adicional;
+            cmds += newLine;
+          }
+      
           cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANTALON')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pantalon;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_pantalon_adicional;
-          cmds += newLine;
+          if(item.mod_sabor_pantalon){
+            cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
+            cmds += newLine;
+          }
+          if(item.ind_pantalon_adicional){
+            cmds += "Observaciones: " + item.ind_pantalon_adicional;
+            cmds += newLine;
+          }
+          
           cmds += newLine;
       }else if(item.tipo.includes('LASAGNA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_lasagna;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_lasagna_adicional;
-          cmds += newLine;
+          if(item.mod_sabor_lasagna){
+            cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
+            cmds += newLine;
+          }
+          if(item.ind_lasagna_adicional){
+            cmds += "Observaciones: " + item.ind_lasagna_adicional;
+            cmds += newLine;
+          }
+          
           cmds += newLine;
       }else if(item.tipo.includes('PASTA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pasta;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_pasta_adicional;
-          cmds += newLine;
+          if(item.mod_sabor_pasta){
+            cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
+            cmds += newLine;
+          }
+          if(item.ind_pasta_adicional){
+            cmds += "Observaciones: " + item.ind_pasta_adicional;
+            cmds += newLine;
+          }
+          
           cmds += newLine;
       }else if(item.tipo.includes('SOPA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_sopa;
           cmds += newLine;
-          cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
-          cmds += newLine;
-          cmds += "Observaciones: " + item.ind_sopa_adicional;
+          if(item.mod_sabor_sopa){
+            cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
+            cmds += newLine;
+          }
+          if(item.ind_sopa_adicional){
+            cmds += "Observaciones: " + item.ind_sopa_adicional;
+            cmds += newLine;
+          }
+          
           cmds += newLine;
       }else if(item.tipo.includes('PAN')){
           cmds += "ENTRADA: " +  item.tipo;
