@@ -1,13 +1,13 @@
 import './App.css';
 import React from 'react';
 import { Component } from 'react';
-import MenuPizza from './components/cali_refugio/MenuPizza';
-import MenuPasta from './components/cali_refugio/MenuPasta';
-import InicioMenu from './components/cali_refugio/InicioMenu';
-import MenuBebidas from './components/cali_refugio/MenuBebidas';
-import MenuEntradas from './components/cali_refugio/MenuEntradas';
-import Pedido from './components/cali_refugio/Pedido';
-import SegCuentas from './components/cali_refugio/SegCuentas';
+import MenuPizza from './components/MenuPizza';
+import MenuPasta from './components/MenuPasta';
+import InicioMenu from './components/InicioMenu';
+import MenuBebidas from './components/MenuBebidas';
+import MenuEntradas from './components/MenuEntradas';
+import Pedido from './components/Pedido';
+import SegCuentas from './components/SegCuentas';
 import Moment from 'moment';
 
 import {
@@ -21,7 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-class App extends Component {
+class appCali extends Component {
   constructor(props){
     super(props);    
     this.state={
@@ -57,7 +57,8 @@ class App extends Component {
     })
   }  
 
-  toggleModalAceptar = () => {    
+  toggleModalAceptar = () => {     
+
     if(this.state.opcionOrden === "MESA"){
       if(this.state.mesaOrden === ''){
         alert('Porfavor coloque No. de mesa')
@@ -86,9 +87,8 @@ class App extends Component {
             insumos: this.state.insumosOrden},  
           ]
         }        
-        console.log({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
-
-        //this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+        //console.log({...this.state.datoOrden, aux})
+        this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
         window.localStorage.clear()
 
         this.setState({
@@ -298,7 +298,7 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-//console.log(this.state.datoOrden)
+  console.log(this.state.datoOrden)
   ////
 //Create ESP/POS commands for sample label
 var esc = '\x1B'; //ESC byte in hex notation
@@ -316,8 +316,6 @@ cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
 //var mes = new Date().getMonth() + 1;
 //var anio = new Date().getFullYear();
 
-
-
 //****
 if(this.state.opcionOrden === "MESA"){
   if(this.state.mesaOrden === ''){
@@ -332,11 +330,9 @@ if(this.state.opcionOrden === "MESA"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect()
   }
 }
-
-console.log(cmds)
 
 if(this.state.opcionOrden === "DOMICILIO"){
   if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
@@ -360,7 +356,7 @@ if(this.state.opcionOrden === "DOMICILIO"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect()
 }
 }
 
@@ -381,19 +377,17 @@ if(this.state.opcionOrden === "RECOGEN"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect()
 }
 }
 }
 
-printerPedidosConnect(cmdsAux){
+printerPedidosConnect(){
 
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
   var newLine = '\x0A'; //LF byte in hex notation
   let cmds
-
-  cmds += cmdsAux
 
   this.state.datoOrden.map((item, index)=>{   
     ///BEBIDAS
@@ -797,4 +791,4 @@ printerPedidosConnect(cmdsAux){
   } 
 }
 
-export default App;
+export default appCali;
