@@ -8,21 +8,21 @@ import{
 const InicioMenu = () => {
     return (
         <div>       
-            <h1 className="titulo">LA PIZZARRA - CALI - BLUE66</h1> 
+            <h1 className="titulo">LA PIZZARRA - POPAYAN - LA PLAZUELA</h1> 
             <h2 className="titulo">%100 MASA MADRE</h2>  
             <p className="titulo"><strong>{Moment().format('DD-MMM-YYYY')}</strong></p>  
             <ul className="menu">
                 <li className="menuitem">
-                    <Link className="link" to="/MenuPizza">PIZZA</Link>
+                    <Link className="link" to="/MenuPizzaPopayan">PIZZA</Link>
                 </li>
                 <li className="menuitem">
-                    <Link className="link" to="/MenuPasta">PASTA</Link>
+                    <Link className="link" to="/MenuPastaPopayan">PASTA</Link>
                 </li>
                 <li className="menuitem">
-                    <Link className="link" to="/MenuEntradas">ENTRADAS</Link>
+                    <Link className="link" to="/MenuEntradasPopayan">ENTRADAS</Link>
                 </li>
                 <li className="menuitem">
-                    <Link className="link" to="/MenuBebidas">BEBIDAS</Link>
+                    <Link className="link" to="/MenuBebidasPopayan">BEBIDAS</Link>
                 </li>                
             </ul>                 
         </div>

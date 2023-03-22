@@ -1,11 +1,11 @@
-import '../../App.css';
+import './App.css';
 import React from 'react';
-import MenuPizza from './MenuPizza';
-import MenuPasta from './MenuPasta';
-import InicioMenu from './InicioMenu';
-import MenuBebidas from './MenuBebidas';
-import MenuEntradas from './MenuEntradas';
-import Pedido from './Pedido';
+import MenuPizza from './components/MenuPizza';
+import MenuPasta from './components/MenuPasta';
+import InicioMenu from './components/InicioMenu';
+import MenuBebidas from './components/MenuBebidas';
+import MenuEntradas from './components/MenuEntradas';
+import Pedido from './components/Pedido';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,10 +23,10 @@ const InicioApp = () => {
         <InicioMenu />
       </div>
       <Switch>
-        <Route path="/MenuPasta" component={MenuPasta} exact />
-        <Route path="/MenuPizza" component={() => (<MenuPizza />)} exact />
-        <Route path="/MenuBebidas" component={MenuBebidas} exact />
-        <Route path="/MenuEntradas" component={MenuEntradas} exact />
+        <Route path="/MenuPastaPopayan" component={MenuPasta} exact />
+        <Route path="/MenuPizzaPopayan" component={() => (<MenuPizza funcionpadre={funcionpadre} />)} exact />
+        <Route path="/MenuBebidasPopayan" component={MenuBebidas} exact />
+        <Route path="/MenuEntradasPopayan" component={MenuEntradas} exact />
       </Switch>
       <div className="pedido">
         <Pedido/>

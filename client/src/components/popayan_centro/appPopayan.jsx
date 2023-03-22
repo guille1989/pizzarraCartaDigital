@@ -57,7 +57,7 @@ class appCali extends Component {
     })
   }  
 
-  toggleModalAceptar = () => {     
+  toggleModalAceptar = () => {   
     if(this.state.opcionOrden === "MESA"){
       if(this.state.mesaOrden === ''){
         alert('Porfavor coloque No. de mesa')
@@ -66,7 +66,7 @@ class appCali extends Component {
         let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",
             tipo_pedido: "MESA", 
             mesa: this.state.mesaOrden, 
             estado_pedido: "SIN PAGO", 
@@ -78,7 +78,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",            
             tipo_pedido: "MESA", 
             mesa: this.state.mesaOrden, 
             estado_pedido: "SIN PAGO", 
@@ -109,7 +109,7 @@ class appCali extends Component {
         let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",
             tipo_pedido: "DOMICILIO", 
             domi_nombre: this.state.DomiNombre, 
             domi_telefono: this.state.DomiTelefono,
@@ -123,7 +123,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",
             tipo_pedido: "DOMICILIO", 
             domi_nombre: this.state.DomiNombre, 
             domi_telefono: this.state.DomiTelefono,
@@ -154,7 +154,7 @@ class appCali extends Component {
       let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",
             tipo_pedido: "RECOGEN", 
             recoge_nombre: this.state.RecogeNombre, 
             recoge_telefono: this.state.RecogeTelefono, 
@@ -167,7 +167,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Popayan-Centro",
             tipo_pedido: "RECOGEN", 
             recoge_nombre: this.state.RecogeNombre, 
             recoge_telefono: this.state.RecogeTelefono, 
@@ -303,8 +303,8 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-console.log(this.state.datoOrden)
-////
+  console.log(this.state.datoOrden)
+  ////
 //Create ESP/POS commands for sample label
 var esc = '\x1B'; //ESC byte in hex notation
 var newLine = '\x0A'; //LF byte in hex notation  
@@ -713,11 +713,11 @@ printerPedidosConnect(cmdsAux){
           <InicioMenu funcionSegCuentas={this.cuentasSeguimiento} />
         </div>
         <Switch>
-          <Route path="/MenuPasta" component={MenuPasta} exact />
-          <Route path="/MenuPizza" component={MenuPizza} exact />
-          <Route path="/MenuBebidas" component={MenuBebidas} exact />
-          <Route path="/MenuEntradas" component={MenuEntradas} exact />
-          <Route path="/SegCuentas" component={SegCuentas} exact />
+          <Route path="/MenuPastaPopayan" component={MenuPasta} exact />
+          <Route path="/MenuPizzaPopayan" component={MenuPizza} exact />
+          <Route path="/MenuBebidasPopayan" component={MenuBebidas} exact />
+          <Route path="/MenuEntradasPopayan" component={MenuEntradas} exact />
+          <Route path="/SegCuentasPopayan" component={SegCuentas} exact />
         </Switch>
         
         <div className="pedido">

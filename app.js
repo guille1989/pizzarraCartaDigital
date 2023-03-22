@@ -9,6 +9,7 @@ const ActualizarOrdenPago = require('./route/actualizarpagopedido');
 const ActualizarOrdenConPago = require('./route/leerpedidospagados')
 const ActualizarOrdenSinPago = require('./route/leerpedidossinpago');
 const BuscarMesaPedidos =  require('./route/filtromesa');
+const InicioApp = require('./route/inicio');
 //middlewares
 const corse = require('cors');
 const bodyParser = require("body-parser");
@@ -43,6 +44,7 @@ app.use('/api/actualizarpedidos', ActualizarOrdenPago)
 app.use('/api/actualizarpedidossinpago', ActualizarOrdenSinPago)
 app.use('/api/actualizarpedidosconpago', ActualizarOrdenConPago)
 app.use('/api/buscarmesapedidos', BuscarMesaPedidos)
+app.use('/api/inicio', InicioApp)
 
 //Configuramos la ruta del frontEnd
 //app.use(express.static("client/build"));
