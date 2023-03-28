@@ -401,12 +401,18 @@ printerPedidosConnect(cmdsAux){
 
   this.state.datoOrden.map((item, index)=>{   
     ///BEBIDAS
-    if(item.tipo.includes('CAFÉ') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
+    if(item.tipo.includes('CAFÉ') || item.tipo.includes('CHOCOLATE') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
           {
               if(item.tipo.includes('CAFÉ')){    
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;            
                 cmds += item.mod_sabor_cafe;
+                cmds += newLine;
+                cmds += newLine;
+              }else if(item.tipo.includes('CHOCOLATE')){
+                cmds += "Bebida: " + item.tipo;
+                cmds += newLine; 
+                cmds += item.mod_sabor_chocolate;
                 cmds += newLine;
                 cmds += newLine;
               }else if(item.tipo.includes('JUGO')){
@@ -654,19 +660,21 @@ printerPedidosConnect(cmdsAux){
         cmds += newLine;
         cmds += newLine;
       }else if(item.tipo.includes('DESAYUNO')){
-        cmds += newLine;
         cmds += "DESAYUNO: " +  item.tipo;
         cmds += newLine;
         cmds += "Huevos: " +  item.desayuno_tipo_huevos;
         cmds += newLine;
         cmds += "Bebida: " +  item.desayuno_tipo_bebida;
         cmds += newLine;
+        cmds += newLine;
         if(item.mod_sabor_desayuno){
           cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;
+          cmds += newLine;
           cmds += newLine;
         }
         if(item.ind_desayuno_adicional){
           cmds += "Observaciones: " + item.ind_desayuno_adicional;
+          cmds += newLine;
           cmds += newLine;
         }
       }
@@ -832,6 +840,8 @@ printerPedidosConnect(cmdsAux){
                   {item.mod_sabor_jugo ? ( <p className='itemSabor'>{item.mod_sabor_jugo}</p> ) : ( <p></p> )}
                   {/*tinto*/}
                   {item.mod_sabor_cafe ? ( <p className='itemSabor'>{item.mod_sabor_cafe}</p> ) : ( <p></p> )}
+
+                  {item.mod_sabor_chocolate ? ( <p className='itemSabor'>{item.mod_sabor_chocolate}</p> ) : ( <p></p> )}
                   {/*Sopa*/}
                   {item.sabor_sopa ? ( <p className='itemSabor'>Sabor: {item.sabor_sopa}</p> ) : ( <p></p> )}
                   {item.mod_sabor_sopa ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_sopa}</p> ) : ( <p></p> )}
@@ -884,7 +894,7 @@ printerPedidosConnect(cmdsAux){
                   {item.ind_cuarto_cuatro_adicional ? ( <p className='itemSabor'>Observaciones cuarto 4: {item.ind_cuarto_cuatro_adicional}</p> ) : ( <p></p> )}
 
                   {/*DESAYUNOS*/}
-                  {item.tipo ? ( <p className='itemSabor'>Desayuno: {item.tipo}</p> ) : ( <p></p> )}
+                  {/*item.tipo ? ( <p className='itemSabor'>Desayuno: {item.tipo}</p> ) : ( <p></p> )*/}
 
                   {item.desayuno_tipo_huevos ? ( <p className='itemSabor'>Huevos: {item.desayuno_tipo_huevos}</p> ) : ( <p></p> )}
                   {item.desayuno_tipo_bebida ? ( <p className='itemSabor'>Adicion: {item.desayuno_tipo_bebida}</p> ) : ( <p></p> )}

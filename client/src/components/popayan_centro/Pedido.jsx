@@ -53,6 +53,7 @@ leerLocalStorage = () => {
     let costoAucDesayunoAmericano = 0
     let costoAucDesayunoHuesped = 0
     let costoAuxTinto = 0
+    let costoAuxChocolate = 0
     let costoAuxVino = 0
     let costoAuxJugo = 0
     let costoAuxCerveza = 0
@@ -346,6 +347,27 @@ leerLocalStorage = () => {
         })
     }
 
+    //Chocolate
+    let pizzaChocolate = [JSON.parse(localStorage.getItem('Numero_Chocolates'))]
+    //console.log(pizzaChocolate[0])
+    if(pizzaChocolate[0] !== null){
+        for(let i=0; i < pizzaChocolate[0].Numero; i++){            
+            dato = JSON.parse(localStorage.getItem(`Pedido_Chocolate_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_chocolate !== undefined){
+                costoAuxChocolate = costoAuxChocolate + item.costo_chocolate
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Vino
     let pizzaVino = [JSON.parse(localStorage.getItem('Numero_Vinos'))]
     if(pizzaVino[0] !== null){
@@ -450,7 +472,7 @@ leerLocalStorage = () => {
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate,
         pedidoInsumos: datoInsumos
     })
 
@@ -494,6 +516,7 @@ render(){
                                     {item.mod_sabor_cerveza ? ( <p><strong>{item.mod_sabor_cerveza}</strong></p> ) : ( <p></p> )}
                                     {item.mod_sabor_jugo ? ( <p><strong>{item.mod_sabor_jugo}</strong></p> ) : ( <p></p> )}
                                     {item.mod_sabor_cafe ? ( <p><strong>{item.mod_sabor_cafe}</strong></p> ) : ( <p></p> )}
+                                    {item.mod_sabor_chocolate ? ( <p><strong>{item.mod_sabor_chocolate}</strong></p> ) : ( <p></p> )}
                                     {item.sabor_sopa ? ( <p>Sabor Sopa: <strong>{item.sabor_sopa} {item.mod_sabor_sopa}</strong></p> ) : ( <p></p> )}     
                                     {item.sabor_pasta ? ( <p>Sabor Pasta: <strong>{item.sabor_pasta} {item.mod_sabor_pasta}</strong></p> ) : ( <p></p> )} 
                                     {item.sabor_lasagna ? ( <p>Sabor Lasagna: <strong>{item.sabor_lasagna} {item.mod_sabor_lasagna}</strong></p> ) : ( <p></p> )}   
@@ -556,6 +579,7 @@ render(){
                                     {item.costo_jugo ? ( <p>Total Jugo: <strong>{item.costo_jugo}</strong></p> ) : <p></p> }
                                     {item.costo_vino ? ( <p>Total Vino: <strong>{item.costo_vino}</strong></p> ) : <p></p> }
                                     {item.costo_tinto ? ( <p>Total Tinto: <strong>{item.costo_tinto}</strong></p> ) : <p></p> }
+                                    {item.costo_chocolate ? ( <p>Total Chocolate: <strong>{item.costo_chocolate}</strong></p> ) : <p></p> }
                                     {item.costo_pan_ajo ? ( <p>Total Pan Ajo: <strong>{item.costo_pan_ajo}</strong></p> ) : <p></p> }
                                     {item.costo_panaderia ? ( <p>Total Panaderia: <strong>{item.costo_panaderia}</strong></p> ) : <p></p> }
                                     {item.costo_desayuno_americano ? ( <p>Total Desayuno: <strong>{item.costo_desayuno_americano}</strong></p> ) : <p></p> }
@@ -627,6 +651,10 @@ render(){
 
                                         if(item.id_pedido.includes('Cerveza')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('Chocolate')){
+                                            localStorage.removeItem(item.id_pedido)
                                         }
 
                                         if(item.id_pedido.includes('Bebida')){                                            
