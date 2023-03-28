@@ -8,6 +8,8 @@ import MenuBebidas from './MenuBebidas';
 import MenuEntradas from './MenuEntradas';
 import Pedido from './Pedido';
 import SegCuentas from './SegCuentas';
+import Panaderia from './panaderia/MenuPanaderia';
+import Desayunos from './desayunos/MenuDesayunos';
 import Moment from 'moment';
 
 import {
@@ -303,7 +305,7 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-  console.log(this.state.datoOrden)
+  //console.log(this.state.datoOrden)
   ////
 //Create ESP/POS commands for sample label
 var esc = '\x1B'; //ESC byte in hex notation
@@ -443,7 +445,7 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
           cmds += newLine;
-          console.log(item.mod_sabor_grande)
+          //console.log(item.mod_sabor_grande)
           if(item.mod_sabor_grande){
             cmds += "+/- Adiciones: " + item.mod_sabor_grande;
             cmds += newLine;
@@ -635,11 +637,39 @@ printerPedidosConnect(cmdsAux){
           }
           
           cmds += newLine;
-      }else if(item.tipo.includes('PAN')){
+      }else if(item.tipo.includes('PAN AJO')){
           cmds += "ENTRADA: " +  item.tipo;
           cmds += newLine;
           cmds += newLine;
-      }   
+      }else if(item.tipo.includes('PAN')){
+        cmds += "PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += newLine;
+      }else if(item.tipo.includes('MASAS')){
+        cmds += "PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += newLine;
+      }else if(item.tipo.includes('PAN COOK 2')){
+        cmds += "PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += newLine;
+      }else if(item.tipo.includes('DESAYUNO')){
+        cmds += newLine;
+        cmds += "DESAYUNO: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Huevos: " +  item.desayuno_tipo_huevos;
+        cmds += newLine;
+        cmds += "Bebida: " +  item.desayuno_tipo_bebida;
+        cmds += newLine;
+        if(item.mod_sabor_desayuno){
+          cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;
+          cmds += newLine;
+        }
+        if(item.ind_desayuno_adicional){
+          cmds += "Observaciones: " + item.ind_desayuno_adicional;
+          cmds += newLine;
+        }
+      }
        
     })  
     ////
@@ -717,6 +747,8 @@ printerPedidosConnect(cmdsAux){
           <Route path="/MenuPizzaPopayan" component={MenuPizza} exact />
           <Route path="/MenuBebidasPopayan" component={MenuBebidas} exact />
           <Route path="/MenuEntradasPopayan" component={MenuEntradas} exact />
+          <Route path="/MenuPanaderia" component={Panaderia} exact/>
+          <Route path="/MenuDesayunosPopayan" component={Desayunos} exact/>
           <Route path="/SegCuentasPopayan" component={SegCuentas} exact />
         </Switch>
         
@@ -850,6 +882,15 @@ printerPedidosConnect(cmdsAux){
                   {item.ind_cuarto_dos_adicional ? ( <p className='itemSabor'>Observaciones cuarto 2: {item.ind_cuarto_dos_adicional}</p> ) : ( <p></p> )}
                   {item.ind_cuarto_tres_adicional ? ( <p className='itemSabor'>Observaciones cuarto 3: {item.ind_cuarto_tres_adicional}</p> ) : ( <p></p> )}
                   {item.ind_cuarto_cuatro_adicional ? ( <p className='itemSabor'>Observaciones cuarto 4: {item.ind_cuarto_cuatro_adicional}</p> ) : ( <p></p> )}
+
+                  {/*DESAYUNOS*/}
+                  {item.tipo ? ( <p className='itemSabor'>Desayuno: {item.tipo}</p> ) : ( <p></p> )}
+
+                  {item.desayuno_tipo_huevos ? ( <p className='itemSabor'>Huevos: {item.desayuno_tipo_huevos}</p> ) : ( <p></p> )}
+                  {item.desayuno_tipo_bebida ? ( <p className='itemSabor'>Adicion: {item.desayuno_tipo_bebida}</p> ) : ( <p></p> )}
+
+                  {item.mod_sabor_desayuno ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_desayuno}</p> ) : ( <p></p> )}
+                  {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
                 </>
               )
             })}   

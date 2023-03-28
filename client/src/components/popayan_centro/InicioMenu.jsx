@@ -19,7 +19,13 @@ const InicioMenu = () => {
                     <Link className="link" to="/MenuPastaPopayan">PASTA</Link>
                 </li>
                 <li className="menuitem">
+                    <Link className="link" to="/MenuDesayunosPopayan">DESAYUNOS</Link>
+                </li>
+                <li className="menuitem">
                     <Link className="link" to="/MenuEntradasPopayan">ENTRADAS</Link>
+                </li>
+                <li className="menuitem">
+                    <Link className="link" to="/MenuPanaderia">PANADERIA</Link>
                 </li>
                 <li className="menuitem">
                     <Link className="link" to="/MenuBebidasPopayan">BEBIDAS</Link>

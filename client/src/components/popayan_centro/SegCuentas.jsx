@@ -56,7 +56,7 @@ class SegCuentas extends Component {
                 })                
             })
           .catch(err => console.log(err))
-          console.log(this.state.dataOrdenesMongo)
+          //console.log(this.state.dataOrdenesMongo)
     }
 
     pedidosFacturados(){   
@@ -122,7 +122,7 @@ class SegCuentas extends Component {
                     let nuevoPedido = [];
                     let nuevoAux = 0;
                     let AuxMuestra = [];
-                    console.log(data.datos)
+                    //console.log(data.datos)
                     if(data.datos.length === 0){
                         alert("Sin resultados")
                         this.setState({
@@ -138,9 +138,9 @@ class SegCuentas extends Component {
                             }
                         })
                         AuxMuestra[0].costo_pedido = nuevoAux   
-                        console.log(AuxMuestra[0].costo_pedido)                
+                        //console.log(AuxMuestra[0].costo_pedido)                
                         let nuevoDato = [{aux: AuxMuestra, pedido: nuevoPedido}]                    
-                        console.log(nuevoDato)
+                        //console.log(nuevoDato)
                         this.setState({
                             dataOrdenesMongo: nuevoDato
                         })  
@@ -148,7 +148,7 @@ class SegCuentas extends Component {
                 //********************************                            
                 })
             .catch(err => console.log(err))
-            console.log(this.state.dataOrdenesMongo)
+            //console.log(this.state.dataOrdenesMongo)
          }
 
     datosOrdenComanda(dato){       
@@ -268,7 +268,7 @@ class SegCuentas extends Component {
             fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/actualizarpedidos/` + index, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                        console.log(data.datos)              
+                        //console.log(data.datos)              
                     })
                 .catch(err => console.log(err))
         //Actualizamos

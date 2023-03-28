@@ -6,6 +6,7 @@ import InicioMenu from './components/InicioMenu';
 import MenuBebidas from './components/MenuBebidas';
 import MenuEntradas from './components/MenuEntradas';
 import Pedido from './components/Pedido';
+import Panaderia from './panaderia/MenuPanaderia';
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,6 +28,7 @@ const InicioApp = () => {
         <Route path="/MenuPizzaPopayan" component={() => (<MenuPizza funcionpadre={funcionpadre} />)} exact />
         <Route path="/MenuBebidasPopayan" component={MenuBebidas} exact />
         <Route path="/MenuEntradasPopayan" component={MenuEntradas} exact />
+        <Route path="/MenuPanaderia" component={Panaderia} exact/>
       </Switch>
       <div className="pedido">
         <Pedido/>

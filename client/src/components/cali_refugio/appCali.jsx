@@ -303,7 +303,7 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-console.log(this.state.datoOrden)
+//console.log(this.state.datoOrden)
 ////
 //Create ESP/POS commands for sample label
 var esc = '\x1B'; //ESC byte in hex notation
@@ -443,7 +443,7 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
           cmds += newLine;
-          console.log(item.mod_sabor_grande)
+          //console.log(item.mod_sabor_grande)
           if(item.mod_sabor_grande){
             cmds += "+/- Adiciones: " + item.mod_sabor_grande;
             cmds += newLine;
