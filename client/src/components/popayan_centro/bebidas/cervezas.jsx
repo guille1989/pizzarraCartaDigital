@@ -67,6 +67,17 @@ handlePoker = () => {
     */ 
 }
 
+handlePokerJuancho = () => {
+    this.setState({
+        producto: 'POKER JUANCHO'
+    })
+
+    //Toggle Modal
+    this.setState({
+        modalCerveza: !this.state.modalCerveza
+    })
+}
+
 handleAguila = () => {
     this.setState({
         producto: 'AGUILA'
@@ -231,7 +242,10 @@ toggleModalAceptarCerveza = () => {
                             </div>    
                             <div className="saborItem" onClick={this.handleClub}>
                                 <h1 className="pizzaOpcionSabor">Club</h1>
-                            </div>                         
+                            </div> 
+                            <div className="saborItem" onClick={this.handlePokerJuancho}>
+                                <h1 className="pizzaOpcionSabor">PokerTioJuancho</h1>
+                            </div>                        
                         </div>
                        
                                  
