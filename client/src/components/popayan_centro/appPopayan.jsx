@@ -692,7 +692,11 @@ printerPedidosConnect(cmdsAux){
       .then(() => {
         //console.log("Desconectar")
         try {
-          this.toggleModalAceptar()  
+          //this.toggleModalAceptar()  
+          const connStatus = localStorage.getItem( 'con' )
+          if(connStatus === "ok"){
+            this.toggleModalAceptar()  
+          }
           onDisconnectButtonClick()
         } catch (error) {
           console.error(error);

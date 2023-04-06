@@ -88,7 +88,7 @@ async function connect(cmds) {
         onDisconnectButtonClick()
     }, 3000);
     */
-
+    localStorage.setItem('con', 'ok' );
   })
   .catch(error => {
     console.log('Argh! ' + error);
