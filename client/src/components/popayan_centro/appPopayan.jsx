@@ -390,6 +390,7 @@ if(this.state.opcionOrden === "RECOGEN"){
 }
 
 printerPedidosConnect(cmdsAux){
+  var bluetoothDevice;
 
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
@@ -681,66 +682,73 @@ printerPedidosConnect(cmdsAux){
        
     })  
     ////
-    navigator.bluetooth.requestDevice({
+    const deviceConnection = navigator.bluetooth.requestDevice({
       acceptAllDevices: true,    
       optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
     })    
-    .then(device => device.gatt.connect())
-    .then(server => {
-      // Getting Service…
-      return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
-    })
-    .then(service => {
-      // Getting Characteristic…
-      return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
-    })
-    .then(characteristic => {
-      // Enviamos datos !!!…
-      // Aqui crer los datos::::  
-      let tamaniodato = cmds.length / 512
-      let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
-  
-      let cmdsAux = ""
-      let countAux = 0
-  
-      var enc = new TextEncoder() 
-      //console.log('Tamanio Dato: ' + cmds.length)
-      //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
-  
-      const forloop = async () => {
-        for(let i=1; i<=Math.ceil(tamaniodato); i++){
-  
-          //console.log(`iteracion ${i},  countAux:` + countAux)
-          //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+
+    deviceConnection
+      .then(device => device.gatt.connect())
+      .then(server => {
+        // Getting Service…
+        return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
+      })
+      .then(service => {
+        // Getting Characteristic…
+        return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
+      })
+      .then((characteristic) => {
+        // Enviamos datos !!!…
+        // Aqui crer los datos::::  
+        let tamaniodato = cmds.length / 512
+        let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
     
-          for(let j=countAux; j<=tamaniodatoaux; j++){
-            if(cmds[j]){
-              cmdsAux = cmdsAux + cmds[j]
-              countAux = countAux + 1
-            }else{
+        let cmdsAux = ""
+        let countAux = 0
     
-            }        
+        var enc = new TextEncoder() 
+        //console.log('Tamanio Dato: ' + cmds.length)
+        //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
+    
+        const forloop = async () => {
+
+          for(let i=1; i<=Math.ceil(tamaniodato); i++){
+    
+            //console.log(`iteracion ${i},  countAux:` + countAux)
+            //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+      
+            for(let j=countAux; j<=tamaniodatoaux; j++){
+              if(cmds[j]){
+                cmdsAux = cmdsAux + cmds[j]
+                countAux = countAux + 1
+              }else{
+      
+              }        
+            }
+    
+            if(i === Math.ceil(tamaniodato)){
+              cmdsAux = cmdsAux + newLine; 
+              cmdsAux = cmdsAux + newLine;
+              cmdsAux = cmdsAux + newLine;
+            }
+      
+            await characteristic.writeValue(enc.encode(cmdsAux))           
+            
+            tamaniodatoaux = tamaniodatoaux + countAux    
+            //console.log('Tamanio del dato: ' + cmdsAux.length)
+            //console.log('Datos: ' + cmdsAux)
+            cmdsAux = "";
           }
-  
-          if(i === Math.ceil(tamaniodato)){
-            cmdsAux = cmdsAux + newLine; 
-            cmdsAux = cmdsAux + newLine;
-            cmdsAux = cmdsAux + newLine;
-          }
-    
-          await characteristic.writeValue(enc.encode(cmdsAux))           
           
-          tamaniodatoaux = tamaniodatoaux + countAux    
-          //console.log('Tamanio del dato: ' + cmdsAux.length)
-          //console.log('Datos: ' + cmdsAux)
-          cmdsAux = "";
         }
-        
-      }
-      forloop()    
-      this.toggleModalAceptar() 
-    })
-    .catch(error => { console.error(error); }); 
+        forloop()    
+        this.toggleModalAceptar() 
+
+        //Aqui hacemos un reset de la pagina
+        window.location.reload(true);
+        console.log(localStorage)
+      })
+      .catch(error => { console.error(error); }); 
 }
 
   render(){
