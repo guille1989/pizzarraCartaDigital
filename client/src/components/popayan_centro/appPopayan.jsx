@@ -22,6 +22,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import { onScanButtonClick, onDisconnectButtonClick } from './printerConnect';
 
 class appCali extends Component {
   constructor(props){
@@ -194,16 +195,16 @@ class appCali extends Component {
 }
 }
 
-  toggleModalCancelar = () => {
-    this.setState({
-      modalPedido: !this.state.modalPedido
-    })
-  }
+toggleModalCancelar = () => {
+  this.setState({
+    modalPedido: !this.state.modalPedido
+  })
+}
 
-  changeOpcion = (e) => {
-    this.setState({
-      opcionOrden: e.target.value
-    }) 
+changeOpcion = (e) => {
+  this.setState({
+    opcionOrden: e.target.value
+  }) 
 }
 
 changeOpcionCortesia = (e) => {
@@ -305,25 +306,18 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-  //console.log(this.state.datoOrden)
   ////
-//Create ESP/POS commands for sample label
-var esc = '\x1B'; //ESC byte in hex notation
-var newLine = '\x0A'; //LF byte in hex notation  
+  //Create ESP/POS commands for sample label
+  var esc = '\x1B'; //ESC byte in hex notation
+  var newLine = '\x0A'; //LF byte in hex notation  
 
-//******PARTE INICIAL******/   
-let cmds = esc + "@"; //Initializes the printer (ESC @)
-cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
-cmds += 'PEDIDO COCINA'; //text to print
-cmds += newLine;
-cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+  //******PARTE INICIAL******/   
+  let cmds = esc + "@"; //Initializes the printer (ESC @)
+  cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
+  cmds += 'PEDIDO COCINA'; //text to print
+  cmds += newLine;
+  cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
 
-//Acomodamos la fehca
-//var dia = new Date().getDate() + 1;
-//var mes = new Date().getMonth() + 1;
-//var anio = new Date().getFullYear();
-
-//****
 if(this.state.opcionOrden === "MESA"){
   if(this.state.mesaOrden === ''){
     alert('Porfavor coloque No. de mesa')
@@ -390,8 +384,6 @@ if(this.state.opcionOrden === "RECOGEN"){
 }
 
 printerPedidosConnect(cmdsAux){
-  var bluetoothDevice;
-
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
   var newLine = '\x0A'; //LF byte in hex notation
@@ -682,6 +674,33 @@ printerPedidosConnect(cmdsAux){
        
     })  
     ////
+    /*
+    try {
+      onScanButtonClick(cmds)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onDisconnectButtonClick()
+    }
+    */
+
+    const myPromise = new Promise((resolve, reject) => {
+      resolve(onScanButtonClick(cmds));
+    });
+
+    myPromise
+      .then(() => {
+        //console.log("Desconectar")
+        try {
+          this.toggleModalAceptar()  
+          onDisconnectButtonClick()
+        } catch (error) {
+          console.error(error);
+        }
+      })
+    
+    
+    /*
     const deviceConnection = navigator.bluetooth.requestDevice({
       acceptAllDevices: true,    
       optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
@@ -742,13 +761,13 @@ printerPedidosConnect(cmdsAux){
           
         }
         forloop()    
-        this.toggleModalAceptar() 
-
+        this.toggleModalAceptar()  
         //Aqui hacemos un reset de la pagina
-        window.location.reload(true);
-        console.log(localStorage)
+        //window.location.reload(false);
+        //console.log(localStorage)
       })
       .catch(error => { console.error(error); }); 
+      */
 }
 
   render(){
