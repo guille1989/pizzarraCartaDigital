@@ -37,6 +37,7 @@ class appCali extends Component {
       DomiTelefono: '',
       DomiDireccion: '',
       DomiOtros: '',
+      DomiCosto: '',
       RecogeNombre: '',
       RecogeTelefono: '',
       costoOrden: 0,
@@ -106,7 +107,7 @@ class appCali extends Component {
     } 
 
     if(this.state.opcionOrden === "DOMICILIO"){
-      if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
+      if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === '' || this.state.DomiCosto === ''){
         alert('Porfavor coloque toda la informacion')
       }else{  
         let aux = [];
@@ -118,6 +119,7 @@ class appCali extends Component {
             domi_telefono: this.state.DomiTelefono,
             domi_direccion: this.state.DomiDireccion, 
             domi_otros: this.state.DomiOtros, 
+            domi_costo: this.state.DomiCosto,
             estado_pedido: "SIN PAGO", 
             costo_pedido: 1,
             observacion_pedido: "CORTESIA",
@@ -132,6 +134,7 @@ class appCali extends Component {
             domi_telefono: this.state.DomiTelefono,
             domi_direccion: this.state.DomiDireccion, 
             domi_otros: this.state.DomiOtros, 
+            domi_costo: this.state.DomiCosto,
             estado_pedido: "SIN PAGO", 
             costo_pedido: this.state.costoOrden,
             fecha_pedido: Moment().format('YYYY-MM-DD'),
@@ -197,7 +200,8 @@ class appCali extends Component {
 
 toggleModalCancelar = () => {
   this.setState({
-    modalPedido: !this.state.modalPedido
+    modalPedido: !this.state.modalPedido,
+    opcionOrden: 'MESA'
   })
 }
 
@@ -243,6 +247,12 @@ changeDomiOtros = (e) => {
   })
 }
 
+changeDomiCosto = (e) => {
+  this.setState({
+    DomiCosto: e.target.value
+  })
+}
+
 changeRecogeNombre = (e) => {
   this.setState({
     RecogeNombre: e.target.value
@@ -269,6 +279,8 @@ renderSwitch(params){
         <Input value={this.state.DomiTelefono} onChange={this.changeDomiTelefono} placeholder="Telefono" />
         <Input value={this.state.DomiDireccion} onChange={this.changeDomiDireccion} placeholder="Direccion" />
         <Input value={this.state.DomiOtros} onChange={this.changeDomiOtros} placeholder="Otra Informacion" />
+
+        <Input value={this.state.DomiCosto} type='Number' onChange={this.changeDomiCosto} placeholder="Costo Domicilio" />
       </>
     )
   }else if(params === 'RECOGEN'){
@@ -336,7 +348,7 @@ if(this.state.opcionOrden === "MESA"){
 }
 
 if(this.state.opcionOrden === "DOMICILIO"){
-  if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
+  if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === '' || this.state.DomiCosto === ''){
     alert('Porfavor coloque toda la informacion')
   }else{
 
@@ -351,6 +363,10 @@ if(this.state.opcionOrden === "DOMICILIO"){
   cmds += newLine;
   cmds += "Observaciones: " + this.state.DomiOtros;
   cmds += newLine;
+
+  cmds += "Costo Domicilio: " + this.state.DomiCosto;
+  cmds += newLine;
+
   cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
   cmds += newLine;
   cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
@@ -454,6 +470,7 @@ printerPedidosConnect(cmdsAux){
             cmds += newLine;
           }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_grande;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
           cmds += item.tipo;
           cmds += newLine;
@@ -468,6 +485,7 @@ printerPedidosConnect(cmdsAux){
             cmds += newLine;
           }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_personal;
       }else if(item.tipo.includes('PERSONAL MITAD')){
           cmds += item.tipo;
           cmds += newLine;
@@ -492,6 +510,7 @@ printerPedidosConnect(cmdsAux){
             cmds += newLine;
           }
           cmds += newLine;
+          cmds += "Costo: " + item.costo_personal;
       }else if(item.tipo.includes('GRANDE MITAD')){
           cmds += item.tipo;
           cmds += newLine;
@@ -514,9 +533,9 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_mitad_dos_adicional){
             cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
             cmds += newLine;
-          }
-          
+          }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_grande;
       }else if(item.tipo.includes('GRANDE CUARTO')){
           cmds += item.tipo;
           cmds += newLine;
@@ -561,6 +580,7 @@ printerPedidosConnect(cmdsAux){
             cmds += newLine;
           }
           cmds += newLine;
+          cmds += "Costo: " + item.costo_grande;
       }else if(item.tipo.includes('PIZZA PANCOOK')){
           cmds += item.tipo;
           cmds += newLine;
@@ -573,9 +593,9 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_pancook_adicional){
             cmds += "Observaciones: " + item.ind_pancook_adicional;
             cmds += newLine;
-          }
-      
+          }      
           cmds += newLine;
+          cmds += "Costo: " + item.costo_pancook;
       }else if(item.tipo.includes('PIZZA PANTALON')){
           cmds += item.tipo;
           cmds += newLine;
@@ -588,9 +608,9 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_pantalon_adicional){
             cmds += "Observaciones: " + item.ind_pantalon_adicional;
             cmds += newLine;
-          }
-          
+          }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_pantalon;
       }else if(item.tipo.includes('LASAGNA')){
           cmds += item.tipo;
           cmds += newLine;
@@ -603,9 +623,9 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_lasagna_adicional){
             cmds += "Observaciones: " + item.ind_lasagna_adicional;
             cmds += newLine;
-          }
-          
+          }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_lasagna;
       }else if(item.tipo.includes('PASTA')){
           cmds += item.tipo;
           cmds += newLine;
@@ -618,9 +638,9 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_pasta_adicional){
             cmds += "Observaciones: " + item.ind_pasta_adicional;
             cmds += newLine;
-          }
-          
+          }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_pasta;
       }else if(item.tipo.includes('SOPA')){
           cmds += item.tipo;
           cmds += newLine;
@@ -633,32 +653,56 @@ printerPedidosConnect(cmdsAux){
           if(item.ind_sopa_adicional){
             cmds += "Observaciones: " + item.ind_sopa_adicional;
             cmds += newLine;
-          }
-          
+          }          
           cmds += newLine;
+          cmds += "Costo: " + item.costo_sopa;
       }else if(item.tipo.includes('PAN AJO')){
           cmds += "ENTRADA: " +  item.tipo;
           cmds += newLine;
+          cmds += "Costo: " + item.costo_pan_ajo;
           cmds += newLine;
       }else if(item.tipo.includes('PAN')){
         cmds += "PANADERIA: " +  item.tipo;
         cmds += newLine;
+        cmds += "Costo: " + item.costo_panaderia;
         cmds += newLine;
       }else if(item.tipo.includes('MASAS')){
         cmds += "PANADERIA: " +  item.tipo;
         cmds += newLine;
+        cmds += "Costo: " + item.costo_panaderia;
         cmds += newLine;
       }else if(item.tipo.includes('PAN COOK 2')){
         cmds += "PANADERIA: " +  item.tipo;
         cmds += newLine;
+        cmds += "Costo: " + item.costo_panaderia;
         cmds += newLine;
-      }else if(item.tipo.includes('DESAYUNO')){
+      }else if(item.tipo.includes('DESAYUNO AMERICANO')){
         cmds += "DESAYUNO: " +  item.tipo;
         cmds += newLine;
         cmds += "Huevos: " +  item.desayuno_tipo_huevos;
         cmds += newLine;
         cmds += "Bebida: " +  item.desayuno_tipo_bebida;
         cmds += newLine;
+        cmds += "Costo: " +  item.costo_desayuno_americano;
+        cmds += newLine;
+        if(item.mod_sabor_desayuno){
+          cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;
+          cmds += newLine;
+          cmds += newLine;
+        }
+        if(item.ind_desayuno_adicional){
+          cmds += "Observaciones: " + item.ind_desayuno_adicional;
+          cmds += newLine;
+          cmds += newLine;
+        }
+      }else if(item.tipo.includes('DESAYUNO HUESPED')){
+        cmds += "DESAYUNO: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Huevos: " +  item.desayuno_tipo_huevos;
+        cmds += newLine;
+        cmds += "Bebida: " +  item.desayuno_tipo_bebida;
+        cmds += newLine;
+        cmds += "Costo: " +  item.costo_desayuno_huesped;
         cmds += newLine;
         if(item.mod_sabor_desayuno){
           cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;

@@ -166,14 +166,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'FETUCCINI',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 22000
+            costoPizzaPersonal: 23000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 22000
+            costoPizzaPersonal: 23000
         })
     ) 
 }

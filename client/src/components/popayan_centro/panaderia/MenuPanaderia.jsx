@@ -89,10 +89,16 @@ class MenuPanaderia extends Component{
                                 </div>       
                                 <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "PAN COOK 2", 4000))}>
                                     <h1 className="pizzaOpcion">PAN COOK X2</h1>
-                                </div>   
+                                </div>  
+
+                            </div>
+                            <div> 
                                 <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "PAN UNIDAD", 500))}>
                                     <h1 className="pizzaOpcion">PAN UNIDAD</h1>
                                 </div>   
+                                <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "PAN COOK UNIDAD", 2000))}>
+                                    <h1 className="pizzaOpcion">PAN COOK UNIDAD</h1>
+                                </div> 
                             </div>
                             <div>
                                 <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "MASAS PER. 5", 7500))}>
