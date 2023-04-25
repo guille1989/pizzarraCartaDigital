@@ -480,7 +480,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_grande;
+          cmds += "Costo: " + item.costo_grande + item.costo_adiciones_grande;
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
           cmds += item.tipo;
@@ -498,7 +498,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_personal;
+          cmds += "Costo: " + item.costo_personal + item.costo_adiciones;
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL MITAD')){
           cmds += item.tipo;
@@ -528,7 +528,7 @@ printerPedidosConnect(cmdsAux){
             
           }
           cmds += newLine;
-          cmds += "Costo: " + item.costo_personal;
+          cmds += "Costo: " + item.costo_personal + item.costo_adiciones;
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE MITAD')){
           cmds += item.tipo;
@@ -558,7 +558,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_grande;
+          cmds += "Costo: " + item.costo_grande + item.costo_adiciones_grande;
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE CUARTO')){
           cmds += item.tipo;
@@ -612,7 +612,7 @@ printerPedidosConnect(cmdsAux){
            
           }
           cmds += newLine;
-          cmds += "Costo: " + item.costo_grande;
+          cmds += "Costo: " + item.costo_grande + item.costo_adiciones_grande;
           cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANCOOK')){
           cmds += item.tipo;
@@ -630,7 +630,7 @@ printerPedidosConnect(cmdsAux){
             
           }      
           cmds += newLine;
-          cmds += "Costo: " + item.costo_pancook;
+          cmds += "Costo: " + item.costo_pancook + item.costo_adiciones_pancook;
           cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANTALON')){
           cmds += item.tipo;
@@ -648,7 +648,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_pantalon;
+          cmds += "Costo: " + item.costo_pantalon + item.costo_adiciones_pantalon;
           cmds += newLine;
       }else if(item.tipo.includes('LASAGNA')){
           cmds += item.tipo;
@@ -666,7 +666,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_lasagna;
+          cmds += "Costo: " + item.costo_lasagna + item.costo_adiciones_lasagna;
           cmds += newLine;
       }else if(item.tipo.includes('PASTA')){
           cmds += item.tipo;
@@ -684,7 +684,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_pasta;
+          cmds += "Costo: " + item.costo_pasta + item.costo_adiciones_pasta;
       }else if(item.tipo.includes('SOPA')){
           cmds += item.tipo;
           cmds += newLine;
@@ -701,7 +701,7 @@ printerPedidosConnect(cmdsAux){
             
           }          
           cmds += newLine;
-          cmds += "Costo: " + item.costo_sopa;
+          cmds += "Costo: " + item.costo_sopa + item.costo_adiciones_sopa;
           cmds += newLine;
       }else if(item.tipo.includes('PAN AJO')){
           cmds += "ENTRADA: " +  item.tipo;
