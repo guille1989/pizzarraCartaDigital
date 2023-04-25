@@ -10,6 +10,7 @@ import Pedido from './Pedido';
 import SegCuentas from './SegCuentas';
 import Panaderia from './panaderia/MenuPanaderia';
 import Desayunos from './desayunos/MenuDesayunos';
+import MenuOtros from './MenuOtros';
 import Moment from 'moment';
 
 import {
@@ -417,47 +418,47 @@ printerPedidosConnect(cmdsAux){
                 cmds += newLine;            
                 cmds += item.mod_sabor_cafe;
                 cmds += newLine;
-                cmds += item.costo_tinto
+                cmds += "Costo: " + item.costo_tinto
                 cmds += newLine;
               }else if(item.tipo.includes('CHOCOLATE')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_chocolate;
                 cmds += newLine;
-                cmds += item.costo_chocolate
+                cmds += "Costo: " + item.costo_chocolate
                 cmds += newLine;
               }else if(item.tipo.includes('JUGO')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_jugo;
                 cmds += newLine;
-                cmds += item.costo_jugo;
+                cmds += "Costo: " + item.costo_jugo;
                 cmds += newLine;
               }else if(item.tipo.includes('GASEOSA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_gaseosa;
                 cmds += newLine;
-                cmds += item.costo_gaseosa;
+                cmds += "Costo: " + item.costo_gaseosa;
                 cmds += newLine;
               }else if(item.tipo.includes('VINO')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
-                cmds += item.costo_vino;
+                cmds += "Costo: " + item.costo_vino;
                 cmds += newLine;
               }else if(item.tipo.includes('CERVEZA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_cerveza;
                 cmds += newLine;
-                cmds += item.costo_cerveza;
+                cmds += "Costo: " + item.costo_cerveza;
                 cmds += newLine;
               }else if(item.tipo.includes('BEBIDA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_bebida;
                 cmds += newLine;
-                cmds += item.costo_bebida;
+                cmds += "Costo: " + item.costo_bebida;
                 cmds += newLine;
               }
           } 
@@ -879,6 +880,8 @@ printerPedidosConnect(cmdsAux){
           <Route path="/MenuPanaderia" component={Panaderia} exact/>
           <Route path="/MenuDesayunosPopayan" component={Desayunos} exact/>
           <Route path="/SegCuentasPopayan" component={SegCuentas} exact />
+
+          <Route path="/MenuOtrosPopayan" component={MenuOtros} exact />
         </Switch>
         
         <div className="pedido">
@@ -954,6 +957,10 @@ printerPedidosConnect(cmdsAux){
                     {item.costo_personal ? ( <p className='itemPrecio'>....................{item.costo_personal + item.costo_adiciones}</p> ) : ( <p></p> )}
                     {/*Costo grande*/}
                     {item.costo_grande ? ( <p className='itemPrecio'  >....................{item.costo_grande + item.costo_adiciones_grande}</p> ) : ( <p></p> )}
+                    {/*Costo otros*/}
+                    {item.costo_otros ? ( <p className='itemPrecio'  >....................{item.costo_otros}</p> ) : ( <p></p> )}
+                    {/*Costo panaderia*/}
+                    {item.costo_panaderia ? ( <p className='itemPrecio'  >....................{item.costo_panaderia}</p> ) : ( <p></p> )}
                   </div>
                   {/*cerveza*/}
                   {item.mod_sabor_cerveza ? ( <p className='itemSabor'>{item.mod_sabor_cerveza}</p> ) : ( <p></p> )}

@@ -5,6 +5,7 @@ import MenuPasta from './components/MenuPasta';
 import InicioMenu from './components/InicioMenu';
 import MenuBebidas from './components/MenuBebidas';
 import MenuEntradas from './components/MenuEntradas';
+import MenuOtros from './MenuOtros';
 import Pedido from './components/Pedido';
 import Panaderia from './panaderia/MenuPanaderia';
 import {
@@ -29,6 +30,7 @@ const InicioApp = () => {
         <Route path="/MenuBebidasPopayan" component={MenuBebidas} exact />
         <Route path="/MenuEntradasPopayan" component={MenuEntradas} exact />
         <Route path="/MenuPanaderia" component={Panaderia} exact/>
+        <Route path="/MenuOtrosPopayan" component={MenuOtros} exact/>
       </Switch>
       <div className="pedido">
         <Pedido/>

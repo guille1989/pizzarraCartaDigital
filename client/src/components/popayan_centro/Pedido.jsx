@@ -59,6 +59,7 @@ leerLocalStorage = () => {
     let costoAuxCerveza = 0
     let costoAuxBebidas = 0
     let costoAuxGaseosas = 0
+    let costoAuxOtros = 0
 
     //Personales-----------------
     let pizzaPersonal = [JSON.parse(localStorage.getItem('Numero_Personales'))]
@@ -469,10 +470,30 @@ leerLocalStorage = () => {
         })
     }
 
+    //Salsa de tomate 16 onzas
+    let pizzaOtros = [JSON.parse(localStorage.getItem('Numero_Otros'))]
+    if(pizzaOtros[0] !== null){
+        for(let i=0; i < pizzaOtros[0].Numero; i++){
+            dato = JSON.parse(localStorage.getItem(`Pedido_Otros_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_otros !== undefined){
+                costoAuxOtros = costoAuxOtros + item.costo_otros
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros,
         pedidoInsumos: datoInsumos
     })
 
@@ -589,6 +610,7 @@ render(){
                                     {item.costo_personal ? ( <p>Total Pizza: <strong>{item.costo_personal}</strong></p> ) : <p></p>}
                                     {item.costo_grande ? ( <p>Total Pizza: <strong>{item.costo_grande}</strong></p> ) : <p></p>}
                                     {item.costo_pancook ? ( <p>Total Pancook: <strong>{item.costo_pancook}</strong></p> ) : <p></p>}
+                                    {item.costo_otros ? ( <p>Total Otros: <strong>{item.costo_otros}</strong></p> ) : <p></p>}
                                     {/*<p style={{textDecoration : 'underline'}}>Total: <strong>{item.costo_adiciones + item.costo_personal}</strong></p>*/}
                                     
                                     <Button onClick={()=>{                                        
@@ -662,6 +684,10 @@ render(){
                                         }
 
                                         if(item.id_pedido.includes('Gaseosa')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('Otros')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
                                         

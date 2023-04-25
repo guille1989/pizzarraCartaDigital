@@ -29,10 +29,14 @@ const InicioMenu = () => {
                     </li>
                 </div>                
                 
+                <div>
                 <li className="menuitem">
                     <Link className="link" to="/MenuEntradasPopayan">ENTRADAS</Link>
                 </li>
-                
+                <li className="menuitem">
+                    <Link className="link" to="/MenuOtrosPopayan">OTROS</Link>
+                </li>
+                </div>
                 <li className="menuitem">
                     <Link className="link" to="/MenuBebidasPopayan">BEBIDAS</Link>
                 </li>                
