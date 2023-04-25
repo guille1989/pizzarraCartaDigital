@@ -417,40 +417,47 @@ printerPedidosConnect(cmdsAux){
                 cmds += newLine;            
                 cmds += item.mod_sabor_cafe;
                 cmds += newLine;
+                cmds += item.costo_tinto
                 cmds += newLine;
               }else if(item.tipo.includes('CHOCOLATE')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_chocolate;
                 cmds += newLine;
+                cmds += item.costo_chocolate
                 cmds += newLine;
               }else if(item.tipo.includes('JUGO')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_jugo;
                 cmds += newLine;
+                cmds += item.costo_jugo;
                 cmds += newLine;
               }else if(item.tipo.includes('GASEOSA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_gaseosa;
                 cmds += newLine;
+                cmds += item.costo_gaseosa;
                 cmds += newLine;
               }else if(item.tipo.includes('VINO')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
+                cmds += item.costo_vino;
                 cmds += newLine;
               }else if(item.tipo.includes('CERVEZA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_cerveza;
                 cmds += newLine;
+                cmds += item.costo_cerveza;
                 cmds += newLine;
               }else if(item.tipo.includes('BEBIDA')){
                 cmds += "Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_bebida;
                 cmds += newLine;
+                cmds += item.costo_bebida;
                 cmds += newLine;
               }
           } 
@@ -459,83 +466,99 @@ printerPedidosConnect(cmdsAux){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
-          cmds += newLine;
+          
           //console.log(item.mod_sabor_grande)
           if(item.mod_sabor_grande){
-            cmds += "+/- Adiciones: " + item.mod_sabor_grande;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_grande;
+           
           }
           if(item.ind_grande_adicional){
-            cmds += "Observaciones: " + item.ind_grande_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_grande_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_grande;
+          cmds += newLine;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_personal;
-          cmds += newLine;
+         
           if(item.mod_sabor_personal){
-            cmds += "+/- Adiciones: " + item.mod_sabor_personal;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_personal;
+            
           }
           if(item.ind_personal_adicional){
-            cmds += "Observaciones: " + item.ind_personal_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_personal_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_personal;
+          cmds += newLine;
       }else if(item.tipo.includes('PERSONAL MITAD')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
-          cmds += newLine;
+         
           if(item.mod_mitad_uno){
-            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+           
           }
           if(item.mod_mitad_dos){
-            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+            
           }
           if(item.ind_mitad_uno_adicional){
-            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+            
           }
           if(item.ind_mitad_dos_adicional){
-            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            
           }
           cmds += newLine;
           cmds += "Costo: " + item.costo_personal;
+          cmds += newLine;
       }else if(item.tipo.includes('GRANDE MITAD')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
-          cmds += newLine;
+         
           if(item.mod_mitad_uno){
-            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+          
           }
           if(item.mod_mitad_dos){
-            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+           
           }
           if(item.ind_mitad_uno_adicional){
-            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+           
           }
           if(item.ind_mitad_dos_adicional){
-            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_grande;
+          cmds += newLine;
       }else if(item.tipo.includes('GRANDE CUARTO')){
           cmds += item.tipo;
           cmds += newLine;
@@ -546,98 +569,118 @@ printerPedidosConnect(cmdsAux){
           cmds += "Sabor cuarto 3: " + item.cuarto_tres;
           cmds += newLine;
           cmds += "Sabor cuarto 4: " + item.cuarto_cuatro;
-          cmds += newLine;
+       
           if(item.mod_cuarto_uno){
-            cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
+            
           }
           if(item.mod_cuarto_dos){
-            cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
+            
           }
           if(item.mod_cuarto_tres){
-            cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
+           
           }
           if(item.mod_cuarto_cuatro){
-            cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
+            
           }
           if(item.ind_cuarto_uno_adicional){
-            cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
+            
           }
           if(item.ind_cuarto_dos_adicional){
-            cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
+           
           }    
           if(item.ind_cuarto_tres_adicional){
-            cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
+            
           }
           if(item.ind_cuarto_cuatro_adicional){
-            cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
+           
           }
           cmds += newLine;
           cmds += "Costo: " + item.costo_grande;
+          cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANCOOK')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pancook;
-          cmds += newLine;
+          
           if(item.mod_sabor_pancook){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
+            
           }
           if(item.ind_pancook_adicional){
-            cmds += "Observaciones: " + item.ind_pancook_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_pancook_adicional;
+            
           }      
           cmds += newLine;
           cmds += "Costo: " + item.costo_pancook;
+          cmds += newLine;
       }else if(item.tipo.includes('PIZZA PANTALON')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pantalon;
-          cmds += newLine;
+         
           if(item.mod_sabor_pantalon){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
+            
           }
           if(item.ind_pantalon_adicional){
-            cmds += "Observaciones: " + item.ind_pantalon_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_pantalon_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_pantalon;
+          cmds += newLine;
       }else if(item.tipo.includes('LASAGNA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_lasagna;
-          cmds += newLine;
+          
           if(item.mod_sabor_lasagna){
-            cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
+            
           }
           if(item.ind_lasagna_adicional){
-            cmds += "Observaciones: " + item.ind_lasagna_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_lasagna_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_lasagna;
+          cmds += newLine;
       }else if(item.tipo.includes('PASTA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pasta;
-          cmds += newLine;
+          
           if(item.mod_sabor_pasta){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
+            
           }
           if(item.ind_pasta_adicional){
-            cmds += "Observaciones: " + item.ind_pasta_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_pasta_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_pasta;
@@ -645,17 +688,20 @@ printerPedidosConnect(cmdsAux){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_sopa;
-          cmds += newLine;
+          
           if(item.mod_sabor_sopa){
-            cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
+            
           }
           if(item.ind_sopa_adicional){
-            cmds += "Observaciones: " + item.ind_sopa_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_sopa_adicional;
+            
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_sopa;
+          cmds += newLine;
       }else if(item.tipo.includes('PAN AJO')){
           cmds += "ENTRADA: " +  item.tipo;
           cmds += newLine;
