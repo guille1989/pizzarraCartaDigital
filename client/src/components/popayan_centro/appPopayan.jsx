@@ -761,6 +761,11 @@ printerPedidosConnect(cmdsAux){
           cmds += newLine;
           cmds += newLine;
         }
+      }else if(item.tipo.includes('SALSA 16 ONZAS')){
+        cmds += "OTROS: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Costo: " + item.costo_otros;
+        cmds += newLine;
       }
        
     })  
