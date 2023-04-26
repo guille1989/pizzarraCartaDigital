@@ -685,6 +685,7 @@ printerPedidosConnect(cmdsAux){
           }          
           cmds += newLine;
           cmds += "Costo: " + item.costo_pasta + item.costo_adiciones_pasta;
+          cmds += newLine;
       }else if(item.tipo.includes('SOPA')){
           cmds += item.tipo;
           cmds += newLine;
