@@ -1,0 +1,1462 @@
+{
+    "TIPO_SABOR": "MIXTA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "JAMON": 100,
+            "CABANOS": 100,
+            "SALAMI": 100,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "JAMON": 33,
+            "CABANOS": 33,
+            "SALAMI": 33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+//HAWAIANA
+{
+    "TIPO_SABOR": "HAWAIANA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "JAMON": 150,
+            "PINIA_CALADA": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "JAMON": 50,
+            "PINIA_CALADA": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+//HIGOSTOCINETA
+{
+    "TIPO_SABOR": "HIGOS TOCINETA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "HIGOS": 150,
+            "TOCINETA": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "HIGOS": 50,
+            "TOCINETA": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//POLLO CHAMPINIONES
+{
+    "TIPO_SABOR": "POLLO CHAMPIÑONES",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "POLLO": 150,
+            "CHAMPINIONES": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+             "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "POLLO": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//JAMON CHAMPINIONES
+{
+    "TIPO_SABOR": "JAMON CHAMPIÑONES",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "JAMON": 150,
+            "CHAMPINIONES": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+             "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+           "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "JAMON": 50,
+            "CHAMPINIONES": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//SAMBA
+{
+    "TIPO_SABOR": "SAMBA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "TOCINETA": 150,
+            "MADURO": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+             "TOCINETA": 50,
+            "MADURO": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+           "TOCINETA": 50,
+            "MADURO": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "TOCINETA": 50,
+            "MADURO": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//PETETE
+{
+    "TIPO_SABOR": "PETETE",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "POLLO": 100,
+            "TOCINETA": 100,
+            "TOMATE": 100,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "POLLO": 33.33,
+            "TOCINETA": 33.33,
+            "TOMATE": 33.33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+
+//CAMPESINA
+{
+    "TIPO_SABOR": "CAMPESINA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "MAIZ": 150,
+            "CABANOS": 150,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+           "MAIZ": 50,
+            "CABANOS": 50,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "MAIZ": 50,
+            "CABANOS": 50,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//NAPOLITANA
+{
+    "TIPO_SABOR": "NAPOLITANA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+           
+            "QUESO": 150,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            
+            "QUESO": 360,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            
+            "QUESO_LASANIA": 200,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            
+            "QUESO_LASANIA": 200,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+           
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+           
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+
+//MARGARITA
+{
+    "TIPO_SABOR": "MARGARITA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "TOMATE": 50,
+            "QUESO": 150,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "TOMATE": 150,
+            "QUESO": 360,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "TOMATE": 50,
+            "QUESO_LASANIA": 200,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+
+//GOURMET
+{
+    "TIPO_SABOR": "GOURMET",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "POLLO": 100,
+            "ACEITUNAS": 100,
+            "TOMATES_SECOS": 100,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+             "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "POLLO": 33.33,
+            "ACEITUNAS": 33.33,
+            "TOMATES_SECOS": 33.33,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//PADRISIMA
+{
+    "TIPO_SABOR": "PADRISIMA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "CARNE_MOLIDA": 300,
+            "JALAPENIOS": 40,
+            "LECHUGA": 40,
+            "TOMATE": 40,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "CARNE_MOLIDA": 100,
+            "JALAPENIOS": 20,
+            "LECHUGA": 20,
+            "TOMATE": 20,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//VEGETARIANA
+{
+    "TIPO_SABOR": "VEGETARIANA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PERSONAL_COMPLETA",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "QUESO": 75,
+            "MASAS_PERSONALES": 1,
+            "SALSA_NAPOLITANA_GALON": 60
+        },
+        {
+            "tipo_producto": "PIZZA_GRANDE_COMPLETA",
+            "ACEITUNAS":  100,
+            "TOMATES_SECOS": 100,
+            "CHAMPINIONES": 100,
+            "CEBOLLA": 100,
+            "PIMENTON": 100,
+            "QUESO": 180,
+            "MASAS_MEDIANAS": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_PANTALON",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "QUESO_LASANIA": 100,
+            "MASA_CRUDA": 150,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+        {
+            "tipo_producto": "PIZZA_PANCOOK",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "QUESO_LASANIA": 100,
+            "PANNE_COOK": 1,
+            "SALSA_NAPOLITANA_GALON": 130
+        },
+
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },
+        {
+            "tipo_producto": "PIZZA_LASAGNA_QUESO",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "ACEITUNAS":  20,
+            "TOMATES_SECOS": 20,
+            "CHAMPINIONES": 20,
+            "CEBOLLA": 20,
+            "PIMENTON": 20,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "HARINA": 10,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+
+//BOLOGNESA
+{
+    "TIPO_SABOR": "BOLOGNESA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_LASAGNA_NAPOLITANA",
+            "CARNE_MOLIDA":  120,            
+            "QUESO_LASANIA": 100,
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 180
+        },       
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_NAPOLITANA",
+            "CARNE_MOLIDA":  120,        
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        },      
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_NAPOLITANA",
+            "CARNE_MOLIDA":  120,        
+            "PAN_OREGANO": 1,
+            "SALSA_NAPOLITANA_GALON": 240,
+            "QUESO_PARMESANO": 10,
+            "SPAGUETTYS_PORCION": 1
+        }    
+    ]
+}
+
+//VEGETARIANA
+{
+    "TIPO_SABOR": "CARBONARA",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "PIZZA_PASTA_SPAGUETTI_QUESO",
+            "TOCINETA": 80
+            "HUEVO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "SPAGUETTYS_PORCION": 1
+        },
+        {
+            "tipo_producto": "PIZZA_PASTA_FETUCCINI_QUESO",
+            "TOCINETA": 80 
+            "HUEVO": 1,
+            "PAN_OREGANO": 1,
+            "QUESO_PARMESANO": 10,
+            "CREMA_LECHE": 100,
+            "LECHE": 100,
+            "SPAGUETTYS_PORCION": 1
+        }
+    ]
+}
+
+//DESAYUNOS
+{
+    "TIPO_SABOR": "DESAYUNO",
+    "DATOS":
+    [
+        {
+            "tipo_producto": "DESAYUNO_CAFE",
+            "HUEVOS": 2,
+            "LECHE": 50,
+            "PAN_OREGANO": 1,
+            "PROMASA": 25, 
+            "MANTEQUILLA": 15,
+            "CAFE": 30,
+            "CEBOLLA_LARGA":  30,
+            "TOMATE": 30
+        },
+        {
+            "tipo_producto": "DESAYUNO_CHOCOLATE",
+            "HUEVOS": 2,
+            "LECHE": 50,
+            "PAN_OREGANO": 1,
+            "PROMASA": 25, 
+            "MANTEQUILLA": 15,
+            "CHOCOLATE": 30,
+            "CEBOLLA_LARGA":  30,
+            "TOMATE": 30
+        },
+        {
+            "tipo_producto": "DESAYUNO_AGUA_AROMATICA",
+            "HUEVOS": 2,
+            "LECHE": 50,
+            "PAN_OREGANO": 1,
+            "PROMASA": 25, 
+            "MANTEQUILLA": 15,
+            "AGUA_AROMATICA": 1,
+            "CEBOLLA_LARGA":  30,
+            "TOMATE": 30
+        },
+        {
+            "tipo_producto": "DESAYUNO_AGUA_AROMATICA",
+            "HUEVOS": 2,
+            "LECHE": 50,
+            "PAN_OREGANO": 1,
+            "PROMASA": 25, 
+            "MANTEQUILLA": 15,
+            "TE": 1,
+            "CEBOLLA_LARGA":  30,
+            "TOMATE": 30
+        } 
+    ]
+}

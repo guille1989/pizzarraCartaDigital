@@ -344,6 +344,8 @@ if(this.state.opcionOrden === "MESA"){
   cmds += newLine;
   cmds += newLine;
 
+  //console.log(cmds)
+
   this.printerPedidosConnect(cmds)
   }
 }
@@ -416,11 +418,12 @@ printerPedidosConnect(cmdsAux, costoDomi){
 
   this.state.datoOrden.map((item, index)=>{   
     ///BEBIDAS
+    
     if(item.tipo.includes('CAFÉ') || item.tipo.includes('CHOCOLATE') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
           {
               if(item.tipo.includes('CAFÉ')){   
                 costoTotal = costoTotal + parseInt(item.costo_tinto)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;            
                 cmds += item.mod_sabor_cafe;
                 cmds += newLine;
@@ -428,7 +431,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                 cmds += newLine;
               }else if(item.tipo.includes('CHOCOLATE')){
                 costoTotal = costoTotal + parseInt(item.costo_chocolate)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_chocolate;
                 cmds += newLine;
@@ -436,7 +439,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                 cmds += newLine;
               }else if(item.tipo.includes('JUGO')){
                 costoTotal = costoTotal + parseInt(item.costo_jugo)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_jugo;
                 cmds += newLine;
@@ -444,7 +447,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                 cmds += newLine;
               }else if(item.tipo.includes('GASEOSA')){
                 costoTotal = costoTotal + parseInt(item.costo_gaseosa)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_gaseosa;
                 cmds += newLine;
@@ -452,13 +455,13 @@ printerPedidosConnect(cmdsAux, costoDomi){
                 cmds += newLine;
               }else if(item.tipo.includes('VINO')){
                 costoTotal = costoTotal + parseInt(item.costo_vino)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += "Costo: " + item.costo_vino;
                 cmds += newLine;
               }else if(item.tipo.includes('CERVEZA')){
                 costoTotal = costoTotal + parseInt(item.costo_cerveza)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_cerveza;
                 cmds += newLine;
@@ -466,7 +469,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                 cmds += newLine;
               }else if(item.tipo.includes('BEBIDA')){
                 costoTotal = costoTotal + parseInt(item.costo_bebida)
-                cmds += "Bebida: " + item.tipo;
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_bebida;
                 cmds += newLine;
@@ -477,7 +480,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
     ///
       if(item.tipo.includes('GRANDE COMPLETA')){
           costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande)
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
           
@@ -497,7 +500,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
           costoTotal = costoTotal + parseInt(item.costo_personal) + parseInt(item.costo_adiciones)
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_personal;
          
@@ -516,7 +519,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL MITAD')){
           costoTotal = costoTotal + parseInt(item.costo_personal) + parseInt(item.costo_adiciones);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
@@ -547,7 +550,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE MITAD')){
         costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
@@ -578,7 +581,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE CUARTO')){
         costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor cuarto 1: " + item.cuarto_uno;
           cmds += newLine;
@@ -631,9 +634,30 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
           cmds = cmds + "Costo: " + (parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande));
           cmds += newLine;
-      }else if(item.tipo.includes('PIZZA PANCOOK')){
+      }else if(item.tipo.includes('PIZZA PANTALON')){          
+        costoTotal = costoTotal + parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon);      
+        cmds += '-'+item.tipo;
+        cmds += newLine;
+        cmds += "Sabor: " + item.sabor_pantalon;
+        
+        if(item.mod_sabor_pantalon){
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
+          
+        }
+        if(item.ind_pantalon_adicional){
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_pantalon_adicional;
+          
+        }
+        //console.log(cmds)          
+        cmds += newLine;
+        cmds = cmds + "Costo: " + (parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon));       
+        cmds += newLine;
+        //console.log(cmds)
+    }else if(item.tipo.includes('PIZZA PANCOOK')){
         costoTotal = costoTotal + parseInt(item.costo_pancook) + parseInt(item.costo_adiciones_pancook);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pancook;
           
@@ -650,28 +674,9 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
           cmds = cmds + "Costo: " + (parseInt(item.costo_pancook) + parseInt(item.costo_adiciones_pancook));
           cmds += newLine;
-      }else if(item.tipo.includes('PIZZA PANTALON')){
-        costoTotal = costoTotal + parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon);
-          cmds += item.tipo;
-          cmds += newLine;
-          cmds += "Sabor: " + item.sabor_pantalon;
-         
-          if(item.mod_sabor_pantalon){
-            cmds += newLine;
-            cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
-            
-          }
-          if(item.ind_pantalon_adicional){
-            cmds += newLine;
-            cmds += "Observaciones: " + item.ind_pantalon_adicional;
-            
-          }          
-          cmds += newLine;
-          cmds += cmds + "Costo: " + (parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon));
-          cmds += newLine;
       }else if(item.tipo.includes('LASAGNA')){
-        costoTotal = costoTotal + parseInt(item.costo_lasagna) + parseInt(item.costo_adiciones_lasagna);
-          cmds += item.tipo;
+          costoTotal = costoTotal + parseInt(item.costo_lasagna) + parseInt(item.costo_adiciones_lasagna);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_lasagna;
           
@@ -690,7 +695,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('PASTA')){
         costoTotal = costoTotal + parseInt(item.costo_pasta) + parseInt(item.costo_adiciones_pasta);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pasta;
           
@@ -709,7 +714,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('SOPA')){
         costoTotal = costoTotal + parseInt(item.costo_sopa) + parseInt(item.costo_adiciones_sopa);
-          cmds += item.tipo;
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_sopa;
           
@@ -728,31 +733,31 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
       }else if(item.tipo.includes('PAN AJO')){
         costoTotal = costoTotal + parseInt(item.costo_pan_ajo);
-          cmds += "ENTRADA: " +  item.tipo;
+          cmds += "-ENTRADA: " +  item.tipo;
           cmds += newLine;
           cmds += "Costo: " + item.costo_pan_ajo;
           cmds += newLine;
       }else if(item.tipo.includes('PAN')){
         costoTotal = costoTotal + parseInt(item.costo_panaderia);
-        cmds += "PANADERIA: " +  item.tipo;
+        cmds += "-PANADERIA: " +  item.tipo;
         cmds += newLine;
         cmds += "Costo: " + parseInt(item.costo_panaderia);
         cmds += newLine;
       }else if(item.tipo.includes('MASAS')){
         costoTotal = costoTotal + parseInt(item.costo_panaderia);
-        cmds += "PANADERIA: " +  item.tipo;
+        cmds += "-PANADERIA: " +  item.tipo;
         cmds += newLine;
         cmds += "Costo: " + item.costo_panaderia;
         cmds += newLine;
       }else if(item.tipo.includes('PAN COOK 2')){
         costoTotal = costoTotal + parseInt(item.costo_panaderia);
-        cmds += "PANADERIA: " +  item.tipo;
+        cmds += "-PANADERIA: " +  item.tipo;
         cmds += newLine;
         cmds += "Costo: " + item.costo_panaderia;
         cmds += newLine;
       }else if(item.tipo.includes('DESAYUNO AMERICANO')){
         costoTotal = costoTotal + parseInt(item.costo_desayuno_americano);
-        cmds += "DESAYUNO: " +  item.tipo;
+        cmds += "-DESAYUNO: " +  item.tipo;
         cmds += newLine;
         cmds += "Huevos: " +  item.desayuno_tipo_huevos;
         cmds += newLine;
@@ -773,7 +778,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
       }else if(item.tipo.includes('DESAYUNO HUESPED')){
         costoTotal = costoTotal + parseInt(item.costo_desayuno_huesped);
 
-        cmds += "DESAYUNO: " +  item.tipo;
+        cmds += "-DESAYUNO: " +  item.tipo;
         cmds += newLine;
         cmds += "Huevos: " +  item.desayuno_tipo_huevos;
         cmds += newLine;
@@ -793,17 +798,22 @@ printerPedidosConnect(cmdsAux, costoDomi){
         }
       }else if(item.tipo.includes('SALSA 16 ONZAS')){
         costoTotal = costoTotal + parseInt(item.costo_otros);
-        cmds += "OTROS: " +  item.tipo;
+        cmds += "-OTROS: " +  item.tipo;
         cmds += newLine;
         cmds += "Costo: " + item.costo_otros;
         cmds += newLine;
       }
+
+      //console.log(cmds)
     }) 
 
+    
 
     //TOTAL::
     cmds += newLine;    
     cmds += "TOTAL PEDIDO ------> " + costoTotal;   
+
+    console.log(cmds)
 
     const myPromise = new Promise((resolve, reject) => {
       resolve(onScanButtonClick(cmds));

@@ -174,6 +174,8 @@ class SegCuentas extends Component {
                         <p>Estado Pedido: <strong>{dato[0].estado_pedido}</strong></p>
                         <p>Costo Pedido: <strong>{dato[0].costo_pedido}</strong></p>
                         <p>Fecha Pedido: <strong>{dato[0].fecha_pedido}</strong></p>
+
+                        
                     </div>           
                 )
             }else if(dato[0].tipo_pedido === "RECOGEN"){
