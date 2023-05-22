@@ -316,7 +316,7 @@ class MenuBebidas extends Component {
         }
         if(e.target.value === "Capuccino Grande"){
             this.setState({
-                valorCafeBebida: 5000
+                valorCafeBebida: 6000
             })
         }
         if(e.target.value === "Capuccino Pequeño"){

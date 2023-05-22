@@ -123,9 +123,12 @@ toggleModalAceptar = () => {
     let contPersonales = [JSON.parse(localStorage.getItem('Numero_Sopas'))]
 
     let costoSopa = 8000
+
     if(this.state.saborpizza === "POLLO"){
         costoSopa = 10000
     }else if(this.state.saborpizza === "CEBOLLA"){
+        costoSopa = 10000
+    }else if(this.state.saborpizza === "VERDURAS"){
         costoSopa = 10000
     }
 

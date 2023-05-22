@@ -243,9 +243,11 @@ toggleModalAceptarCerveza = () => {
                             <div className="saborItem" onClick={this.handleClub}>
                                 <h1 className="pizzaOpcionSabor">Club</h1>
                             </div> 
+                            {/*  
                             <div className="saborItem" onClick={this.handlePokerJuancho}>
                                 <h1 className="pizzaOpcionSabor">PokerTioJuancho</h1>
-                            </div>                        
+                            </div>   
+                            */}                     
                         </div>
                        
                                  
