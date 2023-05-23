@@ -21,7 +21,7 @@ class PizzaPersonalCompleta extends Component {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 19000,
+            costoPizzaPersonal: 21000,
             ingredientes: [],
             ingredientesExtra: [],
         }
@@ -168,14 +168,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
-            costoPizzaPersonal: 17000
+            costoPizzaPersonal: 18500
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 19000
+            costoPizzaPersonal: 21000
         })
     ) 
 }

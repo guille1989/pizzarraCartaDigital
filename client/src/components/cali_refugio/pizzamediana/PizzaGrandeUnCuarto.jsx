@@ -29,7 +29,7 @@ class PizzaGrandeUnCuarto extends Component {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 51000,
+            costoPizzaMediana: 56000,
         }
     }
 
@@ -292,14 +292,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
-            costoPizzaMediana: 45000
+            costoPizzaMediana: 49500
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 51000
+            costoPizzaMediana: 56000
         })
     ) 
 }

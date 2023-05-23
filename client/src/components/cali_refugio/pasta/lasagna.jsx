@@ -21,7 +21,7 @@ class lasagna extends Component {
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 24000,
+            costoPizzaPersonal: 26000,
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'QUESO',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 26000
+            costoPizzaPersonal: 31000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 24000
+            costoPizzaPersonal: 26000
         })
     ) 
 }
