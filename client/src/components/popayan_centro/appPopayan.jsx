@@ -41,7 +41,9 @@ class appCali extends Component {
       DomiCosto: '',
       RecogeNombre: '',
       RecogeTelefono: '',
+      Habitacion: '',
       costoOrden: 0,
+      costoRoomService: 0,
       segPedidos: false,
       opcionCortesia: 'No',
       insumosOrden: []
@@ -197,6 +199,48 @@ class appCali extends Component {
         alert('Pedido Recoge Registrado !')
   }
 }
+
+if(this.state.opcionOrden === "ROOM SERVICE"){
+  if(this.state.Habitacion === ''){
+    alert('Porfavor coloque toda la informacion')
+  }else{
+    let aux = [];
+      if(this.state.opcionCortesia === 'Si'){
+        aux = [
+          {local: "Popayan-Centro",
+          tipo_pedido: "ROOM SERVICE", 
+          habitacion: this.state.Habitacion, 
+          estado_pedido: "SIN PAGO", 
+          costo_pedido: 1,
+          observacion_pedido: "CORTESIA",
+          fecha_pedido: Moment().format('YYYY-MM-DD'),
+          hora_pedido: Moment().format('HH:mm:ss')   
+        }
+        ]
+      }else{
+        aux = [
+          {local: "Popayan-Centro",
+          tipo_pedido: "ROOM SERVICE", 
+          recoge_nombre: this.state.Habitacion, 
+          estado_pedido: "SIN PAGO", 
+          costo_pedido: this.state.costoOrden + 10000,
+          fecha_pedido: Moment().format('YYYY-MM-DD'),
+          hora_pedido: Moment().format('HH:mm:ss')   
+        }
+        ]
+      }
+    
+    //console.log({...this.state.datoOrden, aux})
+      this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+      window.localStorage.clear()
+      this.setState({
+        modalPedido: !this.state.modalPedido,
+        opcionCortesia: "No",
+        opcionOrden: "MESA"
+      })
+      alert('Pedido Recoge Registrado !')
+}
+}
 }
 
 toggleModalCancelar = () => {
@@ -207,9 +251,19 @@ toggleModalCancelar = () => {
 }
 
 changeOpcion = (e) => {
-  this.setState({
-    opcionOrden: e.target.value
-  }) 
+  
+
+  if (e.target.value === 'ROOM SERVICE') {
+    this.setState({
+      opcionOrden: e.target.value,
+      costoRoomService: 10000
+    })
+  }else{
+    this.setState({
+      opcionOrden: e.target.value,
+      costoRoomService: 0
+    }) 
+  }
 }
 
 changeOpcionCortesia = (e) => {
@@ -266,6 +320,12 @@ changeRecogeTelefono = (e) => {
   })
 }
 
+changeHabitacion = (e) => {
+  this.setState({
+    Habitacion: e.target.value
+  })
+} 
+
 renderSwitch(params){
   if(params === 'MESA'){
 
@@ -292,6 +352,12 @@ renderSwitch(params){
         <Input value={this.state.RecogeTelefono} onChange={this.changeRecogeTelefono} placeholder="Telefono" />
       </>
     )
+}else if(params === 'ROOM SERVICE'){
+  return(
+    <>
+      <Input value={this.state.Habitacion} onChange={this.changeHabitacion} placeholder="Habitacion" />
+    </>
+  )
 }
 }
 
@@ -398,6 +464,26 @@ if(this.state.opcionOrden === "RECOGEN"){
   this.printerPedidosConnect(cmds)
   }
 }
+
+if(this.state.opcionOrden === "ROOM SERVICE"){
+  if(this.state.Habitacion === ''){
+    alert('Porfavor coloque toda la informacion')
+  }else{
+  cmds += "ROOM SERVICE";
+  cmds += esc + '!' + '\x00'
+  cmds += newLine;
+  cmds += "Habitacion: " + this.state.Habitacion;
+  cmds += newLine;
+  cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
+  cmds += newLine;
+  cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
+  cmds += newLine;
+  cmds += newLine;
+
+  this.printerPedidosConnect(cmds)
+  }
+}
+
 }
 
 printerPedidosConnect(cmdsAux, costoDomi){
@@ -947,7 +1033,10 @@ printerPedidosConnect(cmdsAux, costoDomi){
                   </option>    
                   <option>
                       RECOGEN
-                  </option>                      
+                  </option>    
+                  <option>
+                      ROOM SERVICE
+                  </option>                   
               </Input>
               <p><strong>CORTESIA: </strong></p>
               <Input className='opcionPedidoOrden' type="select" onChange={this.changeOpcionCortesia}>
@@ -1069,10 +1158,12 @@ printerPedidosConnect(cmdsAux, costoDomi){
 
                   {item.mod_sabor_desayuno ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_desayuno}</p> ) : ( <p></p> )}
                   {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
+
+                  {this.state.costoRoomService ? ( <p className='itemPrecio'  >....................{this.state.costoRoomService}</p> ) : ( <p></p> )}
                 </>
               )
             })}   
-            <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden}</p>         
+            <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>         
           </ModalBody>
           <ModalFooter>
               <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button> 
