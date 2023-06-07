@@ -291,7 +291,7 @@ class MenuBebidas extends Component {
 
         if(e.target.value === "Tinto"){
             this.setState({
-                valorCafeBebida: 3000
+                valorCafeBebida: 2000
             })
         }
         if(e.target.value === "Expreso Pequeño"){
@@ -321,7 +321,7 @@ class MenuBebidas extends Component {
         }
         if(e.target.value === "Capuccino Pequeño"){
             this.setState({
-                valorCafeBebida: 3000
+                valorCafeBebida: 4000
             })
         }
 

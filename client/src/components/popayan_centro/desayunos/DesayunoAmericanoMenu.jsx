@@ -22,7 +22,7 @@ class DesayunoAmericanoMenu extends Component {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 15000,
+            costoPizzaPersonal: 20000,
             ingredientes: [],
             ingredientesExtra: [],
             tipobebidadesayuno: '',

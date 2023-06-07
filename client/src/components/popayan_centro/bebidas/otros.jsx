@@ -19,7 +19,8 @@ class otros extends Component {
             classSalsa: 'buttonBolognesa',
             modalOtros: false,
             cantidadProducto: 1,
-            producto: 'OTRO'
+            producto: 'OTRO',
+            costoProducto: 0
         }
     }
 
@@ -33,7 +34,8 @@ atrasPersonal = () => {
 
 handleAgua = () => {
     this.setState({
-        producto: 'AGUA SIN GAS'
+        producto: 'AGUA SIN GAS',
+        costoProducto: 3000
     })
 
     //Toggle Modal
@@ -70,7 +72,8 @@ handleAgua = () => {
 
 handleAguaGas = () => {
     this.setState({
-        producto: 'AGUA CON GAS'
+        producto: 'AGUA CON GAS',
+        costoProducto: 3000
     })
 
     //Toggle Modal
@@ -106,7 +109,8 @@ handleAguaGas = () => {
 
 handleAFrutosRojos = () => {
     this.setState({
-        producto: 'AROMATICA FRUTOS ROJOS'
+        producto: 'AROMATICA FRUTOS ROJOS',
+        costoProducto: 2000
     })
 
     //Toggle Modal
@@ -142,7 +146,8 @@ handleAFrutosRojos = () => {
 
 handleAMansanilla = () => {
     this.setState({
-        producto: 'AROMATICA MANSANILLA'
+        producto: 'AROMATICA MANSANILLA',
+        costoProducto: 2000
     })
 
     //Toggle Modal
@@ -178,7 +183,8 @@ handleAMansanilla = () => {
 
 handleAYerbaBuena = () => {
     this.setState({
-        producto: 'AROMATICA YERBE BUENA'
+        producto: 'AROMATICA YERBE BUENA',
+        costoProducto: 2000
     })
 
     //Toggle Modal
@@ -220,24 +226,6 @@ atrasPersonalSabor = (dato, porcion) => {
     this.props.atrasMenuPersonalSabor(dato, porcion);
 }
 
-esPromocion = () => {
-    if(this.state.promo === false){
-        this.setState({
-            promo: true,
-            textoBoton: 'Con Azucar',
-            classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 5000
-        })
-    }else(
-        this.setState({
-            promo: false,
-            textoBoton: 'Sin Azucar',
-            classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 5000
-        })
-    ) 
-}
-
 changeCantidadProducto = (e) => {
     this.setState({
         cantidadProducto: e.target.value
@@ -262,7 +250,7 @@ toggleModalAceptarOtros = () => {
         pedidoPizza = { 'key_id' : 1,
                     'tipo' : 'BEBIDA ' + dato + ' X ' + this.state.cantidadProducto,   
                     'mod_sabor_bebida' : this.state.textoBoton ,                  
-                    'costo_bebida' : 4000 * this.state.cantidadProducto,
+                    'costo_bebida' : this.state.costoProducto * this.state.cantidadProducto,
                     'id_pedido': 'Pedido_Bebida_0'};
         localStorage.setItem('Pedido_Bebida_0', JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Bebidas', JSON.stringify({'Numero': 1}))
@@ -270,7 +258,7 @@ toggleModalAceptarOtros = () => {
         pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                     'tipo' : 'BEBIDA ' + dato + ' X ' + this.state.cantidadProducto,  
                     'mod_sabor_bebida' : this.state.textoBoton ,                    
-                    'costo_bebida' : 4000 * this.state.cantidadProducto,                       
+                    'costo_bebida' : this.state.costoProducto * this.state.cantidadProducto,                       
                     'id_pedido': `Pedido_Bebida_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Bebida_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Bebidas', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
