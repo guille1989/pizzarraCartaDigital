@@ -181,7 +181,7 @@ class MenuBebidas extends Component {
             //Guardamos en local Storage
             pedidoPizza = { 'key_id' : 1,
                         'tipo' : ' CAFÉ X ' + this.state.cantidadProductoCafe,                        
-                        'costo_tinto' : (4000 + costoAdicionLeche) * this.state.cantidadProductoCafe,
+                        'costo_tinto' : (2000 + costoAdicionLeche) * this.state.cantidadProductoCafe,
                         'mod_sabor_cafe' : this.state.cafeLeche,
                         'id_pedido': 'Pedido_Tinto_0'};
             localStorage.setItem('Pedido_Tinto_0', JSON.stringify(pedidoPizza))
@@ -189,7 +189,7 @@ class MenuBebidas extends Component {
         }else{
             pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                         'tipo' : ' CAFÉ X ' + this.state.cantidadProductoCafe,                       
-                        'costo_tinto' : (4000 + costoAdicionLeche) * this.state.cantidadProductoCafe, 
+                        'costo_tinto' : (2000 + costoAdicionLeche) * this.state.cantidadProductoCafe, 
                         'mod_sabor_cafe' : this.state.cafeLeche,                      
                         'id_pedido': `Pedido_Tinto_${contPersonales[0].Numero}`};
             localStorage.setItem(`Pedido_Tinto_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
