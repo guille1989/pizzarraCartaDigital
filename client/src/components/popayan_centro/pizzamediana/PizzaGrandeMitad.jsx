@@ -22,6 +22,7 @@ class PizzaGrandeMitad extends Component {
             indAdicionalDos : '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE MITAD',
             classSinConPromo: 'buttonPromocion',
             costoPizzaMediana: 56000,
         }
@@ -164,7 +165,7 @@ toggleModalAceptar = () => {
         //Estructura del dato
         pedidoPizza = {
             'key_id' : keyId,
-            'tipo' : 'PIZZA GRANDE MITAD',
+            'tipo' : this.state.stringPizza,
             'mitad_uno' : this.state.mitaduno,
             'mod_mitad_uno' : this.state.mitadunoadicion,
             'ind_mitad_uno_adicional': this.state.indAdicionalUno,
@@ -179,7 +180,7 @@ toggleModalAceptar = () => {
     }else{
         pedidoPizza = {
             'key_id' : keyId,
-            'tipo' : 'PIZZA GRANDE MITAD',
+            'tipo' : this.state.stringPizza,
             'mitad_uno' : this.state.mitaduno,
             'mod_mitad_uno' : this.state.mitadunoadicion,
             'ind_mitad_uno_adicional': this.state.indAdicionalUno,
@@ -219,6 +220,7 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
+            stringPizza: 'PIZZA GRANDE MITAD PROMOCION',
             costoPizzaMediana: 49500
         })
     }else(
@@ -226,6 +228,7 @@ esPromocion = () => {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
+            stringPizza: 'PIZZA GRANDE MITAD',
             costoPizzaMediana: 56000
         })
     ) 

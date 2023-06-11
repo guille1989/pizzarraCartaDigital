@@ -20,6 +20,7 @@ class PizzaGrandeCompleta extends Component {
             indicacionAdicional: '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE COMPLETA',
             classSinConPromo: 'buttonPromocion',
             costoPizzaMediana: 56000,
         }
@@ -124,7 +125,7 @@ toggleModalAceptar = () => {
     if(contPersonales[0] === null){
         //Guardamos en local Storage
         pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : 'PIZZA GRANDE COMPLETA',
+                        'tipo' : this.state.stringPizza,
                         'sabor_grande' : this.state.saborpizza,
                         'mod_sabor_grande' : this.state.saborpizzaadicion,
                         'ind_grande_adicional': this.state.indAdicional,
@@ -135,7 +136,7 @@ toggleModalAceptar = () => {
         localStorage.setItem('Numero_Grandes', JSON.stringify({'Numero': 1}))
     }else{
         pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : 'PIZZA GRANDE COMPLETA',
+                        'tipo' : this.state.stringPizza,
                         'sabor_grande' : this.state.saborpizza,
                         'mod_sabor_grande' : this.state.saborpizzaadicion,
                         'ind_grande_adicional': this.state.indAdicional,
@@ -161,6 +162,7 @@ esPromocion = () => {
         this.setState({
             promo: true,
             textoBoton: 'ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE COMPLETA PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             costoPizzaMediana: 49500
         })
@@ -168,6 +170,7 @@ esPromocion = () => {
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE COMPLETA',
             classSinConPromo: 'buttonPromocion',
             costoPizzaMediana: 56000
         })

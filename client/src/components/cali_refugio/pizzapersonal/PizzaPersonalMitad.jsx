@@ -22,6 +22,7 @@ class PizzaPersonalMitad extends Component {
             indAdicionalDos : '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA PERSONAL MITAD',
             classSinConPromo: 'buttonPromocion',
             costoPizzaPersonal: 21000,
             ingredientesMitadUno: [],
@@ -174,7 +175,7 @@ toggleModalAceptar = () => {
         //Estructura del dato
         pedidoPizza = [{
             'key_id' : keyId,
-            'tipo' : 'PIZZA PERSONAL MITAD',
+            'tipo' : this.state.stringPizza,
             'mitad_uno' : this.state.mitaduno,
             'mod_mitad_uno' : this.state.mitadunoadicion,
             'ind_mitad_uno_adicional': this.state.indAdicionalUno,
@@ -189,7 +190,7 @@ toggleModalAceptar = () => {
     }else{
         pedidoPizza = [{
             'key_id' : keyId,
-            'tipo' : 'PIZZA PERSONAL MITAD',
+            'tipo' : this.state.stringPizza,
             'mitad_uno' : this.state.mitaduno,
             'mod_mitad_uno' : this.state.mitadunoadicion,
             'ind_mitad_uno_adicional': this.state.indAdicionalUno,
@@ -228,6 +229,7 @@ esPromocion = () => {
         this.setState({
             promo: true,
             textoBoton: 'ES PROMOCION',
+            stringPizza: 'PIZZA PERSONAL MITAD PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             costoPizzaPersonal: 18500
         })
@@ -235,6 +237,7 @@ esPromocion = () => {
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA PERSONAL MITAD',
             classSinConPromo: 'buttonPromocion',
             costoPizzaPersonal: 21000
         })

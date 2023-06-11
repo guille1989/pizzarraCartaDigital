@@ -1150,7 +1150,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                   {item.ind_cuarto_tres_adicional ? ( <p className='itemSabor'>Observaciones cuarto 3: {item.ind_cuarto_tres_adicional}</p> ) : ( <p></p> )}
                   {item.ind_cuarto_cuatro_adicional ? ( <p className='itemSabor'>Observaciones cuarto 4: {item.ind_cuarto_cuatro_adicional}</p> ) : ( <p></p> )}
 
-                  {/*DESAYUNOS*/}
+                  {/*DESAYUNOS*/} 
                   {/*item.tipo ? ( <p className='itemSabor'>Desayuno: {item.tipo}</p> ) : ( <p></p> )*/}
 
                   {item.desayuno_tipo_huevos ? ( <p className='itemSabor'>Huevos: {item.desayuno_tipo_huevos}</p> ) : ( <p></p> )}
@@ -1159,6 +1159,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
                   {item.mod_sabor_desayuno ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_desayuno}</p> ) : ( <p></p> )}
                   {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
 
+                  {this.state.costoRoomService ? ( <p className='itemSabor'>Room Service</p> ) : ( <p></p> )}
                   {this.state.costoRoomService ? ( <p className='itemPrecio'  >....................{this.state.costoRoomService}</p> ) : ( <p></p> )}
                 </>
               )

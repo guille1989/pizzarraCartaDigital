@@ -28,6 +28,7 @@ class PizzaGrandeUnCuarto extends Component {
             indAdicionalCuatro : '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE CUARTO',
             classSinConPromo: 'buttonPromocion',
             costoPizzaMediana: 56000,
         }
@@ -237,7 +238,7 @@ toggleModalAceptar = () => {
         //Estructura del dato
         pedidoPizza = {
             'key_id' : keyId,
-            'tipo' : 'PIZZA GRANDE CUARTO',
+            'tipo' : this.state.stringPizza,
             'cuarto_uno' : this.state.uncuartosabor,
             'mod_cuarto_uno' : this.state.uncuartosaboradicion,
             'ind_cuarto_uno_adicional': this.state.indAdicionalUno,
@@ -258,7 +259,7 @@ toggleModalAceptar = () => {
     }else{
         pedidoPizza = {
             'key_id' : keyId,
-            'tipo' : 'PIZZA GRANDE CUARTO',
+            'tipo' : this.state.stringPizza,
             'cuarto_uno' : this.state.uncuartosabor,
             'mod_cuarto_uno' : this.state.uncuartosaboradicion,
             'ind_cuarto_uno_adicional': this.state.indAdicionalUno,
@@ -291,6 +292,7 @@ esPromocion = () => {
         this.setState({
             promo: true,
             textoBoton: 'ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE CUARTO PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             costoPizzaMediana: 49500
         })
@@ -298,6 +300,7 @@ esPromocion = () => {
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
+            stringPizza: 'PIZZA GRANDE CUARTO',
             classSinConPromo: 'buttonPromocion',
             costoPizzaMediana: 56000
         })
