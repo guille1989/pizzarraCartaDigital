@@ -11,6 +11,7 @@ class MenuEntradas extends Component{
         this.state={
             estado: 'inicio',
             cantidadProducto: 1,
+            costo_producto: 0,
             modal: false,
             tipo_otro: ''
         }
@@ -34,8 +35,19 @@ class MenuEntradas extends Component{
         //Toggle Modal//
         this.setState({
             tipo_otro: 'SALSA 16 ONZAS',
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            costo_producto: 8000
         })     
+    }
+
+    togglePanMantequilla = () => {
+    
+        //Toggle Modal//
+        this.setState({
+            tipo_otro: 'PAN MANTEQUILLA Y MERMELADA',
+            modal: !this.state.modal,
+            costo_producto: 2000
+        }) 
     }
 
     toggleModalCancelar = () => {
@@ -54,14 +66,14 @@ class MenuEntradas extends Component{
             //Guardamos en local Storage
             pedidoPizza = { 'key_id' : 1,
                         'tipo' : this.state.tipo_otro + ' X ' + this.state.cantidadProducto,                        
-                        'costo_otros' : 8000 * this.state.cantidadProducto,
+                        'costo_otros' : this.state.costo_producto * this.state.cantidadProducto,
                         'id_pedido': 'Pedido_Otros_0'};
             localStorage.setItem('Pedido_Otros_0', JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_Otros', JSON.stringify({'Numero': 1}))
         }else{
             pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                         'tipo' : this.state.tipo_otro + ' X ' + this.state.cantidadProducto,                         
-                        'costo_otros' : 8000 * this.state.cantidadProducto,                       
+                        'costo_otros' : this.state.costo_producto * this.state.cantidadProducto,                       
                         'id_pedido': `Pedido_Otros_${contPersonales[0].Numero}`};
             localStorage.setItem(`Pedido_Otros_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_Otros', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
@@ -90,7 +102,12 @@ class MenuEntradas extends Component{
                             <div>
                                 <div className="pizzaItem" onClick={(e) => ( this.toggleSalsa16(e))}>
                                     <h1 className="pizzaOpcion">PASTA DE TOMATE 16 OZ.</h1>
-                                </div>                
+                                </div> 
+                            </div>  
+                            <div>  
+                                <div className="pizzaItem" onClick={(e) => ( this.togglePanMantequilla(e))}>
+                                    <h1 className="pizzaOpcion">PAN MANTEQUILLA Y MERMELADA</h1>
+                                </div>            
                             </div>
                             
                         </div>

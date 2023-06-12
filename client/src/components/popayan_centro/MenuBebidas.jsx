@@ -21,7 +21,8 @@ class MenuBebidas extends Component {
             cafeLeche: 'Sin Leche',
             chocolateLeche: 'Sin Leche',
             modalBotella: false,
-            modalChocolate: false
+            modalChocolate: false,
+            modalLeche: false,
         }
     }
 
@@ -50,6 +51,13 @@ class MenuBebidas extends Component {
             modalCafe: !this.state.modalCafe
         })
         //   
+    }
+
+    toggleLeche = () => {
+        this.setState({
+            modalLeche: !this.state.modalLeche
+        })
+        //
     }
 
     //Chocolate
@@ -97,6 +105,14 @@ class MenuBebidas extends Component {
         this.setState({estado: 'inicio'})
     }
 
+    toggleModalCancelarLeche = () => {
+        //Toggle Modal
+        this.setState({
+            modalLeche: !this.state.modalLeche
+        })
+        //
+    }
+
     toggleModalCancelar = () => {
         //Toggle Modal
         this.setState({
@@ -111,6 +127,35 @@ class MenuBebidas extends Component {
             modalBotella: !this.state.modalBotella
         })
         //
+    }
+
+    toggleModalAceptarLeche = () => {
+        let pedidoPizza = [];    
+        //Guardamos en local Storag 
+        let contPersonales = [JSON.parse(localStorage.getItem('Numero_Leches'))]    
+        if(contPersonales[0] === null){
+            //Guardamos en local Storage
+            pedidoPizza = { 'key_id' : 1,
+                        'tipo' : ' LECHE X ' + this.state.cantidadProducto,                        
+                        'costo_leche' : 2000 * this.state.cantidadProducto,
+                        'id_pedido': 'Pedido_Leche_0'};
+            localStorage.setItem('Pedido_Leche_0', JSON.stringify(pedidoPizza))
+            localStorage.setItem('Numero_Leches', JSON.stringify({'Numero': 1}))
+        }else{
+            pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
+                        'tipo' : ' LECHE X ' + this.state.cantidadProducto,                  
+                        'costo_leche' : 2000 * this.state.cantidadProducto,                       
+                        'id_pedido': `Pedido_Leche_${contPersonales[0].Numero}`};
+            localStorage.setItem(`Pedido_Leche_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
+            localStorage.setItem('Numero_Leches', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
+        }
+
+        //Toggle Modal
+        this.setState({
+            modalLeche: !this.state.modalLeche
+        })
+        //
+    
     }
 
     toggleModalAceptar = () => {
@@ -376,7 +421,26 @@ class MenuBebidas extends Component {
                                     <h1 className="pizzaOpcion">GASEOSAS</h1>
                                 </div>
                             </div>
+
+                            <div>
+                                <div className="pizzaItem" onClick={(e) => ( this.toggleLeche(e))}>
+                                    <h1 className="pizzaOpcion">JARRA LECHE</h1>
+                                </div>
+                            </div>
                         </div>
+
+                        <Modal isOpen={this.state.modalLeche}>                        
+                        <ModalHeader>Cantidad</ModalHeader>
+                        <ModalBody>
+                            <p>Cantidad:</p>
+                            <Input value={this.state.cantidadProducto} onChange={this.changeCantidadProducto} placeholder="Cantidad" /><br></br>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="success" onClick={this.toggleModalAceptarLeche}>Agregar Pedido</Button> {'  '}
+                            <Button color="danger" onClick={this.toggleModalCancelarLeche}>Cancelar</Button>
+                        </ModalFooter>
+                        </Modal>
+
                         <Modal isOpen={this.state.modal}>                        
                         <ModalHeader>Cantidad</ModalHeader>
                         <ModalBody>

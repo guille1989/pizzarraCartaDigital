@@ -54,6 +54,7 @@ leerLocalStorage = () => {
     let costoAucDesayunoHuesped = 0
     let costoAuxTinto = 0
     let costoAuxChocolate = 0
+    let costoAuxLeche = 0
     let costoAuxVino = 0
     let costoAuxJugo = 0
     let costoAuxCerveza = 0
@@ -369,6 +370,28 @@ leerLocalStorage = () => {
         })
     }
 
+
+    //leche
+    let pizzaLeche = [JSON.parse(localStorage.getItem('Numero_Leches'))]
+    //console.log(pizzaLeche[0])
+    if(pizzaLeche[0] !== null){
+        for(let i=0; i < pizzaLeche[0].Numero; i++){            
+            dato = JSON.parse(localStorage.getItem(`Pedido_Leche_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_leche !== undefined){
+                costoAuxLeche = costoAuxLeche + item.costo_leche
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Vino
     let pizzaVino = [JSON.parse(localStorage.getItem('Numero_Vinos'))]
     if(pizzaVino[0] !== null){
@@ -493,7 +516,7 @@ leerLocalStorage = () => {
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros + costoAuxLeche,
         pedidoInsumos: datoInsumos
     })
 
@@ -599,6 +622,7 @@ render(){
                                     {item.costo_cerveza ? ( <p>Total Cerveza: <strong>{item.costo_cerveza}</strong></p> ) : <p></p> }
                                     {item.costo_jugo ? ( <p>Total Jugo: <strong>{item.costo_jugo}</strong></p> ) : <p></p> }
                                     {item.costo_vino ? ( <p>Total Vino: <strong>{item.costo_vino}</strong></p> ) : <p></p> }
+                                    {item.costo_leche ? ( <p>Total leche: <strong>{item.costo_leche}</strong></p> ) : <p></p> }
                                     {item.costo_tinto ? ( <p>Total Tinto: <strong>{item.costo_tinto}</strong></p> ) : <p></p> }
                                     {item.costo_chocolate ? ( <p>Total Chocolate: <strong>{item.costo_chocolate}</strong></p> ) : <p></p> }
                                     {item.costo_pan_ajo ? ( <p>Total Pan Ajo: <strong>{item.costo_pan_ajo}</strong></p> ) : <p></p> }
@@ -666,6 +690,11 @@ render(){
                                         if(item.id_pedido.includes('Vino')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
+
+                                        if(item.id_pedido.includes('Leche')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
 
                                         if(item.id_pedido.includes('Jugo')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
