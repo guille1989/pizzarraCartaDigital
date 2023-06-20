@@ -43,6 +43,7 @@ class appCali extends Component {
       RecogeTelefono: '',
       Habitacion: '',
       costoOrden: 0,
+      costoOrdenAux: '',
       costoRoomService: 0,
       segPedidos: false,
       opcionCortesia: 'No',
@@ -254,14 +255,85 @@ changeOpcion = (e) => {
   
 
   if (e.target.value === 'ROOM SERVICE') {
-    this.setState({
-      opcionOrden: e.target.value,
-      costoRoomService: 10000
+
+    let aux = this.state.datoOrden.map((item) => {
+      if(item.tipo.includes('PIZZA PERSONAL')){
+        item.costo_personal = 21000
+      }else if(item.tipo.includes('PIZZA PANTALON')){
+        item.costo_pantalon = 22000
+      }else if(item.tipo.includes('PIZZA PANCOOK')){
+        item.costo_pancook = 21000
+      }else if(item.tipo.includes('LASAGNA SALSA: NAPOLITANA')){
+        item.costo_lasagna = 26000
+      }else if(item.tipo.includes('LASAGNA SALSA: QUESO')){
+        item.costo_lasagna = 31000
+      }else if(item.tipo.includes('PASTA') && item.tipo.includes('NAPOLITANA')){
+        item.costo_pasta = 27000
+      }else if(item.tipo.includes('PASTA') && item.tipo.includes('SALSA BLANCA')){
+        item.costo_pasta = 32000
+      }
+      return item
     })
-  }else{
+
     this.setState({
       opcionOrden: e.target.value,
-      costoRoomService: 0
+      costoRoomService: 10000,
+      costoOrdenAux: ''
+    })
+  }else if(e.target.value === 'CARTA FAMILIA'){
+    console.log(this.state.costoOrden)
+    //Ajustamos los costos de la Pizza personal, el pancool, el pantalo y las pastas a 7500
+    //iterate through each element in the array dataOrden and change the costo_pedido
+    //change the cost to 7500 of element with key by key word
+
+    let aux = this.state.datoOrden.map((item) => {
+      if(item.tipo.includes('PIZZA PERSONAL')){
+        item.costo_personal = 7500
+      }else if(item.tipo.includes('PIZZA PANTALON')){
+        item.costo_pantalon = 7500
+      }else if(item.tipo.includes('PIZZA PANCOOK')){
+        item.costo_pancook = 7500
+      }else if(item.tipo.includes('LASAGNA')){
+        item.costo_lasagna = 7500
+      }else if(item.tipo.includes('PASTA')){
+        item.costo_pasta = 7500
+      }
+      return item
+    })
+
+    console.log(aux)
+
+    this.setState({
+      opcionOrden: e.target.value,
+      costoRoomService: 0,
+      costoOrdenAux: '**'
+    })
+
+  }else{
+
+    let aux = this.state.datoOrden.map((item) => {
+      if(item.tipo.includes('PIZZA PERSONAL')){
+        item.costo_personal = 21000
+      }else if(item.tipo.includes('PIZZA PANTALON')){
+        item.costo_pantalon = 22000
+      }else if(item.tipo.includes('PIZZA PANCOOK')){
+        item.costo_pancook = 21000
+      }else if(item.tipo.includes('LASAGNA SALSA: NAPOLITANA')){
+        item.costo_lasagna = 26000
+      }else if(item.tipo.includes('LASAGNA SALSA: QUESO')){
+        item.costo_lasagna = 31000
+      }else if(item.tipo.includes('PASTA') && item.tipo.includes('NAPOLITANA')){
+        item.costo_pasta = 27000
+      }else if(item.tipo.includes('PASTA') && item.tipo.includes('SALSA BLANCA')){
+        item.costo_pasta = 32000
+      }
+      return item
+    })
+
+    this.setState({
+      opcionOrden: e.target.value,
+      costoRoomService: 0,
+      costoOrdenAux:''
     }) 
   }
 }
@@ -1036,6 +1108,9 @@ printerPedidosConnect(cmdsAux, costoDomi){
                   </option>    
                   <option>
                       ROOM SERVICE
+                  </option> 
+                  <option>
+                      CARTA FAMILIA
                   </option>                   
               </Input>
               <p><strong>CORTESIA: </strong></p>
@@ -1158,13 +1233,14 @@ printerPedidosConnect(cmdsAux, costoDomi){
 
                   {item.mod_sabor_desayuno ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_desayuno}</p> ) : ( <p></p> )}
                   {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
-
-                  {this.state.costoRoomService ? ( <p className='itemSabor'>Room Service</p> ) : ( <p></p> )}
-                  {this.state.costoRoomService ? ( <p className='itemPrecio'  >....................{this.state.costoRoomService}</p> ) : ( <p></p> )}
                 </>
               )
             })}   
-            <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>         
+
+            {this.state.costoRoomService ? ( <p className='itemOrdenFinal'>ROOM SERVICE: {this.state.costoRoomService}</p> ) : ( <p></p> )}
+
+            {this.state.costoOrdenAux ? (<p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrdenAux}</p>):(<p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>)}
+
           </ModalBody>
           <ModalFooter>
               <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button> 

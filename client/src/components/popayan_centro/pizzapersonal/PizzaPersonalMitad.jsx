@@ -23,7 +23,7 @@ class PizzaPersonalMitad extends Component {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            stringPizza: 'PIZZA PERSONAL COMPLETA',
+            stringPizza: 'PIZZA PERSONAL MITAD',
             costoPizzaPersonal: 21000,
             ingredientesMitadUno: [],
             ingredientesMitadDos: [],
