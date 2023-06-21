@@ -242,6 +242,30 @@ if(this.state.opcionOrden === "ROOM SERVICE"){
       alert('Pedido Recoge Registrado !')
 }
 }
+//Carta familia
+console.log(this.state.opcionOrden)
+if(this.state.opcionOrden === "CARTA FAMILIA"){
+  let aux = [];
+  aux = [
+    {local: "Popayan-Centro",
+    tipo_pedido: "CARTA FAMILIA", 
+    recoge_nombre: this.state.Habitacion, 
+    estado_pedido: "SIN PAGO", 
+    costo_pedido: this.state.costoOrden,
+    fecha_pedido: Moment().format('YYYY-MM-DD'),
+    hora_pedido: Moment().format('HH:mm:ss')   
+  }
+  ]
+
+  this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+  window.localStorage.clear()
+  this.setState({
+    modalPedido: !this.state.modalPedido,
+    opcionCortesia: "No",
+    opcionOrden: "MESA"
+  })
+  alert('Pedido Carta Familia Registrado !')
+}
 }
 
 toggleModalCancelar = () => {
@@ -554,6 +578,21 @@ if(this.state.opcionOrden === "ROOM SERVICE"){
 
   this.printerPedidosConnect(cmds)
   }
+}
+
+if(this.state.opcionOrden === "CARTA FAMILIA"){
+ 
+  cmds += "CARTA FAMILIA";
+  cmds += esc + '!' + '\x00'
+  cmds += newLine;
+  cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
+  cmds += newLine;
+  cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
+  cmds += newLine;
+  cmds += newLine;
+
+  this.printerPedidosConnect(cmds)
+  
 }
 
 }
