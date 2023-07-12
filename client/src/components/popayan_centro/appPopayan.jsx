@@ -934,6 +934,12 @@ printerPedidosConnect(cmdsAux, costoDomi){
           cmds += newLine;
           cmds += "Costo: " + item.costo_pan_ajo;
           cmds += newLine;
+      }else if(item.tipo.includes('PIZZA FESTIVAL')){
+        costoTotal = costoTotal + parseInt(item.costo_pizza_festival);
+          cmds += "-FESTIVAL: " +  item.tipo;
+          cmds += newLine;
+          cmds += "Costo: " + item.costo_pizza_festival;
+          cmds += newLine;
       }else if(item.tipo.includes('PAN')){
         costoTotal = costoTotal + parseInt(item.costo_panaderia);
         cmds += "-PANADERIA: " +  item.tipo;
@@ -1188,6 +1194,10 @@ printerPedidosConnect(cmdsAux, costoDomi){
                     {item.costo_sopa ? ( <p className='itemPrecio'>....................{item.costo_sopa + item.costo_adiciones_sopa}</p> ) : ( <p></p> )}
                     {/*Costo pan de ajo*/}
                     {item.costo_pan_ajo ? ( <p className='itemPrecio'>....................{item.costo_pan_ajo}</p> ) : ( <p></p> )}
+
+                    {item.costo_pizza_festival ? ( <p className='itemPrecio'>....................{item.costo_pizza_festival}</p> ) : ( <p></p> )}
+
+
                     {/*Costo pasta*/}
                     {item.costo_pasta ? ( <p className='itemPrecio'>....................{item.costo_pasta + item.costo_adiciones_pasta}</p> ) : ( <p></p> )}
                     {/*Costo lasagna*/}

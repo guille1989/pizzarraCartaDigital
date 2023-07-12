@@ -61,10 +61,32 @@ leerLocalStorage = () => {
     let costoAuxBebidas = 0
     let costoAuxGaseosas = 0
     let costoAuxOtros = 0
+    let costoAuxPizzaFestival = 0
+
+    //Pizza Festival----------
+    let pizzaFestival = [JSON.parse(localStorage.getItem('Numero_PizzaEspecial'))]
+
+    if(pizzaFestival[0] !== null){
+
+        for(let i=0; i < pizzaFestival[0].Numero; i++){
+            dato = JSON.parse(localStorage.getItem(`Pedido_PizzaEspecial_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_pizza_festival !== undefined){
+                costoAuxPizzaFestival = costoAuxPizzaFestival + item.costo_pizza_festival
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
 
     //Personales-----------------
     let pizzaPersonal = [JSON.parse(localStorage.getItem('Numero_Personales'))]
-    //console.log(pizzaPersonal)
 
     if(pizzaPersonal[0] !== null){
         for(let i=0; i <= pizzaPersonal[0].Numero; i++){            
@@ -516,7 +538,7 @@ leerLocalStorage = () => {
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros + costoAuxLeche,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros + costoAuxLeche + costoAuxPizzaFestival,
         pedidoInsumos: datoInsumos
     })
 
@@ -626,6 +648,9 @@ render(){
                                     {item.costo_tinto ? ( <p>Total Tinto: <strong>{item.costo_tinto}</strong></p> ) : <p></p> }
                                     {item.costo_chocolate ? ( <p>Total Chocolate: <strong>{item.costo_chocolate}</strong></p> ) : <p></p> }
                                     {item.costo_pan_ajo ? ( <p>Total Pan Ajo: <strong>{item.costo_pan_ajo}</strong></p> ) : <p></p> }
+
+                                    {item.costo_pizza_festival ? ( <p>Total Pizza Festival: <strong>{item.costo_pizza_festival}</strong></p> ) : <p></p> }
+
                                     {item.costo_panaderia ? ( <p>Total Panaderia: <strong>{item.costo_panaderia}</strong></p> ) : <p></p> }
                                     {item.costo_desayuno_americano ? ( <p>Total Desayuno: <strong>{item.costo_desayuno_americano}</strong></p> ) : <p></p> }
                                     {item.costo_sopa ? ( <p>Total Sopa: <strong>{item.costo_sopa}</strong></p> ) : <p></p> }
@@ -656,6 +681,10 @@ render(){
                                         }
 
                                         if(item.id_pedido.includes('Pancook')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('PizzaEspecial')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
