@@ -57,6 +57,13 @@ handleVegetariana = () => {
     this.props.atrasMenuPersonalSabor(dato, porcion);
 }
 
+handleFestival = () => {
+    var dato = "FESTIVAL"
+    var porcion = this.props.porcion    
+    this.props.cuentamitad(porcion, dato);
+    this.props.atrasMenuPersonalSabor(dato, porcion);
+}
+
 handleSamba = () => {
     var dato = "SAMBA"
     var porcion = this.props.porcion
@@ -161,6 +168,9 @@ atrasPersonalSabor = (dato, porcion) => {
                             </div>
                             <div className="saborItem" onClick={this.handleVegetariana}>
                                 <h1 className="pizzaOpcionSabor">Vegetariana</h1>
+                            </div>
+                            <div className="saborItem" onClick={this.handleFestival}>
+                                <h1 className="pizzaOpcionSabor">Festival</h1>
                             </div>
                         </div>
                         <div>

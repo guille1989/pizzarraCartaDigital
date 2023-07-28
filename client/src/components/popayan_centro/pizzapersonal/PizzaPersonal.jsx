@@ -95,12 +95,13 @@ render(){
                             <p>COMPLETA</p>
                         </div>
 
+                        {/* 
                         <div className='opcionpersonal'onClick={()=> (
                             this.setState({modalPizzaFestival: !this.state.modalPizzaFestival})
                         )}>
                             <p>PIZZA FESTIVAL</p>
                         </div>
-
+                        */}
 
                     </div>
                 </div> 
