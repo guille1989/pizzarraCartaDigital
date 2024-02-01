@@ -35,7 +35,7 @@ class loginCartaDigital extends Component {
           if(data.usuario !== ''){
             this.props.loginHandlerCaliRefugio(data.usuario)
           }else{
-            console.log('Error en las credenciales !')
+            console.log('Error en las credencialses !')
           }
 
           localStorage.setItem('usuario', data.usuario );
