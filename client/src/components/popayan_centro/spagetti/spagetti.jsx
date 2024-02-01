@@ -23,8 +23,8 @@ class spagetti extends Component {
             textoBoton: 'SPAGHETTI',
             textoBotonSalsa: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 27000,
-            costoPizzaPersonalSalsa: 0,
+            costoSpaghetti: 29000,
+            costoSpaghettiSalsa: 0,
             classSalsa: 'buttonBolognesa',
             classTipo: 'buttonBolognesa',
         }
@@ -133,7 +133,7 @@ toggleModalAceptar = () => {
                     'sabor_pasta' : this.state.saborpizza,
                     'mod_sabor_pasta' : this.state.saborpizzaadicion,
                     'ind_pasta_adicional': this.state.indAdicional,
-                    'costo_pasta' : this.state.costoPizzaPersonal + this.state.costoPizzaPersonalSalsa,
+                    'costo_pasta' : this.state.costoSpaghetti + this.state.costoSpaghettiSalsa,
                     'costo_adiciones_pasta' : costoadicion,
                     'id_pedido': 'Pedido_Pasta_0'};
         localStorage.setItem('Pedido_Pasta_0', JSON.stringify(pedidoPizza))
@@ -144,7 +144,7 @@ toggleModalAceptar = () => {
                     'sabor_pasta' : this.state.saborpizza,
                     'mod_sabor_pasta' : this.state.saborpizzaadicion,
                     'ind_pasta_adicional': this.state.indAdicional,
-                    'costo_pasta' : this.state.costoPizzaPersonal + this.state.costoPizzaPersonalSalsa, 
+                    'costo_pasta' : this.state.costoSpaghetti + this.state.costoSpaghettiSalsa, 
                     'costo_adiciones_pasta' : costoadicion,
                     'id_pedido': `Pedido_Pasta_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Pasta_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
@@ -166,14 +166,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'FETUCCINI',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 27000
+            costoSpaghetti: 29000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 27000
+            costoSpaghetti: 29000
         })
     ) 
 }
@@ -184,14 +184,14 @@ pasSalsa = () => {
             promoS: true,
             textoBotonSalsa: 'SALSA BLANCA',
             classTipo: 'buttonQueso',
-            costoPizzaPersonalSalsa: 5000
+            costoSpaghettiSalsa: 6000
         })
     }else(
         this.setState({
             promoS: false,
             textoBotonSalsa: 'NAPOLITANA',
             classTipo: 'buttonBolognesa',
-            costoPizzaPersonalSalsa: 0
+            costoSpaghettiSalsa: 0
         })
     ) 
 }

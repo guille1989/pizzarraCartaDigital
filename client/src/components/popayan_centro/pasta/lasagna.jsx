@@ -21,7 +21,7 @@ class lasagna extends Component {
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 26000,
+            costoLasagna: 28000,
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -129,7 +129,7 @@ toggleModalAceptar = () => {
                     'sabor_lasagna' : this.state.saborpizza,
                     'mod_sabor_lasagna' : this.state.saborpizzaadicion,
                     'ind_lasagna_adicional': this.state.indAdicional,
-                    'costo_lasagna' : this.state.costoPizzaPersonal,
+                    'costo_lasagna' : this.state.costoLasagna,
                     'costo_adiciones_lasagna' : costoadicion,
                     'id_pedido': 'Pedido_Lasagna_0'};
         localStorage.setItem('Pedido_Lasagna_0', JSON.stringify(pedidoPizza))
@@ -140,7 +140,7 @@ toggleModalAceptar = () => {
                     'sabor_lasagna' : this.state.saborpizza,
                     'mod_sabor_lasagna' : this.state.saborpizzaadicion,
                     'ind_lasagna_adicional': this.state.indAdicional,
-                    'costo_lasagna' : this.state.costoPizzaPersonal,
+                    'costo_lasagna' : this.state.costoLasagna,
                     'costo_adiciones_lasagna' : costoadicion,
                     'id_pedido': `Pedido_Lasagna_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Lasagna_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'QUESO',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 31000
+            costoLasagna: 34000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 26000
+            costoLasagna: 28000
         })
     ) 
 }

@@ -20,7 +20,7 @@ class cervezas extends Component {
             cantidadProducto: 1,
             modalCerveza: false,
             producto: 'CERVEZA',
-            costoCerveza: 5000
+            costoCerveza: 6000
         }
     }
 
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'Michelar',
             classSalsa: 'buttonQueso',
-            costoCerveza: 6000
+            costoCerveza: 7000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'Sin Michelada',
             classSalsa: 'buttonBolognesa',
-            costoCerveza: 5000
+            costoCerveza: 6000
         })
     ) 
 }

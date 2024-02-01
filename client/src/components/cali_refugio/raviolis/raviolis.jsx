@@ -1,13 +1,13 @@
 import React from 'react';
 import { Component } from 'react';
 import '../../../App.css';
-import SaboresPizzaGrande from './SaboresPizzaGrande';
-import CombinadaIngredientesGrande from './CombinadaIngredientesGrande';
+import SaboresRaviolis from './SaboresRaviolis';
+import CombinadaIngredientes from './CombinadaIngredientes';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class PizzaGrandeCompleta extends Component {
+class lasagna extends Component {
     constructor(props){
         super(props);    
         this.state={
@@ -19,10 +19,10 @@ class PizzaGrandeCompleta extends Component {
             indAdicional: '',
             indicacionAdicional: '',
             promo: false,
-            textoBoton: 'NO ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA',
+            textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 61000,
+            costoRaviolis: 35000,
+            classSalsa: 'buttonBolognesa'
         }
     }
 onClickBack = () => {
@@ -114,37 +114,37 @@ toggleModalAceptar = () => {
     if(this.state.saborpizzaadicion !== ''){
         for (let i = 0; i < this.state.saborpizzaadicion.length; i++) {
             if(this.state.saborpizzaadicion[i] === '+'){
-                costoadicion = costoadicion + 8000
+                costoadicion = costoadicion + 2000
             }
         }
     }
 
     //Guardamos en local Storag 
-    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Grandes'))]
+    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Raviolis'))]
 
     if(contPersonales[0] === null){
         //Guardamos en local Storage
-        pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : this.state.stringPizza,
-                        'sabor_grande' : this.state.saborpizza,
-                        'mod_sabor_grande' : this.state.saborpizzaadicion,
-                        'ind_grande_adicional': this.state.indAdicional,
-                        'costo_grande' : this.state.costoPizzaMediana,
-                        'costo_adiciones_grande' : costoadicion,
-                        'id_pedido': 'Pedido_Grande_0'};
-        localStorage.setItem('Pedido_Grande_0', JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Grandes', JSON.stringify({'Numero': 1}))
+        pedidoPizza = { 'key_id' : 1,
+                    'tipo' : 'RAVIOLI' + ' SALSA: ' + this.state.textoBoton,
+                    'sabor_ravioli' : this.state.saborpizza,
+                    'mod_sabor_ravioli' : this.state.saborpizzaadicion,
+                    'ind_ravioli_adicional': this.state.indAdicional,
+                    'costo_ravioli' : this.state.costoRaviolis,
+                    'costo_adiciones_ravioli' : costoadicion,
+                    'id_pedido': 'Pedido_Ravioli_0'};
+        localStorage.setItem('Pedido_Ravioli_0', JSON.stringify(pedidoPizza))
+        localStorage.setItem('Numero_Raviolis', JSON.stringify({'Numero': 1}))
     }else{
-        pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : this.state.stringPizza,
-                        'sabor_grande' : this.state.saborpizza,
-                        'mod_sabor_grande' : this.state.saborpizzaadicion,
-                        'ind_grande_adicional': this.state.indAdicional,
-                        'costo_grande' : this.state.costoPizzaMediana,
-                        'costo_adiciones_grande' : costoadicion,
-                        'id_pedido': `Pedido_Grande_${contPersonales[0].Numero}`};
-        localStorage.setItem(`Pedido_Grande_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Grandes', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
+        pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
+                    'tipo' : 'RAVIOLI' + ' SALSA: ' + this.state.textoBoton,
+                    'sabor_ravioli' : this.state.saborpizza,
+                    'mod_sabor_ravioli' : this.state.saborpizzaadicion,
+                    'ind_ravioli_adicional': this.state.indAdicional,
+                    'costo_ravioli' : this.state.costoRaviolis,
+                    'costo_adiciones_ravioli' : costoadicion,
+                    'id_pedido': `Pedido_Ravioli_${contPersonales[0].Numero}`};
+        localStorage.setItem(`Pedido_Ravioli_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
+        localStorage.setItem('Numero_Raviolis', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
     }  
 
     //Toggle Modal//
@@ -156,23 +156,20 @@ toggleModalAceptar = () => {
     this.props.atrasMenuPersonal();
 }
 
-
 esPromocion = () => {
     if(this.state.promo === false){
         this.setState({
             promo: true,
-            textoBoton: 'ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA PROMOCION',
-            classSinConPromo: 'buttonPromocionOn',
-            costoPizzaMediana: 53000
+            textoBoton: 'QUESO',
+            classSalsa: 'buttonQueso',
+            costoRaviolis: 35000
         })
     }else(
         this.setState({
             promo: false,
-            textoBoton: 'NO ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA',
-            classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 61000
+            textoBoton: 'NAPOLITANA',
+            classSalsa: 'buttonBolognesa',
+            costoRaviolis: 35000
         })
     ) 
 }
@@ -182,11 +179,12 @@ render(){
         switch(this.state.estado) {
             case "inicio": return(
             <>
-            <div>
-                <p style={{textAlign: 'center'}}>PIZZA GRANDE COMPLETA</p>  
-                <div className='centrarButtonPromocion'>
-                    <button className={this.state.classSinConPromo} onClick={this.esPromocion}>{this.state.textoBoton}</button>
-                </div>              
+            <div>                
+                <div className='centrarButtonPromocionLasagna'>
+                    <p style={{textAlign: 'center'}}>RAVIOLIS - SALSA:</p>
+                    <p> </p>  
+                    <button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>
+                </div>          
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <div className='adicioncompleta' onClick={this.adicionIngrediente}>                                
                     </div>
@@ -195,7 +193,7 @@ render(){
                 </div>
                 <div className='pizzaforma'>                    
                     <div>
-                        <div className='completa' onClick={() => (
+                        <div className='lasagna' onClick={() => (
                         this.setState({estado: 'saborpizza'})
                     )}>
                         <p>{this.state.saborpizza} {this.state.saborpizzaadicion}</p>
@@ -204,10 +202,10 @@ render(){
                     <button className='agregarapedido' onClick={this.agregarproducto}>AGREGAR</button>                       
                 </div>             
                 <p onClick={this.onClickBack} className='atras'>atras..</p>
-                </div>
+            </div>
 
             <Modal isOpen={this.state.modal}>                        
-            <ModalHeader>Pedido PIZZA PERSONAL POR MITADES</ModalHeader>
+            <ModalHeader>Pedido RAVIOLIS</ModalHeader>
             <ModalBody>
                 <p>Sabor:  <strong>{this.state.saborpizza}</strong></p>
                 <p>Adicion y/o Sin ingredientes: <strong>{this.state.saborpizzaadicion}</strong></p>
@@ -220,9 +218,9 @@ render(){
             </Modal>
             </>
             )
-            case "saborpizza": return (<SaboresPizzaGrande porcion="saborpizza" atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSabor} cuentamitad={this.agregaraCuenta}/>)
-            case "adicionentera":return (<CombinadaIngredientesGrande porcion="saborpizza" atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSaborAdicion} cuentamitadmodificacion={this.agregaraCuentaAdicionSinIng}/>)
-            case "siningredientes":return (<CombinadaIngredientesGrande porcion="saborpizza" opcioncuarto='ingredientemenos' atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSaborAdicion} cuentamitadmodificacion={this.agregaraCuentaAdicionSinIng}/>)
+            case "saborpizza": return (<SaboresRaviolis porcion="saborpizza" atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSabor} cuentamitad={this.agregaraCuenta}/>)
+            case "adicionentera":return (<CombinadaIngredientes porcion="saborpizza" atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSaborAdicion} cuentamitadmodificacion={this.agregaraCuentaAdicionSinIng}/>)
+            case "siningredientes":return (<CombinadaIngredientes porcion="saborpizza" opcioncuarto='ingredientemenos' atrasMenuPersonal={this.atrasPersonal} atrasMenuPersonalSabor={this.atrasPersonalSaborAdicion} cuentamitadmodificacion={this.agregaraCuentaAdicionSinIng}/>)
         }
     }
     return(
@@ -231,4 +229,4 @@ render(){
 }
 }
 
-export default PizzaGrandeCompleta
+export default lasagna

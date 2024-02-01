@@ -244,6 +244,10 @@ class SegCuentas extends Component {
                     {item2.sabor_lasagna ? ( <p className='itemSabor'>Sabor: {item2.sabor_lasagna}</p> ) : ( <p></p> )}
                     {item2.mod_sabor_lasagna ? ( <p className='itemSabor'>Adicion: {item2.mod_sabor_lasagna}</p> ) : ( <p></p> )}
                     {item2.ind_lasagna_adicional ? ( <p className='itemSabor'>Observaciones: {item2.ind_lasagna_adicional}</p> ) : ( <p></p> )}
+                    {/*ravioli*/}
+                    {item2.sabor_ravioli ? ( <p className='itemSabor'>Sabor: {item2.sabor_ravioli}</p> ) : ( <p></p> )}
+                    {item2.mod_sabor_ravioli ? ( <p className='itemSabor'>Adicion: {item2.mod_sabor_ravioli}</p> ) : ( <p></p> )}
+                    {item2.ind_ravioli_adicional ? ( <p className='itemSabor'>Observaciones: {item2.ind_ravioli_adicional}</p> ) : ( <p></p> )}
                     {/*pancook*/}
                     {item2.sabor_pancook ? ( <p className='itemSabor'>Sabor: {item2.sabor_pancook}</p> ) : ( <p></p> )}
                     {item2.mod_sabor_pancook ? ( <p className='itemSabor'>Adicion: {item2.mod_sabor_pancook}</p> ) : ( <p></p> )}

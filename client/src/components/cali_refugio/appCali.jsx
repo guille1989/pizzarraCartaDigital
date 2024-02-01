@@ -605,7 +605,22 @@ printerPedidosConnect(cmdsAux){
           }
           
           cmds += newLine;
-      }else if(item.tipo.includes('PASTA')){
+      }else if(item.tipo.includes('RAVIOLI')){
+        cmds += item.tipo;
+        cmds += newLine;
+        cmds += "Sabor: " + item.sabor_ravioli;
+        cmds += newLine;
+        if(item.mod_sabor_ravioli){
+          cmds += "+/- Adiciones: " + item.mod_sabor_ravioli;
+          cmds += newLine;
+        }
+        if(item.ind_ravioli_adicional){
+          cmds += "Observaciones: " + item.ind_ravioli_adicional;
+          cmds += newLine;
+        }
+        
+        cmds += newLine;
+    }else if(item.tipo.includes('PASTA')){
           cmds += item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pasta;
@@ -785,6 +800,8 @@ printerPedidosConnect(cmdsAux){
                     {item.costo_pasta ? ( <p className='itemPrecio'>....................{item.costo_pasta + item.costo_adiciones_pasta}</p> ) : ( <p></p> )}
                     {/*Costo lasagna*/}
                     {item.costo_lasagna ? ( <p className='itemPrecio'>....................{item.costo_lasagna + item.costo_adiciones_lasagna}</p> ) : ( <p></p> )}
+                    {/*Costo raviolis*/}
+                    {item.costo_ravioli ? ( <p className='itemPrecio'>....................{item.costo_ravioli + item.costo_adiciones_ravioli}</p> ) : ( <p></p> )}
                     {/*Costo pantalon*/}
                     {item.costo_pantalon ? ( <p className='itemPrecio'>....................{item.costo_pantalon + item.costo_adiciones_pantalon}</p> ) : ( <p></p> )}
                     {/*Costo pancook*/}
@@ -812,6 +829,10 @@ printerPedidosConnect(cmdsAux){
                   {item.sabor_lasagna ? ( <p className='itemSabor'>Sabor: {item.sabor_lasagna}</p> ) : ( <p></p> )}
                   {item.mod_sabor_lasagna ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_lasagna}</p> ) : ( <p></p> )}
                   {item.ind_lasagna_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_lasagna_adicional}</p> ) : ( <p></p> )}
+                  {/*raviolis*/}
+                  {item.sabor_ravioli ? ( <p className='itemSabor'>Sabor: {item.sabor_ravioli}</p> ) : ( <p></p> )}
+                  {item.mod_sabor_ravioli ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_ravioli}</p> ) : ( <p></p> )}
+                  {item.ind_ravioli_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_ravioli_adicional}</p> ) : ( <p></p> )}
                   {/*pancook*/}
                   {item.sabor_pancook ? ( <p className='itemSabor'>Sabor: {item.sabor_pancook}</p> ) : ( <p></p> )}
                   {item.mod_sabor_pancook ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_pancook}</p> ) : ( <p></p> )}

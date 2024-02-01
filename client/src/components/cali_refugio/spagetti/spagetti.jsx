@@ -23,7 +23,7 @@ class spagetti extends Component {
             textoBoton: 'SPAGHETTI',
             textoBotonSalsa: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 27000,
+            costoPizzaPersonal: 29000,
             costoPizzaPersonalSalsa: 0,
             classSalsa: 'buttonBolognesa',
             classTipo: 'buttonBolognesa',
@@ -166,14 +166,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'FETUCCINI',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 27000
+            costoPizzaPersonal: 29000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 27000
+            costoPizzaPersonal: 29000
         })
     ) 
 }
@@ -184,7 +184,7 @@ pasSalsa = () => {
             promoS: true,
             textoBotonSalsa: 'SALSA BLANCA',
             classTipo: 'buttonQueso',
-            costoPizzaPersonalSalsa: 5000
+            costoPizzaPersonalSalsa: 6000
         })
     }else(
         this.setState({

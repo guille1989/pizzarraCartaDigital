@@ -156,7 +156,7 @@ toggleModalAceptarLimonadaJarra = () => {
         pedidoPizza = { 'key_id' : 1,
                     'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,   
                     'mod_sabor_jugo' : this.state.textoBoton,               
-                    'costo_jugo' : 6000 * this.state.cantidadProducto,
+                    'costo_jugo' : 7000 * this.state.cantidadProducto,
                     'id_pedido': 'Pedido_Jugo_0'};
         localStorage.setItem('Pedido_Jugo_0', JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': 1}))
@@ -164,7 +164,7 @@ toggleModalAceptarLimonadaJarra = () => {
         pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                     'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,  
                     'mod_sabor_jugo' : this.state.textoBoton,                  
-                    'costo_jugo' : (6000) * this.state.cantidadProducto,                    
+                    'costo_jugo' : (7000) * this.state.cantidadProducto,                    
                     'id_pedido': `Pedido_Jugo_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Jugo_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
@@ -266,7 +266,7 @@ toggleModalAceptarLulada = () => {
         pedidoPizza = { 'key_id' : 1,
                     'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,   
                     'mod_sabor_jugo' : this.state.textoBoton + ', ' +  this.state.MangoLeche  ,                  
-                    'costo_jugo' : (6000 + adicionLeche) * this.state.cantidadProducto,
+                    'costo_jugo' : (7000 + adicionLeche) * this.state.cantidadProducto,
                     'id_pedido': 'Pedido_Jugo_0'};
         localStorage.setItem('Pedido_Jugo_0', JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': 1}))
@@ -274,7 +274,7 @@ toggleModalAceptarLulada = () => {
         pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                     'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,  
                     'mod_sabor_jugo' : this.state.textoBoton + ', ' +  this.state.MangoLeche  ,                    
-                    'costo_jugo' : (6000 + adicionLeche) * this.state.cantidadProducto,                       
+                    'costo_jugo' : (7000 + adicionLeche) * this.state.cantidadProducto,                       
                     'id_pedido': `Pedido_Jugo_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Jugo_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))

@@ -30,7 +30,7 @@ class PizzaGrandeUnCuarto extends Component {
             textoBoton: 'NO ES PROMOCION',
             stringPizza: 'PIZZA GRANDE CUARTO',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 56000,
+            costoPizzaMediana: 61000,
         }
     }
 
@@ -294,7 +294,7 @@ esPromocion = () => {
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             stringPizza: 'PIZZA GRANDE CUARTO PROMOCION',
-            costoPizzaMediana: 49500
+            costoPizzaMediana: 53000
         })
     }else(
         this.setState({
@@ -302,7 +302,7 @@ esPromocion = () => {
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
             stringPizza: 'PIZZA GRANDE CUARTO',
-            costoPizzaMediana: 56000
+            costoPizzaMediana: 61000
         })
     ) 
 }

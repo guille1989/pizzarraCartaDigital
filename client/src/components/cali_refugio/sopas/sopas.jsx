@@ -127,6 +127,8 @@ toggleModalAceptar = () => {
         costoSopa = 10000
     }else if(this.state.saborpizza === "CEBOLLA"){
         costoSopa = 10000
+    }else if(this.state.saborpizza === "VERDURAS"){
+        costoSopa = 11000
     }
 
     if(contPersonales[0] === null){

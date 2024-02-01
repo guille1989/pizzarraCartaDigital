@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import PastaLasagna from './pasta/lasagna'
 import PastaSpagetti from './spagetti/spagetti'
+import PastaRaviolis from './raviolis/raviolis'
 
 class MenuPasta extends Component{
     constructor(props){
@@ -22,6 +23,14 @@ class MenuPasta extends Component{
     menuopcionesSpagetti(event){
         if(this.state.estado === 'inicio'){
             this.setState({estado: 'PASTA'})
+        }else{
+            this.setState({estado: 'inicio'})
+        }
+    }
+
+    menuopcionesRaviolis(event){
+        if(this.state.estado === 'inicio'){
+            this.setState({estado: 'RAVIOLIS'})
         }else{
             this.setState({estado: 'inicio'})
         }
@@ -53,10 +62,16 @@ class MenuPasta extends Component{
                                     <h1 className="pizzaOpcion">FETUCCINI O SPAGHETTI</h1>
                                 </div>                
                             </div>
+                            <div>
+                                <div className="pizzaItem" onClick={(e) => ( this.menuopcionesRaviolis(e))}>
+                                    <h1 className="pizzaOpcion">RAVIOLIS</h1>
+                                </div>                
+                            </div>
                         </div>
                     );
                 case "LASAGNA": return <PastaLasagna atrasMenuPersonal={this.atrasPersonal} />    
-                case "PASTA": return <PastaSpagetti atrasMenuPersonal={this.atrasPersonal} />            
+                case "PASTA": return <PastaSpagetti atrasMenuPersonal={this.atrasPersonal} />     
+                case "RAVIOLIS": return <PastaRaviolis atrasMenuPersonal={this.atrasPersonal} />        
                 default:  return <p style={{textAlign: 'center'}}>SELECCIONE OPCION</p>
             } 
         }

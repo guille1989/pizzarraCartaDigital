@@ -46,6 +46,7 @@ leerLocalStorage = () => {
     let costoAuxPantalon = 0
     let costoAuxPancook = 0
     let costoAuxLasagna = 0
+    let costoAuxRaviolis = 0
     let costoAuxPasta = 0
     let costoAuxSopa = 0
     let costoAucPanAjo = 0
@@ -187,6 +188,26 @@ leerLocalStorage = () => {
             hayorden: true
         })
     }
+
+     //Raviolis
+     let pizzaRavioli = [JSON.parse(localStorage.getItem('Numero_Raviolis'))]
+     if(pizzaRavioli[0] !== null){
+         for(let i=0; i < pizzaRavioli[0].Numero; i++){
+             dato = JSON.parse(localStorage.getItem(`Pedido_Ravioli_${i}`))
+             if(dato !== null){
+                 orden.push(dato)
+             }
+         }  
+         //Sacamos el total        
+         Object.values(orden).map((item, i) => {
+             if(item.costo_adiciones_ravioli !== undefined && item.costo_ravioli !== undefined){
+                 costoAuxRaviolis = costoAuxRaviolis + item.costo_adiciones_ravioli + item.costo_ravioli
+             }   
+         })
+         this.setState({
+             hayorden: true
+         })
+     }
 
     //Pasta
     let pizzaPasta = [JSON.parse(localStorage.getItem('Numero_Pastas'))]
@@ -372,7 +393,7 @@ leerLocalStorage = () => {
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxRaviolis + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas,
         pedidoInsumos: datoInsumos
     })
 
@@ -416,6 +437,7 @@ render(){
                                     {item.sabor_sopa ? ( <p>Sabor Sopa: <strong>{item.sabor_sopa} {item.mod_sabor_sopa}</strong></p> ) : ( <p></p> )}     
                                     {item.sabor_pasta ? ( <p>Sabor Pasta: <strong>{item.sabor_pasta} {item.mod_sabor_pasta}</strong></p> ) : ( <p></p> )} 
                                     {item.sabor_lasagna ? ( <p>Sabor Lasagna: <strong>{item.sabor_lasagna} {item.mod_sabor_lasagna}</strong></p> ) : ( <p></p> )}   
+                                    {item.sabor_ravioli ? ( <p>Sabor Ravioli: <strong>{item.sabor_ravioli} {item.mod_sabor_ravioli}</strong></p> ) : ( <p></p> )}   
                                     {item.cuarto_uno ? ( <p>Cuarto Uno: <strong>{item.cuarto_uno} {item.mod_cuarto_uno}</strong></p> ) : ( <p></p> )}
                                     {item.ind_cuarto_uno_adicional ? ( <p>Cuarto Uno Observaciones: <strong>{item.ind_cuarto_uno_adicional}</strong></p> ) : ( <p></p> )}
                                     {item.cuarto_dos ? ( <p>Cuarto Dos: <strong>{item.cuarto_dos} {item.mod_cuarto_dos}</strong></p> ) : ( <p></p> )}
@@ -436,6 +458,7 @@ render(){
                                     {item.ind_sopa_adicional ? ( <p>Sopa Observaciones: <strong>{item.ind_sopa_adicional}</strong></p> ) : ( <p></p> )} 
                                     {item.ind_pasta_adicional ? ( <p>Pasta Observaciones: <strong>{item.ind_pasta_adicional}</strong></p> ) : ( <p></p> )} 
                                     {item.ind_lasagna_adicional ? ( <p>Lasagna Observaciones: <strong>{item.ind_lasagna_adicional}</strong></p> ) : ( <p></p> )}
+                                    {item.ind_ravioli_adicional ? ( <p>Ravioli Observaciones: <strong>{item.ind_ravioli_adicional}</strong></p> ) : ( <p></p> )}
                                     {/*item.mod_mitad_uno ? ( <p>Mitad Uno Adiciones/Sin: <strong>{item.mod_mitad_uno}</strong></p> ) : ( <p></p> )*/}
                                     {item.ind_mitad_uno_adicional ? ( <p>Mitad Uno Observaciones: <strong>{item.ind_mitad_uno_adicional}</strong></p> ) : ( <p></p> )}
 
@@ -453,6 +476,7 @@ render(){
 
                                     {item.costo_adiciones_pasta ? ( <p>Total Adicion: <strong>{item.costo_adiciones_pasta}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones_lasagna ? ( <p>Total Adicion: <strong>{item.costo_adiciones_lasagna}</strong></p> ) : <p></p> }
+                                    {item.costo_adiciones_ravioli ? ( <p>Total Adicion: <strong>{item.costo_adiciones_ravioli}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones ? ( <p>Total Adicion: <strong>{item.costo_adiciones}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones_grande ? ( <p>Total Adicion: <strong>{item.costo_adiciones_grande}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones_pantalon ? ( <p>Total Adicion: <strong>{item.costo_adiciones_pantalon}</strong></p> ) : <p></p> }
@@ -470,6 +494,7 @@ render(){
                                     {item.costo_sopa ? ( <p>Total Sopa: <strong>{item.costo_sopa}</strong></p> ) : <p></p> }
                                     {item.costo_pasta ? ( <p>Total Pasta: <strong>{item.costo_pasta}</strong></p> ) : <p></p> }
                                     {item.costo_lasagna ? ( <p>Total Lasagna: <strong>{item.costo_lasagna}</strong></p> ) : <p></p> }
+                                    {item.costo_ravioli ? ( <p>Total Ravioli: <strong>{item.costo_ravioli}</strong></p> ) : <p></p> }
                                     {item.costo_personal ? ( <p>Total Pizza: <strong>{item.costo_personal}</strong></p> ) : <p></p>}
                                     {item.costo_grande ? ( <p>Total Pizza: <strong>{item.costo_grande}</strong></p> ) : <p></p>}
                                     {item.costo_pancook ? ( <p>Total Pancook: <strong>{item.costo_pancook}</strong></p> ) : <p></p>}
@@ -498,6 +523,10 @@ render(){
                                         }
 
                                         if(item.id_pedido.includes('Lasagna')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('Ravioli')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
