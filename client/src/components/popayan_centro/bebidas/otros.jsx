@@ -35,7 +35,7 @@ atrasPersonal = () => {
 handleAgua = () => {
     this.setState({
         producto: 'AGUA SIN GAS',
-        costoProducto: 3000
+        costoProducto: 4000
     })
 
     //Toggle Modal
@@ -73,7 +73,7 @@ handleAgua = () => {
 handleAguaGas = () => {
     this.setState({
         producto: 'AGUA CON GAS',
-        costoProducto: 3000
+        costoProducto: 4000
     })
 
     //Toggle Modal
