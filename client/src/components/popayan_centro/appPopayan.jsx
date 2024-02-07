@@ -31,6 +31,7 @@ class appCali extends Component {
     this.state={
       modalPedido : false,
       datoOrden: [],
+      dataOrdenAux: [],
       tipo_pedido_p: 'MESA',
       opcionOrden: 'MESA',
       mesaOrden: '',
@@ -47,13 +48,15 @@ class appCali extends Component {
       costoRoomService: 0,
       segPedidos: false,
       opcionCortesia: 'No',
-      insumosOrden: []
+      insumosOrden: [],
+      costoRoomService: 10000
     }
   }
 
   confirmarPedido = (orden, costo, insumos) => {
     this.setState({
       datoOrden: orden,
+      dataOrdenAux: JSON.parse(JSON.stringify(orden)),
       costoOrden: costo,
       insumosOrden: insumos
     })
@@ -276,35 +279,9 @@ toggleModalCancelar = () => {
 }
 
 changeOpcion = (e) => {  
-  if (e.target.value === 'ROOM SERVICE') {
-    let aux = this.state.datoOrden.map((item) => {
-      if(item.tipo.includes('PIZZA PERSONAL')){
-        item.costo_personal = 21000
-      }else if(item.tipo.includes('PIZZA PANTALON')){
-        item.costo_pantalon = 22000
-      }else if(item.tipo.includes('PIZZA PANCOOK')){
-        item.costo_pancook = 21000
-      }else if(item.tipo.includes('LASAGNA SALSA: NAPOLITANA')){
-        item.costo_lasagna = 26000
-      }else if(item.tipo.includes('LASAGNA SALSA: QUESO')){
-        item.costo_lasagna = 31000
-      }else if(item.tipo.includes('RAVIOLI')){
-        item.costo_ravioli = 35000
-      }else if(item.tipo.includes('PASTA') && item.tipo.includes('NAPOLITANA')){
-        item.costo_pasta = 27000
-      }else if(item.tipo.includes('PASTA') && item.tipo.includes('SALSA BLANCA')){
-        item.costo_pasta = 32000
-      }
-      return item
-    })
 
-    this.setState({
-      opcionOrden: e.target.value,
-      costoRoomService: 10000,
-      costoOrdenAux: ''
-    })
-  }else if(e.target.value === 'CARTA FAMILIA'){
-    console.log(this.state.costoOrden)
+  if(e.target.value === 'CARTA FAMILIA'){
+    //console.log(this.state.costoOrden)
     //Ajustamos los costos de la Pizza personal, el pancool, el pantalo y las pastas a 7500
     //iterate through each element in the array dataOrden and change the costo_pedido
     //change the cost to 7500 of element with key by key word
@@ -327,38 +304,16 @@ changeOpcion = (e) => {
     })
 
     this.setState({
-      opcionOrden: e.target.value,
-      costoRoomService: 0,
-      costoOrdenAux: '**'
+      opcionOrden: e.target.value
     })
 
-  }else{
-
-    let aux = this.state.datoOrden.map((item) => {
-      if(item.tipo.includes('PIZZA PERSONAL')){
-        item.costo_personal = 21000
-      }else if(item.tipo.includes('PIZZA PANTALON')){
-        item.costo_pantalon = 22000
-      }else if(item.tipo.includes('PIZZA PANCOOK')){
-        item.costo_pancook = 21000
-      }else if(item.tipo.includes('LASAGNA SALSA: NAPOLITANA')){
-        item.costo_lasagna = 26000
-      }else if(item.tipo.includes('LASAGNA SALSA: QUESO')){
-        item.costo_lasagna = 31000
-      }else if(item.tipo.includes('RAVIOLI')){
-        item.costo_ravioli = 35000
-      }else if(item.tipo.includes('PASTA') && item.tipo.includes('NAPOLITANA')){
-        item.costo_pasta = 27000
-      }else if(item.tipo.includes('PASTA') && item.tipo.includes('SALSA BLANCA')){
-        item.costo_pasta = 32000
-      }
-      return item
-    })
-
+  }else{  
+    console.log('orednaux', this.state.dataOrdenAux)
+    console.log('orden', this.state.datoOrden)
+    let dataAux = this.state.dataOrdenAux
     this.setState({
-      opcionOrden: e.target.value,
-      costoRoomService: 0,
-      costoOrdenAux:''
+      datoOrden: JSON.parse(JSON.stringify(this.state.dataOrdenAux)),
+      opcionOrden: e.target.value
     }) 
   }
 }
@@ -1128,6 +1083,33 @@ printerPedidosConnect(cmdsAux, costoDomi){
       */
 }
 
+costoPedidoCompleto(){
+  if (this.state.opcionOrden === "ROOM SERVICE"){
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>
+    )
+  }else if(this.state.opcionOrden === "CARTA FAMILIA"){
+    console.log(this.state.datoOrden)
+    let sum = 0;
+    this.state.datoOrden.forEach((item) => {
+      for (let key in item) {
+        if (key.startsWith('cost')) {
+          sum += Number(item[key]);
+        }
+      }
+    });
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {sum}</p>
+    )
+    
+  }else{
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden}</p>
+    )
+  
+  }
+} 
+
   render(){
     return(
       <>
@@ -1236,6 +1218,8 @@ printerPedidosConnect(cmdsAux, costoDomi){
                     {item.costo_otros ? ( <p className='itemPrecio'  >....................{item.costo_otros}</p> ) : ( <p></p> )}
                     {/*Costo panaderia*/}
                     {item.costo_panaderia ? ( <p className='itemPrecio'  >....................{item.costo_panaderia}</p> ) : ( <p></p> )}
+                    
+                  
                   </div>
                   {/*cerveza*/}
                   {item.mod_sabor_cerveza ? ( <p className='itemSabor'>{item.mod_sabor_cerveza}</p> ) : ( <p></p> )}
@@ -1310,12 +1294,14 @@ printerPedidosConnect(cmdsAux, costoDomi){
                   {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
                 </>
               )
-            })}   
+            })} 
 
-            {this.state.costoRoomService ? ( <p className='itemOrdenFinal'>ROOM SERVICE: {this.state.costoRoomService}</p> ) : ( <p></p> )}
+            {/*Costo room service*/}
+            {this.state.opcionOrden === "ROOM SERVICE" ? ( <p className='itemOrdenFinal'>ROOM SERVICE: {this.state.costoRoomService}</p> ) : ( <p></p> )}
 
-            {this.state.costoOrdenAux ? (<p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrdenAux}</p>):(<p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>)}
-
+            {/*Costo de todo el pedido*/}
+            {this.costoPedidoCompleto()}
+            
           </ModalBody>
           <ModalFooter>
               <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button> 
