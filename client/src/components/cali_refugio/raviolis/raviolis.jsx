@@ -174,6 +174,21 @@ esPromocion = () => {
     ) 
 }
 
+handleOpcionSalsaRaviolis = (event) => {
+    console.log(event.target.value)
+
+    if(event.target.value === "NAPOLITANA"){
+        this.setState({textoBoton: 'NAPOLITANA',
+                        costoRaviolis: 35000})
+    }else if(event.target.value === "ALFREDO"){
+        this.setState({textoBoton: 'ALFREDO',
+                        costoRaviolis: 35000})
+    }else if(event.target.value === "PESTO"){
+        this.setState({textoBoton: 'PESTO',
+                        costoRaviolis: 35000})
+    }
+}
+
 render(){
     const opcionPizza = () => {
         switch(this.state.estado) {
@@ -183,7 +198,13 @@ render(){
                 <div className='centrarButtonPromocionLasagna'>
                     <p style={{textAlign: 'center'}}>RAVIOLIS - SALSA:</p>
                     <p> </p>  
-                    <button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>
+                     {/*<button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>*/}
+
+                     <select class="form-select" aria-label="Default select example" style={{width:"10%"}} onChange={this.handleOpcionSalsaRaviolis}>
+                        <option value="NAPOLITANA">NAPOLITANA</option>
+                        <option value="ALFREDO">ALFREDO</option>
+                        <option value="PESTO">PESTO</option>
+                    </select>
                 </div>          
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <div className='adicioncompleta' onClick={this.adicionIngrediente}>                                
