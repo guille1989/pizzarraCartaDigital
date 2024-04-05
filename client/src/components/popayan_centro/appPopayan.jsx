@@ -282,23 +282,23 @@ changeOpcion = (e) => {
 
   if(e.target.value === 'CARTA FAMILIA'){
     //console.log(this.state.costoOrden)
-    //Ajustamos los costos de la Pizza personal, el pancool, el pantalo y las pastas a 7500
+    //Ajustamos los costos de la Pizza personal, el pancool, el pantalo y las pastas a 10000
     //iterate through each element in the array dataOrden and change the costo_pedido
-    //change the cost to 7500 of element with key by key word
+    //change the cost to 10000 of element with key by key word
 
     let aux = this.state.datoOrden.map((item) => {
       if(item.tipo.includes('PIZZA PERSONAL')){
-        item.costo_personal = 7500
+        item.costo_personal = 10000
       }else if(item.tipo.includes('PIZZA PANTALON')){
-        item.costo_pantalon = 7500
+        item.costo_pantalon = 10000
       }else if(item.tipo.includes('PIZZA PANCOOK')){
-        item.costo_pancook = 7500
+        item.costo_pancook = 10000
       }else if(item.tipo.includes('LASAGNA')){
-        item.costo_lasagna = 7500
+        item.costo_lasagna = 10000
       }else if(item.tipo.includes('PASTA')){
-        item.costo_pasta = 7500
+        item.costo_pasta = 10000
       }else if(item.tipo.includes('RAVIOLI')){
-        item.costo_ravioli = 7500
+        item.costo_ravioli = 10000
       }
       return item
     })
