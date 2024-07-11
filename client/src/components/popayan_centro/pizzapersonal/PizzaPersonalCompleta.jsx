@@ -136,7 +136,7 @@ toggleModalAceptar = () => {
                     'sabor_personal' : this.state.saborpizza,
                     'mod_sabor_personal' : this.state.saborpizzaadicion,
                     'ind_personal_adicional': this.state.indAdicional,
-                    'costo_personal' : this.state.costoPizzaPersonal,
+                    'costo_personal' : this.state.saborpizza === 'FESTIVAL' ? 19000 : this.state.costoPizzaPersonal,
                     'costo_adiciones' : costoadicion,
                     'id_pedido': 'Pedido_Personal_0'}, this.state.ingredientes, this.state.ingredientesExtra];
         //insumosPizzaPersonal = this.state.ingredientes;
@@ -148,7 +148,7 @@ toggleModalAceptar = () => {
                     'sabor_personal' : this.state.saborpizza,
                     'mod_sabor_personal' : this.state.saborpizzaadicion,
                     'ind_personal_adicional': this.state.indAdicional,
-                    'costo_personal' : this.state.costoPizzaPersonal,
+                    'costo_personal' : this.state.saborpizza === 'FESTIVAL' ? 19000 : this.state.costoPizzaPersonal,
                     'costo_adiciones' : costoadicion,
                     'id_pedido': `Pedido_Personal_${contPersonales[0].Numero}`}, this.state.ingredientes, this.state.ingredientesExtra];
         localStorage.setItem(`Pedido_Personal_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
