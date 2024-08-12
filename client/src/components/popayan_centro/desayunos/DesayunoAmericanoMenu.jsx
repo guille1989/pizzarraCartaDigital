@@ -22,7 +22,7 @@ class DesayunoAmericanoMenu extends Component {
             promo: false,
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 20000,
+            costoDesaynoAmericano: 15000,
             ingredientes: [],
             ingredientesExtra: [],
             tipobebidadesayuno: '',
@@ -134,7 +134,7 @@ toggleModalAceptar = () => {
                         'ind_desayuno_adicional': this.state.indAdicional,
                         'desayuno_tipo_huevos': this.state.tipohuevosdesayuno,
                         'desayuno_tipo_bebida': this.state.tipobebidadesayuno,
-                        'costo_desayuno_americano' :this.state.cantidadDesayuno * this.state.costoPizzaPersonal,
+                        'costo_desayuno_americano' :this.state.cantidadDesayuno * this.state.costoDesaynoAmericano,
                         'costo_adiciones_americano' :this.state.cantidadDesayuno * costoadicion,
                         'id_pedido': 'Pedido_Desayuno_Americano_0'}, this.state.ingredientes, this.state.ingredientesExtra];
             //insumosPizzaPersonal = this.state.ingredientes;
@@ -148,7 +148,7 @@ toggleModalAceptar = () => {
                         'ind_desayuno_adicional': this.state.indAdicional,
                         'desayuno_tipo_huevos': this.state.tipohuevosdesayuno,
                         'desayuno_tipo_bebida': this.state.tipobebidadesayuno,
-                        'costo_desayuno_americano' :this.state.cantidadDesayuno * this.state.costoPizzaPersonal,
+                        'costo_desayuno_americano' :this.state.cantidadDesayuno * this.state.costoDesaynoAmericano,
                         'costo_adiciones_americano' :this.state.cantidadDesayuno * costoadicion,
                         'id_pedido': `Pedido_Desayuno_Americano_${contPersonales[0].Numero}`}, this.state.ingredientes, this.state.ingredientesExtra];
             localStorage.setItem(`Pedido_Desayuno_Americano_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
