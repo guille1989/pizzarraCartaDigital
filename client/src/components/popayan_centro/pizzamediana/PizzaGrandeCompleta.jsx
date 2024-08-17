@@ -22,7 +22,7 @@ class PizzaGrandeCompleta extends Component {
             textoBoton: 'NO ES PROMOCION',
             strongPizza: 'PIZZA GRANDE COMPLETA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 61000,
+            costoPizzaMediana: parseInt(process.env.REACT_APP_PIZZA_GRANDE_COSTO)
         }
     }
 onClickBack = () => {
@@ -164,7 +164,7 @@ esPromocion = () => {
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             strongPizza: 'PIZZA GRANDE COMPLETA PROMOCION',
-            costoPizzaMediana: 53000
+            costoPizzaMediana: parseInt(process.env.REACT_APP_DOS_GRANDES_PROMOCION_COSTO)/2
         })
     }else(
         this.setState({
@@ -172,7 +172,7 @@ esPromocion = () => {
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
             strongPizza: 'PIZZA GRANDE COMPLETA',
-            costoPizzaMediana: 61000
+            costoPizzaMediana: parseInt(process.env.REACT_APP_PIZZA_GRANDE_COSTO)
         })
     ) 
 }

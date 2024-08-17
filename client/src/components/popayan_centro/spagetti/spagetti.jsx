@@ -23,7 +23,7 @@ class spagetti extends Component {
             textoBoton: 'SPAGHETTI',
             textoBotonSalsa: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoSpaghetti: 29000,
+            costoSpaghetti: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO),
             costoSpaghettiSalsa: 0,
             classSalsa: 'buttonBolognesa',
             classTipo: 'buttonBolognesa',
@@ -166,14 +166,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'FETUCCINI',
             classSalsa: 'buttonQueso',
-            costoSpaghetti: 29000
+            costoSpaghetti: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO)
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSalsa: 'buttonBolognesa',
-            costoSpaghetti: 29000
+            costoSpaghetti: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO)
         })
     ) 
 }

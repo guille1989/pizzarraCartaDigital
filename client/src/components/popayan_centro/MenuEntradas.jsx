@@ -52,14 +52,14 @@ class MenuEntradas extends Component{
             //Guardamos en local Storage
             pedidoPizza = { 'key_id' : 1,
                         'tipo' : ' PAN AJO X ' + this.state.cantidadProducto,                        
-                        'costo_pan_ajo' : 7000 * this.state.cantidadProducto,
+                        'costo_pan_ajo' : parseInt(process.env.REACT_APP_PAN_AJO_COSTO) * this.state.cantidadProducto,
                         'id_pedido': 'Pedido_PanAjo_0'};
             localStorage.setItem('Pedido_PanAjo_0', JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_PanAjos', JSON.stringify({'Numero': 1}))
         }else{
             pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                         'tipo' : ' PAN AJO X ' + this.state.cantidadProducto,                         
-                        'costo_pan_ajo' : 7000 * this.state.cantidadProducto,                       
+                        'costo_pan_ajo' : parseInt(process.env.REACT_APP_PAN_AJO_COSTO) * this.state.cantidadProducto,                       
                         'id_pedido': `Pedido_PanAjo_${contPersonales[0].Numero}`};
             localStorage.setItem(`Pedido_PanAjo_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_PanAjos', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))

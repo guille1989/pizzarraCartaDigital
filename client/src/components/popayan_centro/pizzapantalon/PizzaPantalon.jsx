@@ -124,7 +124,7 @@ toggleModalAceptar = () => {
                     'sabor_pantalon' : this.state.saborpizza,
                     'mod_sabor_pantalon' : this.state.saborpizzaadicion,
                     'ind_pantalon_adicional': this.state.indAdicional,
-                    'costo_pantalon' : 24000,
+                    'costo_pantalon' : parseInt(process.env.REACT_APP_PIZZA_PANTALON_COSTO),
                     'costo_adiciones_pantalon' : costoadicion,
                     'id_pedido': 'Pedido_Pantalon_0'};
         localStorage.setItem('Pedido_Pantalon_0', JSON.stringify(pedidoPizza))
@@ -135,7 +135,7 @@ toggleModalAceptar = () => {
                     'sabor_pantalon' : this.state.saborpizza,
                     'mod_sabor_pantalon' : this.state.saborpizzaadicion,
                     'ind_pantalon_adicional': this.state.indAdicional,
-                    'costo_pantalon' : 24000,
+                    'costo_pantalon' : parseInt(process.env.REACT_APP_PIZZA_PANTALON_COSTO),
                     'costo_adiciones_pantalon' : costoadicion,
                     'id_pedido': `Pedido_Pantalon_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Pantalon_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))

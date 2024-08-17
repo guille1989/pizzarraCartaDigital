@@ -21,7 +21,7 @@ class lasagna extends Component {
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoRaviolis: 35000,
+            costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO),
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'QUESO',
             classSalsa: 'buttonQueso',
-            costoRaviolis: 35000
+            costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO)
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSalsa: 'buttonBolognesa',
-            costoRaviolis: 35000
+            costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO)
         })
     ) 
 }
@@ -179,13 +179,13 @@ handleOpcionSalsaRaviolis = (event) => {
 
     if(event.target.value === "NAPOLITANA"){
         this.setState({textoBoton: 'NAPOLITANA',
-                        costoRaviolis: 35000})
+                        costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO)})
     }else if(event.target.value === "ALFREDO"){
         this.setState({textoBoton: 'ALFREDO',
-                        costoRaviolis: 35000})
+                        costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO)})
     }else if(event.target.value === "PESTO"){
         this.setState({textoBoton: 'PESTO',
-                        costoRaviolis: 35000})
+                        costoRaviolis: parseInt(process.env.REACT_APP_RAVIOLIS_COSTO)})
     }
 }
 

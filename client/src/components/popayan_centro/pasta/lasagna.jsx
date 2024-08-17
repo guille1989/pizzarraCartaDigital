@@ -21,7 +21,7 @@ class lasagna extends Component {
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoLasagna: 28000,
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_COSTO),
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'QUESO',
             classSalsa: 'buttonQueso',
-            costoLasagna: 34000
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_CREMA)
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSalsa: 'buttonBolognesa',
-            costoLasagna: 28000
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_COSTO)
         })
     ) 
 }

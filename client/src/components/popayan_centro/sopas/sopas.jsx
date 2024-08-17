@@ -21,7 +21,7 @@ class sopas extends Component {
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 10000,
+            costoPizzaPersonal: 0,
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -122,14 +122,14 @@ toggleModalAceptar = () => {
     //Guardamos en local Storag 
     let contPersonales = [JSON.parse(localStorage.getItem('Numero_Sopas'))]
 
-    let costoSopa = 8000
+    let costoSopa = parseInt(process.env.REACT_APP_SOPA_TOMATE_COSTO)
 
     if(this.state.saborpizza === "POLLO"){
-        costoSopa = 10000
+        costoSopa = parseInt(process.env.REACT_APP_SOPA_POLLO_COSTO)
     }else if(this.state.saborpizza === "CEBOLLA"){
-        costoSopa = 10000
+        costoSopa = parseInt(process.env.REACT_APP_SOPA_CEBOLLA_COSTO)
     }else if(this.state.saborpizza === "VERDURAS"){
-        costoSopa = 11000
+        costoSopa = parseInt(process.env.REACT_APP_SOPA_VERDURAS_COSTO)
     }
 
     if(contPersonales[0] === null){

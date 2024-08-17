@@ -24,7 +24,7 @@ class PizzaPersonalMitad extends Component {
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
             stringPizza: 'PIZZA PERSONAL MITAD',
-            costoPizzaPersonal: 22000,
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_PIZZA_PERSONAL_COSTO),
             ingredientesMitadUno: [],
             ingredientesMitadDos: [],
             ingredientesMitadUnoExtra: [],
@@ -231,7 +231,7 @@ esPromocion = () => {
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             stringPizza: 'PIZZA PERSONAL MITAD PROMOCION',
-            costoPizzaPersonal: 20000
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_CUATRO_PERSONALES_PROMOCION_COSTO)/4,
         })
     }else(
         this.setState({
@@ -239,7 +239,7 @@ esPromocion = () => {
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
             stringPizza: 'PIZZA PERSONAL MITAD',
-            costoPizzaPersonal: 22000
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_PIZZA_PERSONAL_COSTO),
         })
     ) 
 }
