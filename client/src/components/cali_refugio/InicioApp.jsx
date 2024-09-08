@@ -5,6 +5,8 @@ import MenuPasta from './MenuPasta';
 import InicioMenu from './InicioMenu';
 import MenuBebidas from './MenuBebidas';
 import MenuEntradas from './MenuEntradas';
+import MenuOtros from '../popayan_centro/MenuOtros';
+import Panaderia from '../popayan_centro/panaderia/MenuPanaderia';
 import Pedido from './Pedido';
 import {
   BrowserRouter as Router,
@@ -27,6 +29,8 @@ const InicioApp = () => {
         <Route path="/MenuPizza" component={() => (<MenuPizza />)} exact />
         <Route path="/MenuBebidas" component={MenuBebidas} exact />
         <Route path="/MenuEntradas" component={MenuEntradas} exact />
+        <Route path="/MenuPanaderia" component={Panaderia} exact/>
+        <Route path="/MenuOtrosPopayan" component={MenuOtros} exact/>
       </Switch>
       <div className="pedido">
         <Pedido/>

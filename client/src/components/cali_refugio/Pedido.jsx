@@ -50,19 +50,47 @@ leerLocalStorage = () => {
     let costoAuxPasta = 0
     let costoAuxSopa = 0
     let costoAucPanAjo = 0
+    let costoAucPanaderia = 0
+    let costoAucDesayunoAmericano = 0
+    let costoAucDesayunoHuesped = 0
     let costoAuxTinto = 0
+    let costoAuxChocolate = 0
+    let costoAuxLeche = 0
     let costoAuxVino = 0
     let costoAuxJugo = 0
     let costoAuxCerveza = 0
     let costoAuxBebidas = 0
     let costoAuxGaseosas = 0
+    let costoAuxOtros = 0
+    let costoAuxPizzaFestival = 0
+
+    //Pizza Festival----------
+    let pizzaFestival = [JSON.parse(localStorage.getItem('Numero_PizzaEspecial'))]
+
+    if(pizzaFestival[0] !== null){
+
+        for(let i=0; i < pizzaFestival[0].Numero; i++){
+            dato = JSON.parse(localStorage.getItem(`Pedido_PizzaEspecial_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_pizza_festival !== undefined){
+                costoAuxPizzaFestival = costoAuxPizzaFestival + item.costo_pizza_festival
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
 
     //Personales-----------------
     let pizzaPersonal = [JSON.parse(localStorage.getItem('Numero_Personales'))]
-    //console.log(pizzaPersonal)
 
     if(pizzaPersonal[0] !== null){
-        for(let i=0; i <= pizzaPersonal[0].Numero; i++){
+        for(let i=0; i <= pizzaPersonal[0].Numero; i++){            
             dato = JSON.parse(localStorage.getItem(`Pedido_Personal_Mitad_${i}`))            
             if(dato !== null){
                 //console.log(dato)
@@ -75,6 +103,7 @@ leerLocalStorage = () => {
         }     
         //AQUI COMIENZA LA PRUEBA !!!   
         for(let i=0; i <= pizzaPersonal[0].Numero; i++){
+            //console.log(JSON.parse(localStorage.getItem(`Pedido_Personal_${i}`)))
             dato = JSON.parse(localStorage.getItem(`Pedido_Personal_${i}`))            
             if(dato !== null){
                 //console.log(dato)
@@ -169,6 +198,26 @@ leerLocalStorage = () => {
         })
     }
 
+    //Raviolis
+    let pizzaRavioli = [JSON.parse(localStorage.getItem('Numero_Raviolis'))]
+    if(pizzaRavioli[0] !== null){
+        for(let i=0; i < pizzaRavioli[0].Numero; i++){
+            dato = JSON.parse(localStorage.getItem(`Pedido_Ravioli_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_adiciones_ravioli !== undefined && item.costo_ravioli !== undefined){
+                costoAuxRaviolis = costoAuxRaviolis + item.costo_adiciones_ravioli + item.costo_ravioli
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Lasagna
     let pizzaLasagna = [JSON.parse(localStorage.getItem('Numero_Lasagnas'))]
     if(pizzaLasagna[0] !== null){
@@ -188,26 +237,6 @@ leerLocalStorage = () => {
             hayorden: true
         })
     }
-
-     //Raviolis
-     let pizzaRavioli = [JSON.parse(localStorage.getItem('Numero_Raviolis'))]
-     if(pizzaRavioli[0] !== null){
-         for(let i=0; i < pizzaRavioli[0].Numero; i++){
-             dato = JSON.parse(localStorage.getItem(`Pedido_Ravioli_${i}`))
-             if(dato !== null){
-                 orden.push(dato)
-             }
-         }  
-         //Sacamos el total        
-         Object.values(orden).map((item, i) => {
-             if(item.costo_adiciones_ravioli !== undefined && item.costo_ravioli !== undefined){
-                 costoAuxRaviolis = costoAuxRaviolis + item.costo_adiciones_ravioli + item.costo_ravioli
-             }   
-         })
-         this.setState({
-             hayorden: true
-         })
-     }
 
     //Pasta
     let pizzaPasta = [JSON.parse(localStorage.getItem('Numero_Pastas'))]
@@ -269,6 +298,80 @@ leerLocalStorage = () => {
         })
     }
 
+    //Panaderia
+    let pizzaPanaderia = [JSON.parse(localStorage.getItem('Numero_Panaderia'))]
+    //console.log(pizzaPanaderia)
+    if(pizzaPanaderia[0] !== null){
+        for(let i=0; i < pizzaPanaderia[0].Numero; i++){
+            //console.log(i)
+            //console.log(JSON.parse(localStorage.getItem(`Pedido_Panaderia_${i}`)))
+            dato = JSON.parse(localStorage.getItem(`Pedido_Panaderia_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_panaderia !== undefined){
+                costoAucPanaderia = costoAucPanaderia + item.costo_panaderia
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
+    //Desayuno Americano
+    let pizzaDesayunoAmericano = [JSON.parse(localStorage.getItem('Numero_Desayuno_Americano'))]
+    //console.log(pizzaDesayunoAmericano)
+    if(pizzaDesayunoAmericano[0] !== null){
+        for(let i=0; i < pizzaDesayunoAmericano[0].Numero; i++){
+            //console.log(i)
+            //console.log(JSON.parse(localStorage.getItem(`Pedido_Desayuno_Americano_${i}`)))
+            if(JSON.parse(localStorage.getItem(`Pedido_Desayuno_Americano_${i}`)) !== null){
+                dato = JSON.parse(localStorage.getItem(`Pedido_Desayuno_Americano_${i}`))[0]
+                if(dato !== null){
+                    orden.push(dato)
+                }
+            }            
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_desayuno_americano !== undefined){
+                costoAucDesayunoAmericano = costoAucDesayunoAmericano + item.costo_desayuno_americano + item.costo_adiciones_americano
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
+    //Desayuno Huesped
+    let pizzaDesayunoHuesped = [JSON.parse(localStorage.getItem('Numero_Desayuno_Huesped'))]
+    //console.log(pizzaDesayunoAmericano)
+    if(pizzaDesayunoHuesped[0] !== null){
+        for(let i=0; i < pizzaDesayunoHuesped[0].Numero; i++){
+            //console.log(i)
+            //console.log(JSON.parse(localStorage.getItem(`Pedido_Desayuno_Americano_${i}`)))
+            if(JSON.parse(localStorage.getItem(`Pedido_Desayuno_Huesped_${i}`)) !== null){
+                dato = JSON.parse(localStorage.getItem(`Pedido_Desayuno_Huesped_${i}`))[0]
+                if(dato !== null){
+                    orden.push(dato)
+                }
+            }            
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            //console.log(item.costo_desayuno_huesped)
+            if(item.costo_desayuno_huesped !== undefined){
+                costoAucDesayunoHuesped = costoAucDesayunoHuesped + item.costo_desayuno_huesped + item.costo_adiciones_huesped
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Tinto
     let pizzaTinto = [JSON.parse(localStorage.getItem('Numero_Tintos'))]
     if(pizzaTinto[0] !== null){
@@ -282,6 +385,49 @@ leerLocalStorage = () => {
         Object.values(orden).map((item, i) => {
             if(item.costo_tinto !== undefined){
                 costoAuxTinto = costoAuxTinto + item.costo_tinto
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
+    //Chocolate
+    let pizzaChocolate = [JSON.parse(localStorage.getItem('Numero_Chocolates'))]
+    //console.log(pizzaChocolate[0])
+    if(pizzaChocolate[0] !== null){
+        for(let i=0; i < pizzaChocolate[0].Numero; i++){            
+            dato = JSON.parse(localStorage.getItem(`Pedido_Chocolate_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_chocolate !== undefined){
+                costoAuxChocolate = costoAuxChocolate + item.costo_chocolate
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
+
+    //leche
+    let pizzaLeche = [JSON.parse(localStorage.getItem('Numero_Leches'))]
+    //console.log(pizzaLeche[0])
+    if(pizzaLeche[0] !== null){
+        for(let i=0; i < pizzaLeche[0].Numero; i++){            
+            dato = JSON.parse(localStorage.getItem(`Pedido_Leche_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_leche !== undefined){
+                costoAuxLeche = costoAuxLeche + item.costo_leche
             }   
         })
         this.setState({
@@ -390,10 +536,30 @@ leerLocalStorage = () => {
         })
     }
 
+    //Salsa de tomate 16 onzas
+    let pizzaOtros = [JSON.parse(localStorage.getItem('Numero_Otros'))]
+    if(pizzaOtros[0] !== null){
+        for(let i=0; i < pizzaOtros[0].Numero; i++){
+            dato = JSON.parse(localStorage.getItem(`Pedido_Otros_${i}`))
+            if(dato !== null){
+                orden.push(dato)
+            }
+        }  
+        //Sacamos el total        
+        Object.values(orden).map((item, i) => {
+            if(item.costo_otros !== undefined){
+                costoAuxOtros = costoAuxOtros + item.costo_otros
+            }   
+        })
+        this.setState({
+            hayorden: true
+        })
+    }
+
     //Actualizamos pedido
     this.setState({
         pedidoOrden : orden,
-        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxRaviolis + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas,
+        costoOrde: costoAuxGrande + costoAux + costoAuxPantalon + costoAuxPancook + costoAuxLasagna + costoAuxRaviolis + costoAuxPasta + costoAuxSopa + costoAucPanAjo + costoAuxTinto + costoAuxVino + costoAuxJugo + costoAuxCerveza + costoAuxBebidas + costoAuxGaseosas + costoAucPanaderia + costoAucDesayunoAmericano + costoAucDesayunoHuesped + costoAuxChocolate + costoAuxOtros + costoAuxLeche + costoAuxPizzaFestival,
         pedidoInsumos: datoInsumos
     })
 
@@ -408,6 +574,8 @@ leerLocalStorage = () => {
 
         this.props.ordenPedido(this.state.pedidoOrden, this.state.costoOrde, this.state.pedidoInsumos)
     }
+
+    //console.log(orden)
 }
 
 componentWillUnmount() {
@@ -423,7 +591,8 @@ render(){
                 <hr></hr>
                     <div className='contenedorPedido'>
                     { this.state.hayorden ? (
-                        Object.values(this.state.pedidoOrden).map((item, i) => {   
+                        Object.values(this.state.pedidoOrden).map((item, i) => {  
+                            //console.log(item) 
                             return(
                                 <div key={i} className="pedidoOrden">
                                     <hr className='hr'></hr>
@@ -434,9 +603,10 @@ render(){
                                     {item.mod_sabor_cerveza ? ( <p><strong>{item.mod_sabor_cerveza}</strong></p> ) : ( <p></p> )}
                                     {item.mod_sabor_jugo ? ( <p><strong>{item.mod_sabor_jugo}</strong></p> ) : ( <p></p> )}
                                     {item.mod_sabor_cafe ? ( <p><strong>{item.mod_sabor_cafe}</strong></p> ) : ( <p></p> )}
+                                    {item.mod_sabor_chocolate ? ( <p><strong>{item.mod_sabor_chocolate}</strong></p> ) : ( <p></p> )}
                                     {item.sabor_sopa ? ( <p>Sabor Sopa: <strong>{item.sabor_sopa} {item.mod_sabor_sopa}</strong></p> ) : ( <p></p> )}     
                                     {item.sabor_pasta ? ( <p>Sabor Pasta: <strong>{item.sabor_pasta} {item.mod_sabor_pasta}</strong></p> ) : ( <p></p> )} 
-                                    {item.sabor_lasagna ? ( <p>Sabor Lasagna: <strong>{item.sabor_lasagna} {item.mod_sabor_lasagna}</strong></p> ) : ( <p></p> )}   
+                                    {item.sabor_lasagna ? ( <p>Sabor Lasagna: <strong>{item.sabor_lasagna} {item.mod_sabor_lasagna}</strong></p> ) : ( <p></p> )}  
                                     {item.sabor_ravioli ? ( <p>Sabor Ravioli: <strong>{item.sabor_ravioli} {item.mod_sabor_ravioli}</strong></p> ) : ( <p></p> )}   
                                     {item.cuarto_uno ? ( <p>Cuarto Uno: <strong>{item.cuarto_uno} {item.mod_cuarto_uno}</strong></p> ) : ( <p></p> )}
                                     {item.ind_cuarto_uno_adicional ? ( <p>Cuarto Uno Observaciones: <strong>{item.ind_cuarto_uno_adicional}</strong></p> ) : ( <p></p> )}
@@ -449,6 +619,14 @@ render(){
 
                                     {item.mitad_uno ? ( <p>Mitad Uno: <strong>{item.mitad_uno} {item.mod_mitad_uno}</strong></p> ) : ( <p></p> )}
                                     {item.sabor_grande ? ( <p>Sabor Pizza: <strong>{item.sabor_grande} {item.mod_sabor_grande}</strong></p> ) : ( <p></p> )}
+
+                                    {/* DESAYUNOS */} 
+                                    {item.mod_sabor_desayuno ? ( <p>Desayuno Adiciones: <strong>{item.mod_sabor_desayuno} </strong></p> ) : ( <p></p> )}
+                                    {item.ind_desayuno_adicional ? ( <p>Desayuno Observaciones: <strong>{item.ind_desayuno_adicional} </strong></p> ) : ( <p></p> )}
+                                    
+                                    {item.desayuno_tipo_huevos ? ( <p>Huevos: <strong>{item.desayuno_tipo_huevos} </strong></p> ) : ( <p></p> )}
+                                    {item.desayuno_tipo_bebida ? ( <p>Bebida: <strong>{item.desayuno_tipo_bebida} </strong></p> ) : ( <p></p> )}
+                                    
                                     {/*<p>Mitad Uno: <strong>{item.mitad_uno} {item.mod_mitad_uno}</strong></p>*/}                                    
                                     
                                     {item.mitad_dos ? ( <p>Mitad Dos: <strong>{item.mitad_dos} {item.mod_mitad_dos}</strong></p> ) : ( <p></p> )}
@@ -482,6 +660,7 @@ render(){
                                     {item.costo_adiciones_pantalon ? ( <p>Total Adicion: <strong>{item.costo_adiciones_pantalon}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones_pancook ? ( <p>Total Adicion: <strong>{item.costo_adiciones_pancook}</strong></p> ) : <p></p> }
                                     {item.costo_adiciones_sopa ? ( <p>Total Adicion: <strong>{item.costo_adiciones_sopa}</strong></p> ) : <p></p> }
+                                    {item.costo_adiciones_americano ? ( <p>Total Adicion: <strong>{item.costo_adiciones_americano}</strong></p> ) : <p></p> }
                                     
                                     {item.costo_pantalon ? ( <p>Total Pantalon: <strong>{item.costo_pantalon}</strong></p> ) : <p></p> }
                                     {item.costo_gaseosa ? ( <p>Total Bebida: <strong>{item.costo_gaseosa}</strong></p> ) : <p></p> }
@@ -489,8 +668,15 @@ render(){
                                     {item.costo_cerveza ? ( <p>Total Cerveza: <strong>{item.costo_cerveza}</strong></p> ) : <p></p> }
                                     {item.costo_jugo ? ( <p>Total Jugo: <strong>{item.costo_jugo}</strong></p> ) : <p></p> }
                                     {item.costo_vino ? ( <p>Total Vino: <strong>{item.costo_vino}</strong></p> ) : <p></p> }
+                                    {item.costo_leche ? ( <p>Total leche: <strong>{item.costo_leche}</strong></p> ) : <p></p> }
                                     {item.costo_tinto ? ( <p>Total Tinto: <strong>{item.costo_tinto}</strong></p> ) : <p></p> }
+                                    {item.costo_chocolate ? ( <p>Total Chocolate: <strong>{item.costo_chocolate}</strong></p> ) : <p></p> }
                                     {item.costo_pan_ajo ? ( <p>Total Pan Ajo: <strong>{item.costo_pan_ajo}</strong></p> ) : <p></p> }
+
+                                    {item.costo_pizza_festival ? ( <p>Total Pizza Festival: <strong>{item.costo_pizza_festival}</strong></p> ) : <p></p> }
+
+                                    {item.costo_panaderia ? ( <p>Total Panaderia: <strong>{item.costo_panaderia}</strong></p> ) : <p></p> }
+                                    {item.costo_desayuno_americano ? ( <p>Total Desayuno: <strong>{item.costo_desayuno_americano}</strong></p> ) : <p></p> }
                                     {item.costo_sopa ? ( <p>Total Sopa: <strong>{item.costo_sopa}</strong></p> ) : <p></p> }
                                     {item.costo_pasta ? ( <p>Total Pasta: <strong>{item.costo_pasta}</strong></p> ) : <p></p> }
                                     {item.costo_lasagna ? ( <p>Total Lasagna: <strong>{item.costo_lasagna}</strong></p> ) : <p></p> }
@@ -498,6 +684,7 @@ render(){
                                     {item.costo_personal ? ( <p>Total Pizza: <strong>{item.costo_personal}</strong></p> ) : <p></p>}
                                     {item.costo_grande ? ( <p>Total Pizza: <strong>{item.costo_grande}</strong></p> ) : <p></p>}
                                     {item.costo_pancook ? ( <p>Total Pancook: <strong>{item.costo_pancook}</strong></p> ) : <p></p>}
+                                    {item.costo_otros ? ( <p>Total Otros: <strong>{item.costo_otros}</strong></p> ) : <p></p>}
                                     {/*<p style={{textDecoration : 'underline'}}>Total: <strong>{item.costo_adiciones + item.costo_personal}</strong></p>*/}
                                     
                                     <Button onClick={()=>{                                        
@@ -519,6 +706,10 @@ render(){
                                         }
 
                                         if(item.id_pedido.includes('Pancook')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('PizzaEspecial')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
@@ -546,9 +737,22 @@ render(){
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
+                                        if(item.id_pedido.includes('Americano')){
+                                            localStorage.removeItem(item.id_pedido)
+                                        }
+
+                                        if(item.id_pedido.includes('Huesped')){
+                                            localStorage.removeItem(item.id_pedido)
+                                        }
+
                                         if(item.id_pedido.includes('Vino')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
+
+                                        if(item.id_pedido.includes('Leche')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
 
                                         if(item.id_pedido.includes('Jugo')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
@@ -558,11 +762,19 @@ render(){
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
+                                        if(item.id_pedido.includes('Chocolate')){
+                                            localStorage.removeItem(item.id_pedido)
+                                        }
+
                                         if(item.id_pedido.includes('Bebida')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
 
                                         if(item.id_pedido.includes('Gaseosa')){                                            
+                                            localStorage.removeItem(item.id_pedido)                                       
+                                        }
+
+                                        if(item.id_pedido.includes('Otros')){                                            
                                             localStorage.removeItem(item.id_pedido)                                       
                                         }
                                         

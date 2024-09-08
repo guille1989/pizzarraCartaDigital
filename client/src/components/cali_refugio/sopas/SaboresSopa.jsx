@@ -165,6 +165,13 @@ handleCebolla = () => {
     this.props.atrasMenuPersonalSabor(dato, porcion);
 }
 
+handleVerduras = () => {
+    var dato = "VERDURAS"
+    var porcion = this.props.porcion
+    this.props.cuentamitad(porcion, dato);
+    this.props.atrasMenuPersonalSabor(dato, porcion);
+}
+
 agregaraCuentaMitadCombinada = (dato, porcion) => {
     this.props.cuentamitad(porcion, dato);
 }
@@ -191,7 +198,10 @@ atrasPersonalSabor = (dato, porcion) => {
                             </div>      
                             <div className="saborItem" onClick={this.handleCebolla}>
                                 <h1 className="pizzaOpcionSabor">Cebolla</h1>
-                            </div>                        
+                            </div>     
+                            <div className="saborItem" onClick={this.handleVerduras}>
+                                <h1 className="pizzaOpcionSabor">Verduras</h1>
+                            </div>                     
                         </div>
                        
                                  

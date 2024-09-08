@@ -21,7 +21,7 @@ class lasagna extends Component {
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 28000,
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_COSTO),
             classSalsa: 'buttonBolognesa'
         }
     }
@@ -129,7 +129,7 @@ toggleModalAceptar = () => {
                     'sabor_lasagna' : this.state.saborpizza,
                     'mod_sabor_lasagna' : this.state.saborpizzaadicion,
                     'ind_lasagna_adicional': this.state.indAdicional,
-                    'costo_lasagna' : this.state.costoPizzaPersonal,
+                    'costo_lasagna' : this.state.costoLasagna,
                     'costo_adiciones_lasagna' : costoadicion,
                     'id_pedido': 'Pedido_Lasagna_0'};
         localStorage.setItem('Pedido_Lasagna_0', JSON.stringify(pedidoPizza))
@@ -140,7 +140,7 @@ toggleModalAceptar = () => {
                     'sabor_lasagna' : this.state.saborpizza,
                     'mod_sabor_lasagna' : this.state.saborpizzaadicion,
                     'ind_lasagna_adicional': this.state.indAdicional,
-                    'costo_lasagna' : this.state.costoPizzaPersonal,
+                    'costo_lasagna' : this.state.costoLasagna,
                     'costo_adiciones_lasagna' : costoadicion,
                     'id_pedido': `Pedido_Lasagna_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_Lasagna_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
@@ -162,14 +162,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'QUESO',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 34000
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_CREMA)
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NAPOLITANA',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 28000
+            costoLasagna: parseInt(process.env.REACT_APP_LASAGNA_COSTO)
         })
     ) 
 }

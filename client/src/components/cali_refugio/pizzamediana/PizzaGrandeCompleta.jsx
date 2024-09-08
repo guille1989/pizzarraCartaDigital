@@ -20,9 +20,9 @@ class PizzaGrandeCompleta extends Component {
             indicacionAdicional: '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA',
+            strongPizza: 'PIZZA GRANDE COMPLETA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 61000,
+            costoPizzaMediana: parseInt(process.env.REACT_APP_PIZZA_GRANDE_COSTO)
         }
     }
 onClickBack = () => {
@@ -125,7 +125,7 @@ toggleModalAceptar = () => {
     if(contPersonales[0] === null){
         //Guardamos en local Storage
         pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : this.state.stringPizza,
+                        'tipo' : this.state.strongPizza,
                         'sabor_grande' : this.state.saborpizza,
                         'mod_sabor_grande' : this.state.saborpizzaadicion,
                         'ind_grande_adicional': this.state.indAdicional,
@@ -136,7 +136,7 @@ toggleModalAceptar = () => {
         localStorage.setItem('Numero_Grandes', JSON.stringify({'Numero': 1}))
     }else{
         pedidoPizza = { 'key_id' : keyId,
-                        'tipo' : this.state.stringPizza,
+                        'tipo' : this.state.strongPizza,
                         'sabor_grande' : this.state.saborpizza,
                         'mod_sabor_grande' : this.state.saborpizzaadicion,
                         'ind_grande_adicional': this.state.indAdicional,
@@ -162,17 +162,17 @@ esPromocion = () => {
         this.setState({
             promo: true,
             textoBoton: 'ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
-            costoPizzaMediana: 53000
+            strongPizza: 'PIZZA GRANDE COMPLETA PROMOCION',
+            costoPizzaMediana: parseInt(process.env.REACT_APP_DOS_GRANDES_PROMOCION_COSTO)/2
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'NO ES PROMOCION',
-            stringPizza: 'PIZZA GRANDE COMPLETA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaMediana: 61000
+            strongPizza: 'PIZZA GRANDE COMPLETA',
+            costoPizzaMediana: parseInt(process.env.REACT_APP_PIZZA_GRANDE_COSTO)
         })
     ) 
 }

@@ -20,9 +20,10 @@ class PizzaPersonalCompleta extends Component {
             indicacionAdicional: '',
             promo: false,
             textoBoton: 'NO ES PROMOCION',
-            stringPizza: 'PIZZA PERSONAL COMPLETA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 22000,
+            stringPizza: 'PIZZA PERSONAL COMPLETA',
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_PIZZA_PERSONAL_COSTO),
+            costoPizzaPersonalPromo: parseInt(process.env.REACT_APP_CUATRO_PERSONALES_PROMOCION_COSTO)/4,
             ingredientes: [],
             ingredientesExtra: [],
         }
@@ -135,7 +136,7 @@ toggleModalAceptar = () => {
                     'sabor_personal' : this.state.saborpizza,
                     'mod_sabor_personal' : this.state.saborpizzaadicion,
                     'ind_personal_adicional': this.state.indAdicional,
-                    'costo_personal' : this.state.costoPizzaPersonal,
+                    'costo_personal' : this.state.saborpizza === 'FESTIVAL' ? 19000 : this.state.costoPizzaPersonal,
                     'costo_adiciones' : costoadicion,
                     'id_pedido': 'Pedido_Personal_0'}, this.state.ingredientes, this.state.ingredientesExtra];
         //insumosPizzaPersonal = this.state.ingredientes;
@@ -147,7 +148,7 @@ toggleModalAceptar = () => {
                     'sabor_personal' : this.state.saborpizza,
                     'mod_sabor_personal' : this.state.saborpizzaadicion,
                     'ind_personal_adicional': this.state.indAdicional,
-                    'costo_personal' : this.state.costoPizzaPersonal,
+                    'costo_personal' : this.state.saborpizza === 'FESTIVAL' ? 19000 : this.state.costoPizzaPersonal,
                     'costo_adiciones' : costoadicion,
                     'id_pedido': `Pedido_Personal_${contPersonales[0].Numero}`}, this.state.ingredientes, this.state.ingredientesExtra];
         localStorage.setItem(`Pedido_Personal_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
@@ -170,7 +171,7 @@ esPromocion = () => {
             textoBoton: 'ES PROMOCION',
             classSinConPromo: 'buttonPromocionOn',
             stringPizza: 'PIZZA PERSONAL COMPLETA PROMOCION',
-            costoPizzaPersonal: 20000
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_CUATRO_PERSONALES_PROMOCION_COSTO)/4
         })
     }else(
         this.setState({
@@ -178,7 +179,7 @@ esPromocion = () => {
             textoBoton: 'NO ES PROMOCION',
             classSinConPromo: 'buttonPromocion',
             stringPizza: 'PIZZA PERSONAL COMPLETA',
-            costoPizzaPersonal: 22000
+            costoPizzaPersonal: this.costoPizzaPersonal
         })
     ) 
 }

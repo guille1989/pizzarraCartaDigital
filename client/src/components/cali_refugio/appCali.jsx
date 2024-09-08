@@ -8,6 +8,9 @@ import MenuBebidas from './MenuBebidas';
 import MenuEntradas from './MenuEntradas';
 import Pedido from './Pedido';
 import SegCuentas from './SegCuentas';
+import Panaderia from '../popayan_centro/panaderia/MenuPanaderia';
+import Desayunos from '../popayan_centro/desayunos/MenuDesayunos';
+import MenuOtros from '../popayan_centro/MenuOtros';
 import Moment from 'moment';
 
 import {
@@ -20,6 +23,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import { onScanButtonClick, onDisconnectButtonClick } from '../popayan_centro/printerConnect';
 
 class appCali extends Component {
   constructor(props){
@@ -27,6 +31,7 @@ class appCali extends Component {
     this.state={
       modalPedido : false,
       datoOrden: [],
+      dataOrdenAux: [],
       tipo_pedido_p: 'MESA',
       opcionOrden: 'MESA',
       mesaOrden: '',
@@ -34,18 +39,24 @@ class appCali extends Component {
       DomiTelefono: '',
       DomiDireccion: '',
       DomiOtros: '',
+      DomiCosto: '',
       RecogeNombre: '',
       RecogeTelefono: '',
+      Habitacion: '',
       costoOrden: 0,
+      costoOrdenAux: '',
+      costoRoomService: 0,
       segPedidos: false,
       opcionCortesia: 'No',
-      insumosOrden: []
+      insumosOrden: [],
+      costoRoomService: 10000
     }
   }
 
   confirmarPedido = (orden, costo, insumos) => {
     this.setState({
       datoOrden: orden,
+      dataOrdenAux: JSON.parse(JSON.stringify(orden)),
       costoOrden: costo,
       insumosOrden: insumos
     })
@@ -57,7 +68,7 @@ class appCali extends Component {
     })
   }  
 
-  toggleModalAceptar = () => {     
+  toggleModalAceptar = () => {   
     if(this.state.opcionOrden === "MESA"){
       if(this.state.mesaOrden === ''){
         alert('Porfavor coloque No. de mesa')
@@ -78,7 +89,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: "Cali-Refugio",
+            {local: "Cali-Refugio",            
             tipo_pedido: "MESA", 
             mesa: this.state.mesaOrden, 
             estado_pedido: "SIN PAGO", 
@@ -103,7 +114,7 @@ class appCali extends Component {
     } 
 
     if(this.state.opcionOrden === "DOMICILIO"){
-      if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
+      if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === '' || this.state.DomiCosto === ''){
         alert('Porfavor coloque toda la informacion')
       }else{  
         let aux = [];
@@ -115,6 +126,7 @@ class appCali extends Component {
             domi_telefono: this.state.DomiTelefono,
             domi_direccion: this.state.DomiDireccion, 
             domi_otros: this.state.DomiOtros, 
+            domi_costo: this.state.DomiCosto,
             estado_pedido: "SIN PAGO", 
             costo_pedido: 1,
             observacion_pedido: "CORTESIA",
@@ -129,6 +141,7 @@ class appCali extends Component {
             domi_telefono: this.state.DomiTelefono,
             domi_direccion: this.state.DomiDireccion, 
             domi_otros: this.state.DomiOtros, 
+            domi_costo: this.state.DomiCosto,
             estado_pedido: "SIN PAGO", 
             costo_pedido: this.state.costoOrden,
             fecha_pedido: Moment().format('YYYY-MM-DD'),
@@ -190,18 +203,119 @@ class appCali extends Component {
         alert('Pedido Recoge Registrado !')
   }
 }
+
+if(this.state.opcionOrden === "ROOM SERVICE"){
+  if(this.state.Habitacion === ''){
+    alert('Porfavor coloque toda la informacion')
+  }else{
+    let aux = [];
+      if(this.state.opcionCortesia === 'Si'){
+        aux = [
+          {local: "Cali-Refugio",
+          tipo_pedido: "ROOM SERVICE", 
+          habitacion: this.state.Habitacion, 
+          estado_pedido: "SIN PAGO", 
+          costo_pedido: 1,
+          observacion_pedido: "CORTESIA",
+          fecha_pedido: Moment().format('YYYY-MM-DD'),
+          hora_pedido: Moment().format('HH:mm:ss')   
+        }
+        ]
+      }else{
+        aux = [
+          {local: "Cali-Refugio",
+          tipo_pedido: "ROOM SERVICE", 
+          recoge_nombre: this.state.Habitacion, 
+          estado_pedido: "SIN PAGO", 
+          costo_pedido: this.state.costoOrden + 10000,
+          fecha_pedido: Moment().format('YYYY-MM-DD'),
+          hora_pedido: Moment().format('HH:mm:ss')   
+        }
+        ]
+      }
+    
+    //console.log({...this.state.datoOrden, aux})
+      this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+      window.localStorage.clear()
+      this.setState({
+        modalPedido: !this.state.modalPedido,
+        opcionCortesia: "No",
+        opcionOrden: "MESA"
+      })
+      alert('Pedido Recoge Registrado !')
+}
+}
+//Carta familia
+console.log(this.state.opcionOrden)
+if(this.state.opcionOrden === "CARTA FAMILIA"){
+  let aux = [];
+  aux = [
+    {local: "Cali-Refugio",
+    tipo_pedido: "CARTA FAMILIA", 
+    recoge_nombre: this.state.Habitacion, 
+    estado_pedido: "SIN PAGO", 
+    costo_pedido: this.state.costoOrden,
+    fecha_pedido: Moment().format('YYYY-MM-DD'),
+    hora_pedido: Moment().format('HH:mm:ss')   
+  }
+  ]
+
+  this.writeUserData({...this.state.datoOrden, aux}, {pedido:this.state.datoOrden, aux: aux})
+  window.localStorage.clear()
+  this.setState({
+    modalPedido: !this.state.modalPedido,
+    opcionCortesia: "No",
+    opcionOrden: "MESA"
+  })
+  alert('Pedido Carta Familia Registrado !')
+}
 }
 
-  toggleModalCancelar = () => {
-    this.setState({
-      modalPedido: !this.state.modalPedido
-    })
-  }
+toggleModalCancelar = () => {
+  this.setState({
+    modalPedido: !this.state.modalPedido,
+    opcionOrden: 'MESA'
+  })
+}
 
-  changeOpcion = (e) => {
+changeOpcion = (e) => {  
+
+  if(e.target.value === 'CARTA FAMILIA'){
+    //console.log(this.state.costoOrden)
+    //Ajustamos los costos de la Pizza personal, el pancool, el pantalo y las pastas a 10000
+    //iterate through each element in the array dataOrden and change the costo_pedido
+    //change the cost to 10000 of element with key by key word
+
+    let aux = this.state.datoOrden.map((item) => {
+      if(item.tipo.includes('PIZZA PERSONAL')){
+        item.costo_personal = 10000
+      }else if(item.tipo.includes('PIZZA PANTALON')){
+        item.costo_pantalon = 10000
+      }else if(item.tipo.includes('PIZZA PANCOOK')){
+        item.costo_pancook = 10000
+      }else if(item.tipo.includes('LASAGNA')){
+        item.costo_lasagna = 10000
+      }else if(item.tipo.includes('PASTA')){
+        item.costo_pasta = 10000
+      }else if(item.tipo.includes('RAVIOLI')){
+        item.costo_ravioli = 10000
+      }
+      return item
+    })
+
     this.setState({
       opcionOrden: e.target.value
+    })
+
+  }else{  
+    console.log('orednaux', this.state.dataOrdenAux)
+    console.log('orden', this.state.datoOrden)
+    let dataAux = this.state.dataOrdenAux
+    this.setState({
+      datoOrden: JSON.parse(JSON.stringify(this.state.dataOrdenAux)),
+      opcionOrden: e.target.value
     }) 
+  }
 }
 
 changeOpcionCortesia = (e) => {
@@ -240,6 +354,12 @@ changeDomiOtros = (e) => {
   })
 }
 
+changeDomiCosto = (e) => {
+  this.setState({
+    DomiCosto: e.target.value
+  })
+}
+
 changeRecogeNombre = (e) => {
   this.setState({
     RecogeNombre: e.target.value
@@ -251,6 +371,12 @@ changeRecogeTelefono = (e) => {
     RecogeTelefono: e.target.value
   })
 }
+
+changeHabitacion = (e) => {
+  this.setState({
+    Habitacion: e.target.value
+  })
+} 
 
 renderSwitch(params){
   if(params === 'MESA'){
@@ -266,6 +392,8 @@ renderSwitch(params){
         <Input value={this.state.DomiTelefono} onChange={this.changeDomiTelefono} placeholder="Telefono" />
         <Input value={this.state.DomiDireccion} onChange={this.changeDomiDireccion} placeholder="Direccion" />
         <Input value={this.state.DomiOtros} onChange={this.changeDomiOtros} placeholder="Otra Informacion" />
+
+        <Input value={this.state.DomiCosto} type='Number' onChange={this.changeDomiCosto} placeholder="Costo Domicilio" />
       </>
     )
   }else if(params === 'RECOGEN'){
@@ -276,6 +404,12 @@ renderSwitch(params){
         <Input value={this.state.RecogeTelefono} onChange={this.changeRecogeTelefono} placeholder="Telefono" />
       </>
     )
+}else if(params === 'ROOM SERVICE'){
+  return(
+    <>
+      <Input value={this.state.Habitacion} onChange={this.changeHabitacion} placeholder="Habitacion" />
+    </>
+  )
 }
 }
 
@@ -303,25 +437,18 @@ cuentasSeguimiento(){
 }
 
 printerConect = () => {
-//console.log(this.state.datoOrden)
-////
-//Create ESP/POS commands for sample label
-var esc = '\x1B'; //ESC byte in hex notation
-var newLine = '\x0A'; //LF byte in hex notation  
+  ////
+  //Create ESP/POS commands for sample label
+  var esc = '\x1B'; //ESC byte in hex notation
+  var newLine = '\x0A'; //LF byte in hex notation  
 
-//******PARTE INICIAL******/   
-let cmds = esc + "@"; //Initializes the printer (ESC @)
-cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
-cmds += 'PEDIDO COCINA'; //text to print
-cmds += newLine;
-cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+  //******PARTE INICIAL******/   
+  let cmds = esc + "@"; //Initializes the printer (ESC @)
+  cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
+  cmds += 'PEDIDO COCINA'; //text to print
+  cmds += newLine;
+  cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
 
-//Acomodamos la fehca
-//var dia = new Date().getDate() + 1;
-//var mes = new Date().getMonth() + 1;
-//var anio = new Date().getFullYear();
-
-//****
 if(this.state.opcionOrden === "MESA"){
   if(this.state.mesaOrden === ''){
     alert('Porfavor coloque No. de mesa')
@@ -335,12 +462,14 @@ if(this.state.opcionOrden === "MESA"){
   cmds += newLine;
   cmds += newLine;
 
+  //console.log(cmds)
+
   this.printerPedidosConnect(cmds)
   }
 }
 
 if(this.state.opcionOrden === "DOMICILIO"){
-  if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === ''){
+  if(this.state.DomiNombre === '' || this.state.DomiTelefono === '' || this.state.DomiDireccion === '' || this.state.DomiOtros === '' || this.state.DomiCosto === ''){
     alert('Porfavor coloque toda la informacion')
   }else{
 
@@ -355,13 +484,15 @@ if(this.state.opcionOrden === "DOMICILIO"){
   cmds += newLine;
   cmds += "Observaciones: " + this.state.DomiOtros;
   cmds += newLine;
+  cmds += "Costo Domicilio: " + this.state.DomiCosto;
+  cmds += newLine;
   cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
   cmds += newLine;
   cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect(cmds, this.state.DomiCosto)
 }
 }
 
@@ -383,11 +514,52 @@ if(this.state.opcionOrden === "RECOGEN"){
   cmds += newLine;
 
   this.printerPedidosConnect(cmds)
-}
-}
+  }
 }
 
-printerPedidosConnect(cmdsAux){
+if(this.state.opcionOrden === "ROOM SERVICE"){
+  if(this.state.Habitacion === ''){
+    alert('Porfavor coloque toda la informacion')
+  }else{
+  cmds += "ROOM SERVICE";
+  cmds += esc + '!' + '\x00'
+  cmds += newLine;
+  cmds += "Habitacion: " + this.state.Habitacion;
+  cmds += newLine;
+  cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
+  cmds += newLine;
+  cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
+  cmds += newLine;
+  cmds += newLine;
+
+  this.printerPedidosConnect(cmds)
+  }
+}
+
+if(this.state.opcionOrden === "CARTA FAMILIA"){
+ 
+  cmds += "CARTA FAMILIA";
+  cmds += esc + '!' + '\x00'
+  cmds += newLine;
+  cmds += "Fecha Pedido: " + Moment().format('YYYY-MM-DD');
+  cmds += newLine;
+  cmds += "Hora Pedido: " + Moment().format('HH:mm:ss');
+  cmds += newLine;
+  cmds += newLine;
+
+  this.printerPedidosConnect(cmds)
+  
+}
+
+}
+
+printerPedidosConnect(cmdsAux, costoDomi){
+
+  let costoTotal = 0
+
+  if(costoDomi){
+    costoTotal = costoTotal + parseInt(costoDomi)
+  }
 
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
@@ -399,125 +571,170 @@ printerPedidosConnect(cmdsAux){
 
   this.state.datoOrden.map((item, index)=>{   
     ///BEBIDAS
-    if(item.tipo.includes('CAFÉ') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
+    
+    if(item.tipo.includes('CAFÉ') || item.tipo.includes('CHOCOLATE') || item.tipo.includes('VINO') || item.tipo.includes('JUGO') || item.tipo.includes('CERVEZA') || item.tipo.includes('BEBIDA') || item.tipo.includes('GASEOSA'))
           {
-              if(item.tipo.includes('CAFÉ')){    
-                cmds += "Bebida: " + item.tipo;
+              if(item.tipo.includes('CAFÉ')){   
+                costoTotal = costoTotal + parseInt(item.costo_tinto)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;            
                 cmds += item.mod_sabor_cafe;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_tinto
+                cmds += newLine;
+              }else if(item.tipo.includes('CHOCOLATE')){
+                costoTotal = costoTotal + parseInt(item.costo_chocolate)
+                cmds += "-Bebida: " + item.tipo;
+                cmds += newLine; 
+                cmds += item.mod_sabor_chocolate;
+                cmds += newLine;
+                cmds += "Costo: " + item.costo_chocolate
                 cmds += newLine;
               }else if(item.tipo.includes('JUGO')){
-                cmds += "Bebida: " + item.tipo;
+                costoTotal = costoTotal + parseInt(item.costo_jugo)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_jugo;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_jugo;
                 cmds += newLine;
               }else if(item.tipo.includes('GASEOSA')){
-                cmds += "Bebida: " + item.tipo;
+                costoTotal = costoTotal + parseInt(item.costo_gaseosa)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine; 
                 cmds += item.mod_sabor_gaseosa;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_gaseosa;
                 cmds += newLine;
               }else if(item.tipo.includes('VINO')){
-                cmds += "Bebida: " + item.tipo;
+                costoTotal = costoTotal + parseInt(item.costo_vino)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_vino;
                 cmds += newLine;
               }else if(item.tipo.includes('CERVEZA')){
-                cmds += "Bebida: " + item.tipo;
+                costoTotal = costoTotal + parseInt(item.costo_cerveza)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_cerveza;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_cerveza;
                 cmds += newLine;
               }else if(item.tipo.includes('BEBIDA')){
-                cmds += "Bebida: " + item.tipo;
+                costoTotal = costoTotal + parseInt(item.costo_bebida)
+                cmds += "-Bebida: " + item.tipo;
                 cmds += newLine;
                 cmds += item.mod_sabor_bebida;
                 cmds += newLine;
+                cmds += "Costo: " + item.costo_bebida;
                 cmds += newLine;
               }
           } 
     ///
       if(item.tipo.includes('GRANDE COMPLETA')){
-          cmds += item.tipo;
+          costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande)
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_grande;
-          cmds += newLine;
+          
           //console.log(item.mod_sabor_grande)
           if(item.mod_sabor_grande){
-            cmds += "+/- Adiciones: " + item.mod_sabor_grande;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_grande;
+           
           }
           if(item.ind_grande_adicional){
-            cmds += "Observaciones: " + item.ind_grande_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_grande_adicional;
+            
           }          
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande));
           cmds += newLine;
       }else if(item.tipo.includes('PERSONAL COMPLETA')){
-          cmds += item.tipo;
+          costoTotal = costoTotal + parseInt(item.costo_personal) + parseInt(item.costo_adiciones)
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_personal;
-          cmds += newLine;
+         
           if(item.mod_sabor_personal){
-            cmds += "+/- Adiciones: " + item.mod_sabor_personal;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_personal;
+            
           }
           if(item.ind_personal_adicional){
-            cmds += "Observaciones: " + item.ind_personal_adicional;
             cmds += newLine;
+            cmds += "Observaciones: " + item.ind_personal_adicional;
+            
           }          
           cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_personal) + parseInt(item.costo_adiciones));
+          cmds += newLine;
       }else if(item.tipo.includes('PERSONAL MITAD')){
-          cmds += item.tipo;
+          costoTotal = costoTotal + parseInt(item.costo_personal) + parseInt(item.costo_adiciones);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
-          cmds += newLine;
+         
           if(item.mod_mitad_uno){
-            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+           
           }
           if(item.mod_mitad_dos){
-            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+            
           }
           if(item.ind_mitad_uno_adicional){
-            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+            
           }
           if(item.ind_mitad_dos_adicional){
-            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            
           }
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_personal) + parseInt(item.costo_adiciones));
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE MITAD')){
-          cmds += item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor mitad 1: " + item.mitad_uno;
           cmds += newLine;
           cmds += "Sabor mitad 2: " + item.mitad_dos;
-          cmds += newLine;
+         
           if(item.mod_mitad_uno){
-            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 1: " + item.mod_mitad_uno;
+          
           }
           if(item.mod_mitad_dos){
-            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones mitad 2: " + item.mod_mitad_dos;
+           
           }
           if(item.ind_mitad_uno_adicional){
-            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones mitad 1: " + item.ind_mitad_uno_adicional;
+           
           }
           if(item.ind_mitad_dos_adicional){
-            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
             cmds += newLine;
-          }
-          
+            cmds += "Observaciones mitad 2: " + item.ind_mitad_dos_adicional;
+            
+          }          
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande));
           cmds += newLine;
       }else if(item.tipo.includes('GRANDE CUARTO')){
-          cmds += item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor cuarto 1: " + item.cuarto_uno;
           cmds += newLine;
@@ -526,199 +743,372 @@ printerPedidosConnect(cmdsAux){
           cmds += "Sabor cuarto 3: " + item.cuarto_tres;
           cmds += newLine;
           cmds += "Sabor cuarto 4: " + item.cuarto_cuatro;
-          cmds += newLine;
+       
           if(item.mod_cuarto_uno){
-            cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 1: " + item.mod_cuarto_uno;
+            
           }
           if(item.mod_cuarto_dos){
-            cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 2: " + item.mod_cuarto_dos;
+            
           }
           if(item.mod_cuarto_tres){
-            cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 3: " + item.mod_cuarto_tres;
+           
           }
           if(item.mod_cuarto_cuatro){
-            cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
             cmds += newLine;
+            cmds += "+/- Adiciones cuarto 4: " + item.mod_cuarto_cuatro;
+            
           }
           if(item.ind_cuarto_uno_adicional){
-            cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 1: " + item.ind_cuarto_uno_adicional;
+            
           }
           if(item.ind_cuarto_dos_adicional){
-            cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 2: " + item.ind_cuarto_dos_adicional;
+           
           }    
           if(item.ind_cuarto_tres_adicional){
-            cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 3: " + item.ind_cuarto_tres_adicional;
+            
           }
           if(item.ind_cuarto_cuatro_adicional){
-            cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
             cmds += newLine;
+            cmds += "Observaciones cuarto 4: " + item.ind_cuarto_cuatro_adicional;
+           
           }
           cmds += newLine;
-      }else if(item.tipo.includes('PIZZA PANCOOK')){
-          cmds += item.tipo;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_grande) + parseInt(item.costo_adiciones_grande));
+          cmds += newLine;
+      }else if(item.tipo.includes('PIZZA PANTALON')){          
+        costoTotal = costoTotal + parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon);      
+        cmds += '-'+item.tipo;
+        cmds += newLine;
+        cmds += "Sabor: " + item.sabor_pantalon;
+        
+        if(item.mod_sabor_pantalon){
+          cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
+          
+        }
+        if(item.ind_pantalon_adicional){
+          cmds += newLine;
+          cmds += "Observaciones: " + item.ind_pantalon_adicional;
+          
+        }
+        //console.log(cmds)          
+        cmds += newLine;
+        cmds = cmds + "Costo: " + (parseInt(item.costo_pantalon) + parseInt(item.costo_adiciones_pantalon));       
+        cmds += newLine;
+        //console.log(cmds)
+    }else if(item.tipo.includes('PIZZA PANCOOK')){
+        costoTotal = costoTotal + parseInt(item.costo_pancook) + parseInt(item.costo_adiciones_pancook);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pancook;
-          cmds += newLine;
+          
           if(item.mod_sabor_pancook){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_pancook;
+            
           }
           if(item.ind_pancook_adicional){
+            cmds += newLine;
             cmds += "Observaciones: " + item.ind_pancook_adicional;
-            cmds += newLine;
-          }
-      
+            
+          }      
           cmds += newLine;
-      }else if(item.tipo.includes('PIZZA PANTALON')){
-          cmds += item.tipo;
-          cmds += newLine;
-          cmds += "Sabor: " + item.sabor_pantalon;
-          cmds += newLine;
-          if(item.mod_sabor_pantalon){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pantalon;
-            cmds += newLine;
-          }
-          if(item.ind_pantalon_adicional){
-            cmds += "Observaciones: " + item.ind_pantalon_adicional;
-            cmds += newLine;
-          }
-          
+          cmds = cmds + "Costo: " + (parseInt(item.costo_pancook) + parseInt(item.costo_adiciones_pancook));
           cmds += newLine;
       }else if(item.tipo.includes('LASAGNA')){
-          cmds += item.tipo;
+          costoTotal = costoTotal + parseInt(item.costo_lasagna) + parseInt(item.costo_adiciones_lasagna);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_lasagna;
-          cmds += newLine;
+          
           if(item.mod_sabor_lasagna){
-            cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_lasagna;
+            
           }
           if(item.ind_lasagna_adicional){
-            cmds += "Observaciones: " + item.ind_lasagna_adicional;
             cmds += newLine;
-          }
-          
+            cmds += "Observaciones: " + item.ind_lasagna_adicional;
+            
+          }          
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_lasagna) + parseInt(item.costo_adiciones_lasagna));
           cmds += newLine;
       }else if(item.tipo.includes('RAVIOLI')){
-        cmds += item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_ravioli) + parseInt(item.costo_adiciones_ravioli);
+        cmds += '-'+item.tipo;
         cmds += newLine;
         cmds += "Sabor: " + item.sabor_ravioli;
-        cmds += newLine;
+        
         if(item.mod_sabor_ravioli){
-          cmds += "+/- Adiciones: " + item.mod_sabor_ravioli;
           cmds += newLine;
+          cmds += "+/- Adiciones: " + item.mod_sabor_ravioli;
+          
         }
         if(item.ind_ravioli_adicional){
-          cmds += "Observaciones: " + item.ind_ravioli_adicional;
           cmds += newLine;
-        }
-        
+          cmds += "Observaciones: " + item.ind_ravioli_adicional;
+          
+        }          
+        cmds += newLine;
+        cmds = cmds + "Costo: " + (parseInt(item.costo_ravioli) + parseInt(item.costo_adiciones_ravioli));
         cmds += newLine;
     }else if(item.tipo.includes('PASTA')){
-          cmds += item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_pasta) + parseInt(item.costo_adiciones_pasta);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_pasta;
-          cmds += newLine;
+          
           if(item.mod_sabor_pasta){
-            cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_pasta;
+            
           }
           if(item.ind_pasta_adicional){
-            cmds += "Observaciones: " + item.ind_pasta_adicional;
             cmds += newLine;
-          }
-          
+            cmds += "Observaciones: " + item.ind_pasta_adicional;
+            
+          }          
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_pasta) + parseInt(item.costo_adiciones_pasta));
           cmds += newLine;
       }else if(item.tipo.includes('SOPA')){
-          cmds += item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_sopa) + parseInt(item.costo_adiciones_sopa);
+          cmds += '-'+item.tipo;
           cmds += newLine;
           cmds += "Sabor: " + item.sabor_sopa;
-          cmds += newLine;
+          
           if(item.mod_sabor_sopa){
-            cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
             cmds += newLine;
+            cmds += "+/- Adiciones: " + item.mod_sabor_sopa;
+            
           }
           if(item.ind_sopa_adicional){
-            cmds += "Observaciones: " + item.ind_sopa_adicional;
             cmds += newLine;
-          }
-          
+            cmds += "Observaciones: " + item.ind_sopa_adicional;
+            
+          }          
+          cmds += newLine;
+          cmds = cmds + "Costo: " + (parseInt(item.costo_sopa) + parseInt(item.costo_adiciones_sopa));
+          cmds += newLine;
+      }else if(item.tipo.includes('PAN AJO')){
+        costoTotal = costoTotal + parseInt(item.costo_pan_ajo);
+          cmds += "-ENTRADA: " +  item.tipo;
+          cmds += newLine;
+          cmds += "Costo: " + item.costo_pan_ajo;
+          cmds += newLine;
+      }else if(item.tipo.includes('PIZZA FESTIVAL')){
+        costoTotal = costoTotal + parseInt(item.costo_pizza_festival);
+          cmds += "-FESTIVAL: " +  item.tipo;
+          cmds += newLine;
+          cmds += "Costo: " + item.costo_pizza_festival;
           cmds += newLine;
       }else if(item.tipo.includes('PAN')){
-          cmds += "ENTRADA: " +  item.tipo;
+        costoTotal = costoTotal + parseInt(item.costo_panaderia);
+        cmds += "-PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Costo: " + parseInt(item.costo_panaderia);
+        cmds += newLine;
+      }else if(item.tipo.includes('MASAS')){
+        costoTotal = costoTotal + parseInt(item.costo_panaderia);
+        cmds += "-PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Costo: " + item.costo_panaderia;
+        cmds += newLine;
+      }else if(item.tipo.includes('PAN COOK 2')){
+        costoTotal = costoTotal + parseInt(item.costo_panaderia);
+        cmds += "-PANADERIA: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Costo: " + item.costo_panaderia;
+        cmds += newLine;
+      }else if(item.tipo.includes('DESAYUNO AMERICANO')){
+        costoTotal = costoTotal + parseInt(item.costo_desayuno_americano);
+        cmds += "-DESAYUNO: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Huevos: " +  item.desayuno_tipo_huevos;
+        cmds += newLine;
+        cmds += "Bebida: " +  item.desayuno_tipo_bebida;
+        cmds += newLine;
+        cmds += "Costo: " +  item.costo_desayuno_americano;
+        cmds += newLine;
+        if(item.mod_sabor_desayuno){
+          cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;
           cmds += newLine;
           cmds += newLine;
-      }   
-       
-    })  
-    ////
-    navigator.bluetooth.requestDevice({
+        }
+        if(item.ind_desayuno_adicional){
+          cmds += "Observaciones: " + item.ind_desayuno_adicional;
+          cmds += newLine;
+          cmds += newLine;
+        }
+      }else if(item.tipo.includes('DESAYUNO HUESPED')){
+        costoTotal = costoTotal + parseInt(item.costo_desayuno_huesped);
+
+        cmds += "-DESAYUNO: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Huevos: " +  item.desayuno_tipo_huevos;
+        cmds += newLine;
+        cmds += "Bebida: " +  item.desayuno_tipo_bebida;
+        cmds += newLine;
+        cmds += "Costo: " +  item.costo_desayuno_huesped;
+        cmds += newLine;
+        if(item.mod_sabor_desayuno){
+          cmds += "+/- Adiciones: " + item.mod_sabor_desayuno;
+          cmds += newLine;
+          cmds += newLine;
+        }
+        if(item.ind_desayuno_adicional){
+          cmds += "Observaciones: " + item.ind_desayuno_adicional;
+          cmds += newLine;
+          cmds += newLine;
+        }
+      }else if(item.tipo.includes('SALSA 16 ONZAS')){
+        costoTotal = costoTotal + parseInt(item.costo_otros);
+        cmds += "-OTROS: " +  item.tipo;
+        cmds += newLine;
+        cmds += "Costo: " + item.costo_otros;
+        cmds += newLine;
+      }
+
+      //console.log(cmds)
+    }) 
+
+    
+
+    //TOTAL::
+    cmds += newLine;    
+    cmds += "TOTAL PEDIDO ------> " + costoTotal;   
+
+    console.log(cmds)
+
+    const myPromise = new Promise((resolve, reject) => {
+      resolve(onScanButtonClick(cmds));
+    });
+
+    myPromise
+      .then(() => {
+        //console.log("Desconectar")
+        try {
+          //this.toggleModalAceptar()  
+          const connStatus = localStorage.getItem( 'con' )
+          if(connStatus === "ok"){
+            this.toggleModalAceptar()  
+          }
+          onDisconnectButtonClick()
+        } catch (error) {
+          console.error(error);
+        }
+      })
+    
+    
+    /*
+    const deviceConnection = navigator.bluetooth.requestDevice({
       acceptAllDevices: true,    
       optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
     })    
-    .then(device => device.gatt.connect())
-    .then(server => {
-      // Getting Service…
-      return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
-    })
-    .then(service => {
-      // Getting Characteristic…
-      return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
-    })
-    .then(characteristic => {
-      // Enviamos datos !!!…
-      // Aqui crer los datos::::  
-      let tamaniodato = cmds.length / 512
-      let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
-  
-      let cmdsAux = ""
-      let countAux = 0
-  
-      var enc = new TextEncoder() 
-      //console.log('Tamanio Dato: ' + cmds.length)
-      //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
-  
-      const forloop = async () => {
-        for(let i=1; i<=Math.ceil(tamaniodato); i++){
-  
-          //console.log(`iteracion ${i},  countAux:` + countAux)
-          //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+
+    deviceConnection
+      .then(device => device.gatt.connect())
+      .then(server => {
+        // Getting Service…
+        return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
+      })
+      .then(service => {
+        // Getting Characteristic…
+        return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
+      })
+      .then((characteristic) => {
+        // Enviamos datos !!!…
+        // Aqui crer los datos::::  
+        let tamaniodato = cmds.length / 512
+        let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
     
-          for(let j=countAux; j<=tamaniodatoaux; j++){
-            if(cmds[j]){
-              cmdsAux = cmdsAux + cmds[j]
-              countAux = countAux + 1
-            }else{
+        let cmdsAux = ""
+        let countAux = 0
     
-            }        
+        var enc = new TextEncoder() 
+        //console.log('Tamanio Dato: ' + cmds.length)
+        //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
+    
+        const forloop = async () => {
+
+          for(let i=1; i<=Math.ceil(tamaniodato); i++){
+    
+            //console.log(`iteracion ${i},  countAux:` + countAux)
+            //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
+      
+            for(let j=countAux; j<=tamaniodatoaux; j++){
+              if(cmds[j]){
+                cmdsAux = cmdsAux + cmds[j]
+                countAux = countAux + 1
+              }else{
+      
+              }        
+            }
+    
+            if(i === Math.ceil(tamaniodato)){
+              cmdsAux = cmdsAux + newLine; 
+              cmdsAux = cmdsAux + newLine;
+              cmdsAux = cmdsAux + newLine;
+            }
+      
+            await characteristic.writeValue(enc.encode(cmdsAux))           
+            
+            tamaniodatoaux = tamaniodatoaux + countAux    
+            //console.log('Tamanio del dato: ' + cmdsAux.length)
+            //console.log('Datos: ' + cmdsAux)
+            cmdsAux = "";
           }
-  
-          if(i === Math.ceil(tamaniodato)){
-            cmdsAux = cmdsAux + newLine; 
-            cmdsAux = cmdsAux + newLine;
-            cmdsAux = cmdsAux + newLine;
-          }
-    
-          await characteristic.writeValue(enc.encode(cmdsAux))           
           
-          tamaniodatoaux = tamaniodatoaux + countAux    
-          //console.log('Tamanio del dato: ' + cmdsAux.length)
-          //console.log('Datos: ' + cmdsAux)
-          cmdsAux = "";
         }
-        
-      }
-      forloop()    
-      this.toggleModalAceptar() 
-    })
-    .catch(error => { console.error(error); }); 
+        forloop()    
+        this.toggleModalAceptar()  
+        //Aqui hacemos un reset de la pagina
+        //window.location.reload(false);
+        //console.log(localStorage)
+      })
+      .catch(error => { console.error(error); }); 
+      */
 }
+
+costoPedidoCompleto(){
+  if (this.state.opcionOrden === "ROOM SERVICE"){
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden + this.state.costoRoomService}</p>
+    )
+  }else if(this.state.opcionOrden === "CARTA FAMILIA"){
+    console.log(this.state.datoOrden)
+    let sum = 0;
+    this.state.datoOrden.forEach((item) => {
+      for (let key in item) {
+        if (key.startsWith('cost')) {
+          sum += Number(item[key]);
+        }
+      }
+    });
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {sum}</p>
+    )
+    
+  }else{
+    return(
+      <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden}</p>
+    )
+  
+  }
+} 
 
   render(){
     return(
@@ -732,7 +1122,11 @@ printerPedidosConnect(cmdsAux){
           <Route path="/MenuPizza" component={MenuPizza} exact />
           <Route path="/MenuBebidas" component={MenuBebidas} exact />
           <Route path="/MenuEntradas" component={MenuEntradas} exact />
-          <Route path="/SegCuentas" component={SegCuentas} exact />
+          <Route path="/MenuPanaderia" component={Panaderia} exact/>
+          <Route path="/MenuDesayunosPopayan" component={Desayunos} exact/>
+          <Route path="/SegCuentasPopayan" component={SegCuentas} exact />
+
+          <Route path="/MenuOtrosPopayan" component={MenuOtros} exact />
         </Switch>
         
         <div className="pedido">
@@ -758,7 +1152,13 @@ printerPedidosConnect(cmdsAux){
                   </option>    
                   <option>
                       RECOGEN
-                  </option>                      
+                  </option>    
+                  <option>
+                      ROOM SERVICE
+                  </option> 
+                  <option>
+                      CARTA FAMILIA
+                  </option>                   
               </Input>
               <p><strong>CORTESIA: </strong></p>
               <Input className='opcionPedidoOrden' type="select" onChange={this.changeOpcionCortesia}>
@@ -796,6 +1196,10 @@ printerPedidosConnect(cmdsAux){
                     {item.costo_sopa ? ( <p className='itemPrecio'>....................{item.costo_sopa + item.costo_adiciones_sopa}</p> ) : ( <p></p> )}
                     {/*Costo pan de ajo*/}
                     {item.costo_pan_ajo ? ( <p className='itemPrecio'>....................{item.costo_pan_ajo}</p> ) : ( <p></p> )}
+
+                    {item.costo_pizza_festival ? ( <p className='itemPrecio'>....................{item.costo_pizza_festival}</p> ) : ( <p></p> )}
+
+
                     {/*Costo pasta*/}
                     {item.costo_pasta ? ( <p className='itemPrecio'>....................{item.costo_pasta + item.costo_adiciones_pasta}</p> ) : ( <p></p> )}
                     {/*Costo lasagna*/}
@@ -810,6 +1214,12 @@ printerPedidosConnect(cmdsAux){
                     {item.costo_personal ? ( <p className='itemPrecio'>....................{item.costo_personal + item.costo_adiciones}</p> ) : ( <p></p> )}
                     {/*Costo grande*/}
                     {item.costo_grande ? ( <p className='itemPrecio'  >....................{item.costo_grande + item.costo_adiciones_grande}</p> ) : ( <p></p> )}
+                    {/*Costo otros*/}
+                    {item.costo_otros ? ( <p className='itemPrecio'  >....................{item.costo_otros}</p> ) : ( <p></p> )}
+                    {/*Costo panaderia*/}
+                    {item.costo_panaderia ? ( <p className='itemPrecio'  >....................{item.costo_panaderia}</p> ) : ( <p></p> )}
+                    
+                  
                   </div>
                   {/*cerveza*/}
                   {item.mod_sabor_cerveza ? ( <p className='itemSabor'>{item.mod_sabor_cerveza}</p> ) : ( <p></p> )}
@@ -817,6 +1227,8 @@ printerPedidosConnect(cmdsAux){
                   {item.mod_sabor_jugo ? ( <p className='itemSabor'>{item.mod_sabor_jugo}</p> ) : ( <p></p> )}
                   {/*tinto*/}
                   {item.mod_sabor_cafe ? ( <p className='itemSabor'>{item.mod_sabor_cafe}</p> ) : ( <p></p> )}
+
+                  {item.mod_sabor_chocolate ? ( <p className='itemSabor'>{item.mod_sabor_chocolate}</p> ) : ( <p></p> )}
                   {/*Sopa*/}
                   {item.sabor_sopa ? ( <p className='itemSabor'>Sabor: {item.sabor_sopa}</p> ) : ( <p></p> )}
                   {item.mod_sabor_sopa ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_sopa}</p> ) : ( <p></p> )}
@@ -871,10 +1283,25 @@ printerPedidosConnect(cmdsAux){
                   {item.ind_cuarto_dos_adicional ? ( <p className='itemSabor'>Observaciones cuarto 2: {item.ind_cuarto_dos_adicional}</p> ) : ( <p></p> )}
                   {item.ind_cuarto_tres_adicional ? ( <p className='itemSabor'>Observaciones cuarto 3: {item.ind_cuarto_tres_adicional}</p> ) : ( <p></p> )}
                   {item.ind_cuarto_cuatro_adicional ? ( <p className='itemSabor'>Observaciones cuarto 4: {item.ind_cuarto_cuatro_adicional}</p> ) : ( <p></p> )}
+
+                  {/*DESAYUNOS*/} 
+                  {/*item.tipo ? ( <p className='itemSabor'>Desayuno: {item.tipo}</p> ) : ( <p></p> )*/}
+
+                  {item.desayuno_tipo_huevos ? ( <p className='itemSabor'>Huevos: {item.desayuno_tipo_huevos}</p> ) : ( <p></p> )}
+                  {item.desayuno_tipo_bebida ? ( <p className='itemSabor'>Adicion: {item.desayuno_tipo_bebida}</p> ) : ( <p></p> )}
+
+                  {item.mod_sabor_desayuno ? ( <p className='itemSabor'>Adicion: {item.mod_sabor_desayuno}</p> ) : ( <p></p> )}
+                  {item.ind_desayuno_adicional ? ( <p className='itemSabor'>Observaciones: {item.ind_desayuno_adicional}</p> ) : ( <p></p> )}
                 </>
               )
-            })}   
-            <p className='itemOrdenFinal'>COSTO PEDIDO: {this.state.costoOrden}</p>         
+            })} 
+
+            {/*Costo room service*/}
+            {this.state.opcionOrden === "ROOM SERVICE" ? ( <p className='itemOrdenFinal'>ROOM SERVICE: {this.state.costoRoomService}</p> ) : ( <p></p> )}
+
+            {/*Costo de todo el pedido*/}
+            {this.costoPedidoCompleto()}
+            
           </ModalBody>
           <ModalFooter>
               <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button> 
