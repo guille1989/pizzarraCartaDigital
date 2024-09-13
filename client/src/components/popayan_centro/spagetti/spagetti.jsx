@@ -160,7 +160,7 @@ toggleModalAceptar = () => {
     this.props.atrasMenuPersonal();
 }
 
-esPromocion = () => {
+tipoPasta = () => {
     if(this.state.promo === false){
         this.setState({
             promo: true,
@@ -203,13 +203,37 @@ render(){
             <>
             <div>                
                 <div className='centrarButtonPromocionLasagna'>
-                    <p style={{textAlign: 'center'}}>PASTA - TIPO:</p>
-                    <p> </p>  
-                    <button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>
-
-                    <p style={{textAlign: 'center'}}>PASTA - SALSA:</p>
-                    <p> </p>  
-                    <button className={this.state.classTipo} onClick={this.pasSalsa}>{this.state.textoBotonSalsa}</button>
+                <div>
+                        <div>
+                            <p style={{textAlign: 'center'}}>PASTA - TIPO:</p>
+                            <p> </p>  
+                        </div>
+                        <div>
+                            <button className={this.state.classSalsa} onClick={this.tipoPasta}>{this.state.textoBoton}</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p style={{textAlign: 'center'}}>PASTA - SALSA:</p>
+                            <p> </p>  
+                        </div>
+                        <div>
+                            <select 
+                                className="form-select" 
+                                aria-label="Default select example" 
+                                style={{width:"100%"}}
+                                value={this.state.textoBotonSalsa}
+                                onChange={(e) => {
+                                    this.pasSalsa(e);
+                                    this.setState({ textoBotonSalsa: e.target.value })
+                                }}
+                            >
+                                <option value="NAPOLITANA">NAPOLITANA</option>
+                                <option value="SALSA BLANCA">SALSA BLANCA</option>
+                                <option value="PESTO">PESTO</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>    
 
                 <div style={{display: 'flex', flexDirection: 'row'}}>

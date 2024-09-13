@@ -23,7 +23,7 @@ class spagetti extends Component {
             textoBoton: 'SPAGHETTI',
             textoBotonSalsa: 'NAPOLITANA',
             classSinConPromo: 'buttonPromocion',
-            costoPizzaPersonal: 29000,
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO),
             costoPizzaPersonalSalsa: 0,
             classSalsa: 'buttonBolognesa',
             classTipo: 'buttonBolognesa',
@@ -160,40 +160,43 @@ toggleModalAceptar = () => {
     this.props.atrasMenuPersonal();
 }
 
-esPromocion = () => {
+tipoPasta = () => {
     if(this.state.promo === false){
         this.setState({
             promo: true,
             textoBoton: 'FETUCCINI',
             classSalsa: 'buttonQueso',
-            costoPizzaPersonal: 29000
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO)
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'SPAGHETTI',
             classSalsa: 'buttonBolognesa',
-            costoPizzaPersonal: 29000
+            costoPizzaPersonal: parseInt(process.env.REACT_APP_FETTUCCINE_SPAGHETTI_BOLOGNESA_COSTO)
         })
     ) 
 }
 
-pasSalsa = () => {
-    if(this.state.promoS === false){
-        this.setState({
-            promoS: true,
-            textoBotonSalsa: 'SALSA BLANCA',
-            classTipo: 'buttonQueso',
-            costoPizzaPersonalSalsa: 6000
-        })
-    }else(
-        this.setState({
-            promoS: false,
-            textoBotonSalsa: 'NAPOLITANA',
-            classTipo: 'buttonBolognesa',
-            costoPizzaPersonalSalsa: 0
-        })
-    ) 
+pasSalsa = (e) => {
+
+    switch(e.target.value){
+        case "NAPOLITANA": 
+            this.setState({
+                costoPizzaPersonalSalsa: 0
+            }); 
+            break;
+        case "SALSA BLANCA": 
+            this.setState({
+                costoPizzaPersonalSalsa: 6000
+            }); 
+            break;
+        case "PESTO": 
+            this.setState({
+                costoPizzaPersonalSalsa: 6000
+            }); 
+            break;
+    }
 }
 
 render(){
@@ -203,13 +206,37 @@ render(){
             <>
             <div>                
                 <div className='centrarButtonPromocionLasagna'>
-                    <p style={{textAlign: 'center'}}>PASTA - TIPO:</p>
-                    <p> </p>  
-                    <button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>
-
-                    <p style={{textAlign: 'center'}}>PASTA - SALSA:</p>
-                    <p> </p>  
-                    <button className={this.state.classTipo} onClick={this.pasSalsa}>{this.state.textoBotonSalsa}</button>
+                    <div>
+                        <div>
+                            <p style={{textAlign: 'center'}}>PASTA - TIPO:</p>
+                            <p> </p>  
+                        </div>
+                        <div>
+                            <button className={this.state.classSalsa} onClick={this.tipoPasta}>{this.state.textoBoton}</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p style={{textAlign: 'center'}}>PASTA - SALSA:</p>
+                            <p> </p>  
+                        </div>
+                        <div>
+                            <select 
+                                className="form-select" 
+                                aria-label="Default select example" 
+                                style={{width:"100%"}}
+                                value={this.state.textoBotonSalsa}
+                                onChange={(e) => {
+                                    this.pasSalsa(e);
+                                    this.setState({ textoBotonSalsa: e.target.value })
+                                }}
+                            >
+                                <option value="NAPOLITANA">NAPOLITANA</option>
+                                <option value="SALSA BLANCA">SALSA BLANCA</option>
+                                <option value="PESTO">PESTO</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>    
 
                 <div style={{display: 'flex', flexDirection: 'row'}}>

@@ -196,16 +196,21 @@ render(){
             <>
             <div>                
                 <div className='centrarButtonPromocionLasagna'>
-                    <p style={{textAlign: 'center'}}>RAVIOLIS - SALSA: {this.state.textoBoton}</p>
-                    <p> </p>  
-
+                    <div>
+                    <div>
+                        <p style={{textAlign: 'center'}}>RAVIOLIS - SALSA: {this.state.textoBoton}</p>
+                        <p> </p>  
+                    </div>
                     {/*<button className={this.state.classSalsa} onClick={this.esPromocion}>{this.state.textoBoton}</button>*/}
+                    <div>
+                        <select class="form-select" aria-label="Default select example" style={{width:"100%"}} onChange={this.handleOpcionSalsaRaviolis}>
+                            <option value="NAPOLITANA">NAPOLITANA</option>
+                            <option value="ALFREDO">ALFREDO</option>
+                            <option value="PESTO">PESTO</option>
+                        </select>
+                    </div>
+                    </div>
 
-                    <select class="form-select" aria-label="Default select example" style={{width:"10%"}} onChange={this.handleOpcionSalsaRaviolis}>
-                        <option value="NAPOLITANA">NAPOLITANA</option>
-                        <option value="ALFREDO">ALFREDO</option>
-                        <option value="PESTO">PESTO</option>
-                    </select>
 
                 </div>          
                 <div style={{display: 'flex', flexDirection: 'row'}}>
