@@ -20,7 +20,7 @@ class cervezas extends Component {
             cantidadProducto: 1,
             modalCerveza: false,
             producto: 'CERVEZA',
-            costoCerveza: 6000
+            costoCerveza: process.env.REACT_APP_CERVEZA_NACIONAL_COSTO
         }
     }
 
@@ -151,14 +151,14 @@ esPromocion = () => {
             promo: true,
             textoBoton: 'Michelar',
             classSalsa: 'buttonQueso',
-            costoCerveza: 7000
+            costoCerveza: parseInt(process.env.REACT_APP_CERVEZA_NACIONAL_COSTO) + 1000
         })
     }else(
         this.setState({
             promo: false,
             textoBoton: 'Sin Michelada',
             classSalsa: 'buttonBolognesa',
-            costoCerveza: 6000
+            costoCerveza: process.env.REACT_APP_CERVEZA_NACIONAL_COSTO
         })
     ) 
 }

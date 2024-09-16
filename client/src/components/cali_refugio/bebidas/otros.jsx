@@ -73,7 +73,7 @@ handleAgua = () => {
 handleAguaGas = () => {
     this.setState({
         producto: 'AGUA CON GAS',
-        costoProducto: 4000
+        costoProducto: process.env.REACT_APP_AGUA_COSTO
     })
 
     //Toggle Modal
@@ -110,7 +110,7 @@ handleAguaGas = () => {
 handleAFrutosRojos = () => {
     this.setState({
         producto: 'AROMATICA FRUTOS ROJOS',
-        costoProducto: 2000
+        costoProducto: process.env.REACT_APP_CAFE_AROMATICA_COSTO
     })
 
     //Toggle Modal
@@ -147,7 +147,7 @@ handleAFrutosRojos = () => {
 handleAMansanilla = () => {
     this.setState({
         producto: 'AROMATICA MANSANILLA',
-        costoProducto: 2000
+        costoProducto: process.env.REACT_APP_CAFE_AROMATICA_COSTO
     })
 
     //Toggle Modal
@@ -184,7 +184,7 @@ handleAMansanilla = () => {
 handleAYerbaBuena = () => {
     this.setState({
         producto: 'AROMATICA YERBE BUENA',
-        costoProducto: 2000
+        costoProducto: process.env.REACT_APP_CAFE_AROMATICA_COSTO
     })
 
     //Toggle Modal
