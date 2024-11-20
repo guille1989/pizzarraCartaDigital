@@ -10,7 +10,6 @@ class CombinadaIngredientes extends Component {
             ingredientes: 1,
             ingredienteuno: '',
             ingredientedos: '',
-            //combinada: 'false',
             porporcion: 'Combinada de: ',
             adiciones: '',
             dato: 'Combinada'
@@ -549,6 +548,35 @@ class CombinadaIngredientes extends Component {
             this.props.atrasMenuPersonalSabor(dato, porcion);
         }
     }
+
+    handleTomateSeco = () => {
+        if(this.props.combinada === 'true'){
+            if(this.state.ingredientes === 0){
+                this.setState({
+                    ingredientes: this.state.ingredientes+1,                    
+                    dato : this.state.dato + " + " + "Tomates Secos"})
+            }else{
+                this.setState({
+                    ingredientes: this.state.ingredientes+1,                    
+                    dato : this.state.dato + " + " + "Tomates Secos"})                      
+                    if(this.state.ingredientes === parseInt(this.props.comDosTresIngre)){
+                        var porcion = this.props.porcion
+                        setTimeout(() => {
+                            this.props.cuentamitad(this.state.dato, this.props.porcion);
+                            this.props.atrasMenuPersonalSabor(this.state.dato, porcion);
+                        }, 100);                        
+                    }
+            }            
+        }else if(this.props.opcioncuarto === "ingredientemenos"){
+            var dato = "-Sin TomatesSecos"
+            var porcion = this.props.porcion
+            this.props.atrasMenuPersonalSabor(dato, porcion);
+        }else{
+            var dato = "+Adicion TomatesSecos"
+            var porcion = this.props.porcion
+            this.props.atrasMenuPersonalSabor(dato, porcion);
+        }
+    }
   
     render(){
         return(
@@ -615,6 +643,9 @@ class CombinadaIngredientes extends Component {
                     </div>
                     <div className="saborItem" onClick={this.handleMaiz}>
                         <h1 className="pizzaOpcionSabor">Maiz</h1>
+                    </div>
+                    <div className="saborItem" onClick={this.handleTomateSeco}>
+                        <h1 className="pizzaOpcionSabor">Tomates Secos</h1>
                     </div>
                 </div>            
             </div>
