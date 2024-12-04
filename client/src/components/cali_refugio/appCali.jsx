@@ -54,6 +54,7 @@ class appCali extends Component {
   }
 
   confirmarPedido = (orden, costo, insumos) => {
+    console.log(orden);
     this.setState({
       datoOrden: orden,
       dataOrdenAux: JSON.parse(JSON.stringify(orden)),
