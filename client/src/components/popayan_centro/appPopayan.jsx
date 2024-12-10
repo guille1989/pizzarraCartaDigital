@@ -436,7 +436,15 @@ cuentasSeguimiento(){
   })
 }
 
+generateUniqueId = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+}
+
 printerConect = () => {
+
+  const uniqueId = this.generateUniqueId();
+  console.log(uniqueId);
+
   ////
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
@@ -446,6 +454,8 @@ printerConect = () => {
   let cmds = esc + "@"; //Initializes the printer (ESC @)
   cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
   cmds += 'PEDIDO COCINA'; //text to print
+  cmds += newLine;
+  cmds += 'Pedido No. ' + uniqueId; //text to print
   cmds += newLine;
   cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
 
