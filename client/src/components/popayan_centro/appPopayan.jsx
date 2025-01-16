@@ -49,7 +49,19 @@ class appCali extends Component {
       segPedidos: false,
       opcionCortesia: 'No',
       insumosOrden: [],
-      costoRoomService: 10000
+      costoRoomService: 10000,
+
+      currentDate: this.getCurrentDate(), // Fecha actual ajustada
+      lastId: 0, // Último ID generado
+    }
+  }
+
+  getCurrentDate = () => {
+    const now = Moment();
+    if (now.hour() < 4) {
+      return now.subtract(1, 'day').format('YYYY-MM-DD');
+    } else {
+      return now.format('YYYY-MM-DD');
     }
   }
 
@@ -440,9 +452,28 @@ generateUniqueId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 }
 
+generateSequentialId = () => {
+  const today = this.getCurrentDate();
+  if (this.state.currentDate !== today) {
+    // Si la fecha ha cambiado, reiniciar el contador
+    this.setState({
+      currentDate: today,
+      lastId: 1,
+    });
+    return 1;
+  } else {
+    // Incrementar el contador
+    this.setState((prevState) => ({
+      lastId: prevState.lastId + 1,
+    }));
+    return this.state.lastId + 1;
+  }
+}
+
 printerConect = () => {
 
-  const uniqueId = this.generateUniqueId();
+  //const uniqueId = this.generateUniqueId();
+  const uniqueId = this.generateSequentialId();
   console.log(uniqueId);
 
   ////
