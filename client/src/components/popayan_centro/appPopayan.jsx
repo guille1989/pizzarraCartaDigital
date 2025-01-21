@@ -28,6 +28,8 @@ import { onScanButtonClick, onDisconnectButtonClick } from './printerConnect';
 class appCali extends Component {
   constructor(props){
     super(props);    
+    const savedDate = localStorage.getItem('currentDate');
+    const savedLastId = localStorage.getItem('lastId');
     this.state={
       modalPedido : false,
       datoOrden: [],
@@ -51,8 +53,8 @@ class appCali extends Component {
       insumosOrden: [],
       costoRoomService: 10000,
 
-      currentDate: this.getCurrentDate(), // Fecha actual ajustada
-      lastId: 0, // Último ID generado
+      currentDate: savedDate || this.getCurrentDate(), // Fecha actual ajustada
+      lastId: savedLastId ? parseInt(savedLastId, 10) : 0, // Último ID generado
     }
   }
 
@@ -460,12 +462,16 @@ generateSequentialId = () => {
       currentDate: today,
       lastId: 1,
     });
+    localStorage.setItem('currentDate', today);
+    localStorage.setItem('lastId', 1);
     return 1;
   } else {
     // Incrementar el contador
-    this.setState((prevState) => ({
-      lastId: prevState.lastId + 1,
-    }));
+    this.setState((prevState) => {
+      const newId = prevState.lastId + 1;
+      localStorage.setItem('lastId', newId);
+      return { lastId: newId };
+    });
     return this.state.lastId + 1;
   }
 }
