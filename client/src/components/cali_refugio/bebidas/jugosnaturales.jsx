@@ -22,6 +22,7 @@ class jugosnaturales extends Component {
             MangoLeche: 'Sin Leche',
             modalLulo: false,
             modalMora: false,
+            modalGuanabana: false,  
             modalLimonada: false,
             modalLimonadaJarra: false,
             modalLulada: false,
@@ -66,6 +67,14 @@ handleMora = () => {
         modalMora: !this.state.modalMora
     })
     // 
+}
+
+handleGuanabana = () => {
+    //Toggle Modal
+    this.setState({
+        modalGuanabana: !this.state.modalGuanabana
+    })
+    //
 }
 
 handleLimonada = () => {
@@ -130,6 +139,14 @@ toggleModalCancelarMora = () => {
     //Toggle Modal
     this.setState({
         modalMora: !this.state.modalMora
+    })
+    //
+}
+
+toggleModalCancelarGuanabana = () => {
+    //Toggle Modal
+    this.setState({
+        modalGuanabana: !this.state.modalGuanabana
     })
     //
 }
@@ -358,6 +375,44 @@ toggleModalAceptarMora = () => {
     //
 }
 
+toggleModalAceptarGuanabana = () => {
+    let adicionLeche = 0
+    if(this.state.MangoLeche === 'Con Leche'){
+        adicionLeche = 1000
+    }
+
+    var dato = "GUANABANA"
+    let pedidoPizza = [];    
+    //Guardamos en local Storag 
+    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Jugos'))]    
+    if(contPersonales[0] === null){
+        //Guardamos en local Storage
+        pedidoPizza = { 'key_id' : 1,
+                    'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,   
+                    'mod_sabor_jugo' : this.state.textoBoton + ', ' +  this.state.MangoLeche,                  
+                    'costo_jugo' : (parseInt(process.env.REACT_APP_JUGOS_NATURALES_COSTO) + adicionLeche) * this.state.cantidadProducto,
+                    'id_pedido': 'Pedido_Jugo_0'};
+        localStorage.setItem('Pedido_Jugo_0', JSON.stringify(pedidoPizza))
+        localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': 1}))
+    }else{
+        pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
+                    'tipo' : 'JUGO ' + dato + ' X ' + this.state.cantidadProducto ,  
+                    'mod_sabor_jugo' : this.state.textoBoton + ', ' +  this.state.MangoLeche,                    
+                    'costo_jugo' : (parseInt(process.env.REACT_APP_JUGOS_NATURALES_COSTO) + adicionLeche) * this.state.cantidadProducto,                    
+                    'id_pedido': `Pedido_Jugo_${contPersonales[0].Numero}`};
+        localStorage.setItem(`Pedido_Jugo_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
+        localStorage.setItem('Numero_Jugos', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
+    }  
+
+    //Toggle Modal
+    this.setState({
+        modalGuanabana: !this.state.modalGuanabana,
+        MangoLeche: 'Sin Leche',
+        cantidadProducto: 1
+    })
+    //
+}
+
     changeMangoLeche = (e) => {
         this.setState({
             MangoLeche: e.target.value
@@ -388,7 +443,10 @@ toggleModalAceptarMora = () => {
                             </div> 
                             <div className="saborItem" onClick={this.handleMora}>
                                 <h1 className="pizzaOpcionSabor">Mora</h1>
-                            </div>        
+                            </div>       
+                            <div className="saborItem" onClick={this.handleGuanabana}>
+                                <h1 className="pizzaOpcionSabor">Guanabana</h1>
+                            </div>  
                             <div className="saborItem" onClick={this.handleLimonada}>
                                 <h1 className="pizzaOpcionSabor">Limonada</h1>
                             </div> 
@@ -485,6 +543,30 @@ toggleModalAceptarMora = () => {
                             <Button color="danger" onClick={this.toggleModalCancelarMora}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
+
+                    <Modal isOpen={this.state.modalGuanabana}>                        
+                                            <ModalHeader>Cantidad</ModalHeader>
+                                            <ModalBody>
+                                                <p>Cantidad:</p>
+                                                <Input value={this.state.cantidadProducto} onChange={this.changeCantidadProducto} placeholder="Cantidad" /><br></br>
+                                                <p>Adicion de Leche:</p>
+                                                <Input type="select" onChange={this.changeMangoLeche}>
+                                                <option>
+                                                    Opcion
+                                                </option>
+                                                <option>
+                                                    Con Leche
+                                                </option>    
+                                                <option>
+                                                    Sin Leche
+                                                </option>                             
+                                                </Input><br></br>
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <Button color="success" onClick={this.toggleModalAceptarGuanabana}>Agregar Pedido</Button> {'  '}
+                                                <Button color="danger" onClick={this.toggleModalCancelarGuanabana}>Cancelar</Button>
+                                            </ModalFooter>
+                                        </Modal>
 
                     <Modal isOpen={this.state.modalLimonada}>                        
                         <ModalHeader>Cantidad</ModalHeader>
