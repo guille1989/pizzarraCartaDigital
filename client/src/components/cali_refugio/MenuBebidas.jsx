@@ -341,32 +341,32 @@ class MenuBebidas extends Component {
         }
         if(e.target.value === "Expreso Pequeño"){
             this.setState({
-                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_AROMATICA_COSTO)
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_EXPRESO_PEQUENIO_COSTO)
             })
         }
         if(e.target.value === "Expreso Grande"){
             this.setState({
-                valorCafeBebida: 4000
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_EXPRESO_GRANDE_COSTO)
             })
         }
         if(e.target.value === "Americano Grande"){
             this.setState({
-                valorCafeBebida: 4000
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_AMERICANO_GRANDE_COSTO)
             })
         }
         if(e.target.value === "Americano Pequeño"){
             this.setState({
-                valorCafeBebida: 3000
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_AMERICANO_PEQUENIO_COSTO)
             })
         }
         if(e.target.value === "Capuccino Grande"){
             this.setState({
-                valorCafeBebida: 6000
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_CAPUCHINO_GRANDE_COSTO)
             })
         }
         if(e.target.value === "Capuccino Pequeño"){
             this.setState({
-                valorCafeBebida: 4000
+                valorCafeBebida: parseInt(process.env.REACT_APP_CAFE_CAPUCHINO_PEQUENIO_COSTO)
             })
         }
 
