@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
 //give me comand to create server in express
 
 //Iniciamos Server
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`BackEnd escuchando por puerto ${port}....`)
 })
