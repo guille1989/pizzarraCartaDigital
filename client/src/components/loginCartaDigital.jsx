@@ -29,7 +29,7 @@ class loginCartaDigital extends Component {
       headers : {'Content-type':'application/json'},
       body: JSON.stringify({usuario: this.state.usuario, contrasenia: this.state.contrasenia})    
     }      
-    fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/app_cd/inicio`, requestOptions)
+    fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/inicio`, requestOptions)
         .then(response => response.json())
         .then(data => {
           if(data.usuario !== ''){
