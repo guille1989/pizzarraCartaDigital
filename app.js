@@ -38,13 +38,13 @@ mongose.connect('mongodb://localhost:27017/pizzarracalirefugio', {
 */
 
 //Definimos las rutas de navegacion
-app.use('/api/pedidos', Pedidos)
-app.use('/api/agregarpedidos', AgregarPedidos)
-app.use('/api/actualizarpedidos', ActualizarOrdenPago)
-app.use('/api/actualizarpedidossinpago', ActualizarOrdenSinPago)
-app.use('/api/actualizarpedidosconpago', ActualizarOrdenConPago)
-app.use('/api/buscarmesapedidos', BuscarMesaPedidos)
-app.use('/api/inicio', InicioApp)
+app.use('/api/app_cd/pedidos', Pedidos)
+app.use('/api/app_cd/agregarpedidos', AgregarPedidos)
+app.use('/api/app_cd/actualizarpedidos', ActualizarOrdenPago)
+app.use('/api/app_cd/actualizarpedidossinpago', ActualizarOrdenSinPago)
+app.use('/api/app_cd/actualizarpedidosconpago', ActualizarOrdenConPago)
+app.use('/api/app_cd/buscarmesapedidos', BuscarMesaPedidos)
+app.use('/api/app_cd/inicio', InicioApp)
 
 //Configuramos la ruta del frontEnd
 //app.use(express.static("client/build"));
