@@ -438,7 +438,7 @@ writeUserData(pedido, pedidoAux) {
     body: JSON.stringify(pedidoAux)        
   }
   
-  fetch(`http://${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
+  fetch(`https://${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
