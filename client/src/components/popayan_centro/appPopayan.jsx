@@ -509,7 +509,7 @@ if(this.state.opcionOrden === "MESA"){
 
   //console.log(cmds)
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect(cmds, 0, false)
   }
 }
 
@@ -537,7 +537,7 @@ if(this.state.opcionOrden === "DOMICILIO"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds, this.state.DomiCosto)
+  this.printerPedidosConnect(cmds, this.state.DomiCosto, true)
 }
 }
 
@@ -558,7 +558,7 @@ if(this.state.opcionOrden === "RECOGEN"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect(cmds, 0, false)
   }
 }
 
@@ -577,7 +577,7 @@ if(this.state.opcionOrden === "ROOM SERVICE"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect(cmds, 0, false)
   }
 }
 
@@ -592,13 +592,13 @@ if(this.state.opcionOrden === "CARTA FAMILIA"){
   cmds += newLine;
   cmds += newLine;
 
-  this.printerPedidosConnect(cmds)
+  this.printerPedidosConnect(cmds, 0, false)
   
 }
 
 }
 
-printerPedidosConnect(cmdsAux, costoDomi){
+printerPedidosConnect(cmdsAux, costoDomi, flagDomi){
 
   let costoTotal = 0
 
@@ -1036,9 +1036,13 @@ printerPedidosConnect(cmdsAux, costoDomi){
     cmds += newLine;    
     cmds += "TOTAL PEDIDO ------> " + costoTotal;   
 
-    console.log(cmds)
-
     const myPromise = new Promise((resolve, reject) => {
+      if (flagDomi){
+         // Llamar a onScanButtonClick dos veces
+        onScanButtonClick(cmds);
+        onScanButtonClick(cmds);
+        resolve();
+      }
       resolve(onScanButtonClick(cmds));
     });
 
