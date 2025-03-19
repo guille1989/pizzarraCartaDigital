@@ -10,6 +10,7 @@ const ActualizarOrdenConPago = require('./route/leerpedidospagados')
 const ActualizarOrdenSinPago = require('./route/leerpedidossinpago');
 const BuscarMesaPedidos =  require('./route/filtromesa');
 const InicioApp = require('./route/inicio');
+const LeerNumeroPedidos = require('./route/leernumeropedidos');
 //middlewares
 const corse = require('cors');
 const bodyParser = require("body-parser");
@@ -45,6 +46,7 @@ app.use('/api/actualizarpedidossinpago', ActualizarOrdenSinPago)
 app.use('/api/actualizarpedidosconpago', ActualizarOrdenConPago)
 app.use('/api/buscarmesapedidos', BuscarMesaPedidos)
 app.use('/api/inicio', InicioApp)
+app.use('/api/leernumeropedidos', LeerNumeroPedidos)
 
 //Configuramos la ruta del frontEnd
 //app.use(express.static("client/build"));
@@ -57,7 +59,7 @@ app.get("/", (req, res) => {
 //give me comand to create server in express
 
 //Iniciamos Server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`BackEnd escuchando por puerto ${port}....`)
 })

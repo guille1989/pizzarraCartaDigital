@@ -55,7 +55,7 @@ class appCali extends Component {
       costoRoomService: 10000,
 
       currentDate: savedDate || this.getCurrentDate(), // Fecha actual ajustada
-      lastId: savedLastId ? parseInt(savedLastId, 10) : 0, // Último ID generado
+      lastId: 0, // Último ID generado
     }
   }
 
@@ -438,7 +438,7 @@ writeUserData(pedido, pedidoAux) {
     body: JSON.stringify(pedidoAux)        
   }
   
-  fetch(`https://${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
+  fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
@@ -456,32 +456,30 @@ generateUniqueId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 }
 
-generateSequentialId = () => {
-    const today = this.getCurrentDate();
-    if (this.state.currentDate !== today) {
-      // Si la fecha ha cambiado, reiniciar el contador
-      this.setState({
-        currentDate: today,
-        lastId: 1,
-      });
-      localStorage.setItem('currentDate', today);
-      localStorage.setItem('lastId', 1);
+generateSequentialId = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/leernumeropedidos/${Moment().format('YYYY-MM-DD')}/Cali-Refugio`);
+    const data = await response.json();
+    console.log("generateSequentialId", data);
+
+    if (data.datos.length === 0) {
+      this.setState({ lastId: 1 });
       return 1;
     } else {
-      // Incrementar el contador
-      this.setState((prevState) => {
-        const newId = prevState.lastId + 1;
-        localStorage.setItem('lastId', newId);
-        return { lastId: newId };
-      });
-      return this.state.lastId + 1;
+      const newId = data.datos[0].numberOfPedidos + 1;
+      this.setState({ lastId: newId });
+      return newId;
     }
+  } catch (err) {
+    console.log(err);
+    return null; // Manejo de errores
   }
+};
 
-printerConect = () => {
+printerConect = async () => {
 
   //const uniqueId = this.generateUniqueId();
-  const uniqueId = this.generateSequentialId();
+  const uniqueId = await this.generateSequentialId();
   console.log(uniqueId);
 
   ////
@@ -1040,8 +1038,8 @@ printerPedidosConnect(cmdsAux, costoDomi){
     cmds += newLine;    
     cmds += "TOTAL PEDIDO ------> " + costoTotal;   
 
-    console.log(cmds)
-
+    console.log(cmds)  
+    
     const myPromise = new Promise((resolve, reject) => {
       resolve(onScanButtonClick(cmds));
     });
@@ -1353,8 +1351,8 @@ costoPedidoCompleto(){
             
           </ModalBody>
           <ModalFooter>
-              <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button> 
-              {/*<Button color="success" onClick={this.toggleModalAceptar}>Aceptar Pedido</Button>*/} 
+              <Button color="success" onClick={this.printerConect}>Imprimir / Aceptar Pedido</Button>
+              {/*<Button color="success" onClick={this.toggleModalAceptar}>Aceptar Pedido</Button>*/}
               <Button color="danger" onClick={this.toggleModalCancelar}>Cancelar</Button>
           </ModalFooter>
       </Modal>      
