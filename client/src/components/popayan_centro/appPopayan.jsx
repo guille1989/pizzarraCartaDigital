@@ -52,7 +52,7 @@ class appCali extends Component {
       opcionCortesia: 'No',
       insumosOrden: [],
       costoRoomService: 10000,
-
+      pedidosPendientes: JSON.parse(localStorage.getItem("pendingOrders")) || [],
       currentDate: savedDate || this.getCurrentDate(), // Fecha actual ajustada
       lastId: savedLastId ? parseInt(savedLastId, 10) : 0, // Último ID generado
     }
@@ -427,22 +427,84 @@ renderSwitch(params){
 }
 }
 
-
-writeUserData(pedido, pedidoAux) { 
-  //Fetch para enviar informacion al backend:
-  const requestOptions ={
-    method: 'POST',
-    headers : {'Content-type':'application/json' },
-    body: JSON.stringify(pedidoAux)        
-  }
-  
-  fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions)
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  
-  //
+componentDidMount() {
+  window.addEventListener("online", this.syncOfflineOrders);
 }
+
+componentWillUnmount() {
+  window.removeEventListener("online", this.syncOfflineOrders);
+}
+
+// Función para enviar el pedido con reintentos
+writeUserData = async (pedido, pedidoAux, retries = 3, delay = 2000) => {
+  const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(pedidoAux)
+  };
+
+  for (let i = 0; i < retries; i++) {
+      try {
+          let response = await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions);
+          
+          if (!response.ok) throw new Error(`Error en el servidor: ${response.status}`);
+          
+          let data = await response.json();
+          console.log("Pedido enviado con éxito:", data);
+          return; // Salimos si el pedido se envió correctamente
+      } catch (error) {
+          console.error(`Error en intento ${i + 1}:`, error);
+          
+          if (i < retries - 1) {
+              await new Promise(res => setTimeout(res, delay)); // Espera antes de reintentar
+          } else {
+              console.log("No se pudo enviar el pedido. Guardando en localStorage...");
+              this.saveOrderOffline(pedidoAux); // Guardar en localStorage si no se puede enviar
+          }
+      }
+  }
+};
+
+// Guardar pedidos en localStorage si falla la conexión
+saveOrderOffline = (order) => {
+  let pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+  pendingOrders.push(order);
+  localStorage.setItem("pendingOrders", JSON.stringify(pendingOrders));
+  this.setState({ pedidosPendientes: pendingOrders });
+  console.log("Pedido guardado localmente para reintento.");
+};
+
+// Sincronizar pedidos guardados cuando la conexión regrese
+syncOfflineOrders = async () => {
+  let pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+  
+  if (pendingOrders.length === 0) return; // No hay pedidos pendientes
+
+  console.log("Conexión restaurada. Enviando pedidos pendientes...");
+
+  for (let i = 0; i < pendingOrders.length; i++) {
+      let order = pendingOrders[i];
+
+      try {
+          await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(order)
+          });
+
+          console.log("Pedido sincronizado:", order);
+          pendingOrders.splice(i, 1); // Eliminar pedido enviado
+          i--; // Ajustar índice tras eliminación
+      } catch (error) {
+          console.error("Error al sincronizar pedido:", error);
+          return; // Si falla, salir para reintentar después
+      }
+  }
+
+  // Si todos los pedidos se enviaron correctamente, limpiar `localStorage`
+  localStorage.removeItem("pendingOrders");
+  this.setState({ pedidosPendientes: [] });
+};
 
 cuentasSeguimiento(){  
   this.setState({

@@ -20,7 +20,6 @@ export async function onScanButtonClick(cmds) {
 }
 
 async function connect(cmds) {
-
   console.log('Connecting to Bluetooth Device...');
   await bluetoothDevice.gatt.connect()
   .then(server => {
