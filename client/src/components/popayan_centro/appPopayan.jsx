@@ -1096,32 +1096,44 @@ printerPedidosConnect(cmdsAux, costoDomi, flagDomi){
 
     //TOTAL::
     cmds += newLine;    
-    cmds += "TOTAL PEDIDO ------> " + costoTotal;   
+    cmds += "TOTAL PEDIDO ------> " + costoTotal + newLine;   
 
-    const myPromise = new Promise((resolve, reject) => {
-      if (flagDomi){
-         // Llamar a onScanButtonClick dos veces
-        onScanButtonClick(cmds);
-        onScanButtonClick(cmds);
-        resolve();
+    const myPromise = new Promise(async (resolve, reject) => {
+      try {
+        if (flagDomi) {
+          // Llamar a onScanButtonClick por primera vez
+          console.log("llamada a onScanButtonClick", cmds);
+
+
+          await onScanButtonClick(cmds, flagDomi);
+  
+        } else {
+          // Si no es flagDomi, solo llamar una vez
+          console.log("Llamada única a onScanButtonClick");
+          await onScanButtonClick(cmds);
+        }
+    
+        resolve(); // Resolver la promesa después de completar las llamadas
+      } catch (error) {
+        reject(error); // Manejar errores si ocurren
       }
-      resolve(onScanButtonClick(cmds));
     });
-
+    
     myPromise
       .then(() => {
-        //console.log("Desconectar")
         try {
-          //this.toggleModalAceptar()  
-          const connStatus = localStorage.getItem( 'con' )
-          if(connStatus === "ok"){
-            this.toggleModalAceptar()  
+          const connStatus = localStorage.getItem('con');
+          if (connStatus === "ok") {
+            this.toggleModalAceptar();
           }
-          onDisconnectButtonClick()
+          onDisconnectButtonClick();
         } catch (error) {
           console.error(error);
         }
       })
+      .catch((error) => {
+        console.error("Error en la promesa:", error);
+      });
     
     
     /*

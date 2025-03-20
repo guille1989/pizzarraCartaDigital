@@ -2,7 +2,7 @@ import Moment from 'moment';
 
 var bluetoothDevice;
 
-export async function onScanButtonClick(cmds) {
+export async function onScanButtonClick(cmds, flagDomi) {
   bluetoothDevice = null;
   console.log('Requesting Bluetooth Device...');
   await navigator.bluetooth.requestDevice({
@@ -12,86 +12,59 @@ export async function onScanButtonClick(cmds) {
   .then(device => {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-    return connect(cmds);
+    return connect(cmds, flagDomi);
   })
   .catch(error => {
     console.log('Argh! ' + error);
   });
 }
 
-async function connect(cmds) {
-  console.log('Connecting to Bluetooth Device...');
-  await bluetoothDevice.gatt.connect()
-  .then(server => {
-    // Getting Service…
-    return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
-  })
-  .then(service => {
-    // Getting Characteristic…
-    return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
-  })
-  .then((characteristic) => {
-    
-    // Enviamos datos !!!…
-    // Aqui crer los datos::::  
-    let tamaniodato = cmds.length / 512
-    let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
+async function connect(cmds, flagDomi) {
+  try {
+    console.log('Connecting to Bluetooth Device...');
+    const server = await bluetoothDevice.gatt.connect();
+    const service = await server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
+    const characteristic = await service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
 
-    let cmdsAux = ""
-    let countAux = 0
-    let newLine = '\x0A';
+    const CHUNK_SIZE = 256; // Reducimos el tamaño del chunk para asegurar compatibilidad
+    const encoder = new TextEncoder();
+    const newLine = '\x0A';
 
-    var enc = new TextEncoder() 
-    //console.log('Tamanio Dato: ' + cmds.length)
-    //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
+    // Convertimos cmds a string si no lo es
+    const dataString = Array.isArray(cmds) ? cmds.join('') : cmds;
+    const totalLength = dataString.length;
+    console.log('Total length:', totalLength);
 
-    const forloop = async () => {        
-
-      for(let i=1; i<=Math.ceil(tamaniodato); i++){
-
-        //console.log(`iteracion ${i},  countAux:` + countAux)
-        //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
-  
-        for(let j=countAux; j<=tamaniodatoaux; j++){
-          if(cmds[j]){
-            cmdsAux = cmdsAux + cmds[j]
-            countAux = countAux + 1
-          }else{
-  
-          }        
-        }
-
-        if(i === Math.ceil(tamaniodato)){
-          cmdsAux = cmdsAux + newLine; 
-          cmdsAux = cmdsAux + newLine;
-          cmdsAux = cmdsAux + newLine;
-        }
-  
-        await characteristic.writeValue(enc.encode(cmdsAux))           
+    // Función para enviar datos en chunks
+    const sendChunks = async () => {
+      for (let i = 0; i < totalLength; i += CHUNK_SIZE) {
+        let chunk = dataString.substring(i, Math.min(i + CHUNK_SIZE, totalLength));
         
-        tamaniodatoaux = tamaniodatoaux + countAux    
-        //console.log('Tamanio del dato: ' + cmdsAux.length)
-        //console.log('Datos: ' + cmdsAux)
-        cmdsAux = "";
-      }
-      
-    }
-    forloop()    
-    //this.toggleModalAceptar()  
-    //Aqui hacemos un reset de la pagina
-    //window.location.reload(false);
-    //console.log(localStorage)
+        // Añadir newlines solo al final
+        if (i + CHUNK_SIZE >= totalLength) {
+          chunk += newLine + newLine + newLine;
+        }
 
-    /*
-    setTimeout(() => {
-        onDisconnectButtonClick()
-    }, 3000);
-    */
-    localStorage.setItem('con', 'ok' );
-  })
-  .catch(error => {
-    console.log('Argh! ' + error);
-  });
+        console.log('Enviando chunk de tamaño:', chunk.length);
+        const encodedChunk = encoder.encode(chunk);
+        
+        // Agregar pequeño retraso entre envíos
+        await characteristic.writeValue(encodedChunk);
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
+      }
+    };
+
+    // Ejecutar una o dos veces según flagDomi
+    await sendChunks();
+    if (flagDomi) {
+      await sendChunks();
+    }
+
+    localStorage.setItem('con', 'ok');
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
 }
 
 export function onDisconnectButtonClick() {
