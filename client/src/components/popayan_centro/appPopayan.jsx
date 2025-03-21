@@ -541,7 +541,6 @@ printerConect = async () => {
   //const uniqueId = this.generateUniqueId();
   const uniqueId = await this.generateSequentialId();
   console.log(uniqueId);
-
   ////
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
@@ -1095,8 +1094,10 @@ printerPedidosConnect(cmdsAux, costoDomi, flagDomi){
     
 
     //TOTAL::
+    let costoTotalValidator = this.state.opcionCortesia === "Si" ? "CORTESIA" : costoTotal;
     cmds += newLine;    
-    cmds += "TOTAL PEDIDO ------> " + costoTotal + newLine;   
+    cmds += "TOTAL PEDIDO ------> " + costoTotalValidator + newLine;
+    console.log(cmds)   
 
     const myPromise = new Promise(async (resolve, reject) => {
       try {
