@@ -1040,24 +1040,33 @@ printerPedidosConnect(cmdsAux, costoDomi){
 
     console.log(cmds)  
     
-    const myPromise = new Promise((resolve, reject) => {
-      resolve(onScanButtonClick(cmds));
+    const myPromise = new Promise(async (resolve, reject) => {
+      try {
+        // Si no es flagDomi, solo llamar una vez
+        console.log("Llamada única a onScanButtonClick");
+        await onScanButtonClick(cmds, false);
+    
+        resolve(); // Resolver la promesa después de completar las llamadas
+      } catch (error) {
+        reject(error); // Manejar errores si ocurren
+      }
     });
-
+    
     myPromise
       .then(() => {
-        //console.log("Desconectar")
         try {
-          //this.toggleModalAceptar()  
-          const connStatus = localStorage.getItem( 'con' )
-          if(connStatus === "ok"){
-            this.toggleModalAceptar()  
+          const connStatus = localStorage.getItem('con');
+          if (connStatus === "ok") {
+            this.toggleModalAceptar();
           }
-          onDisconnectButtonClick()
+          onDisconnectButtonClick();
         } catch (error) {
           console.error(error);
         }
       })
+      .catch((error) => {
+        console.error("Error en la promesa:", error);
+      });
     
     
     /*
