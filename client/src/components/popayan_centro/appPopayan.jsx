@@ -55,6 +55,7 @@ class appCali extends Component {
       pedidosPendientes: JSON.parse(localStorage.getItem("pendingOrders")) || [],
       currentDate: savedDate || this.getCurrentDate(), // Fecha actual ajustada
       lastId: savedLastId ? parseInt(savedLastId, 10) : 0, // Último ID generado
+      pedidosPendientes: [],
     }
   }
 
@@ -429,81 +430,103 @@ renderSwitch(params){
 
 componentDidMount() {
   window.addEventListener("online", this.syncOfflineOrders);
+
+  const pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+  this.setState({ pedidosPendientes: pendingOrders });
 }
 
 componentWillUnmount() {
   window.removeEventListener("online", this.syncOfflineOrders);
 }
 
-// Función para enviar el pedido con reintentos
+// Function to send order with retries
 writeUserData = async (pedido, pedidoAux, retries = 3, delay = 2000) => {
   const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(pedidoAux)
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pedidoAux)
   };
 
-  for (let i = 0; i < retries; i++) {
-      try {
-          let response = await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, requestOptions);
-          
-          if (!response.ok) throw new Error(`Error en el servidor: ${response.status}`);
-          
-          let data = await response.json();
-          console.log("Pedido enviado con éxito:", data);
-          return; // Salimos si el pedido se envió correctamente
-      } catch (error) {
-          console.error(`Error en intento ${i + 1}:`, error);
-          
-          if (i < retries - 1) {
-              await new Promise(res => setTimeout(res, delay)); // Espera antes de reintentar
-          } else {
-              console.log("No se pudo enviar el pedido. Guardando en localStorage...");
-              this.saveOrderOffline(pedidoAux); // Guardar en localStorage si no se puede enviar
-          }
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`,
+        requestOptions
+      );
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
       }
+
+      const data = await response.json();
+      alert("Order sent successfully: " + JSON.stringify(data));
+      return; // Exit on success
+    } catch (error) {
+      alert(`Attempt ${attempt} failed: ${error.message}`);
+      
+      if (attempt === retries) {
+        alert("Failed to send order. Saving to localStorage...");
+        this.saveOrderOffline(pedidoAux);
+        return;
+      }
+
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
   }
 };
 
-// Guardar pedidos en localStorage si falla la conexión
+// Save orders to localStorage when offline
 saveOrderOffline = (order) => {
-  let pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
-  pendingOrders.push(order);
-  localStorage.setItem("pendingOrders", JSON.stringify(pendingOrders));
-  this.setState({ pedidosPendientes: pendingOrders });
-  console.log("Pedido guardado localmente para reintento.");
+  try {
+    const pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+    pendingOrders.push(order);
+    localStorage.setItem("pendingOrders", JSON.stringify(pendingOrders));
+    this.setState({ pedidosPendientes: pendingOrders });
+    alert("Order saved locally for retry.");
+  } catch (error) {
+    alert("Error saving order to localStorage: " + error.message);
+  }
 };
 
-// Sincronizar pedidos guardados cuando la conexión regrese
+// Sync offline orders when connection is restored
 syncOfflineOrders = async () => {
-  let pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
-  
-  if (pendingOrders.length === 0) return; // No hay pedidos pendientes
+  try {
+    const pendingOrders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+    
+    if (pendingOrders.length === 0) {
+      alert("No pending orders to sync.");
+      return;
+    }
 
-  console.log("Conexión restaurada. Enviando pedidos pendientes...");
+    alert("Connection restored. Syncing pending orders...");
 
-  for (let i = 0; i < pendingOrders.length; i++) {
-      let order = pendingOrders[i];
+    while (pendingOrders.length > 0) {
+      const order = pendingOrders[0]; // Process first order in queue
 
-      try {
-          await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(order)
-          });
+      const response = await fetch(
+        `${process.env.REACT_APP_URL_PRODUCCION}/api/agregarpedidos`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order)
+        }
+      );
 
-          console.log("Pedido sincronizado:", order);
-          pendingOrders.splice(i, 1); // Eliminar pedido enviado
-          i--; // Ajustar índice tras eliminación
-      } catch (error) {
-          console.error("Error al sincronizar pedido:", error);
-          return; // Si falla, salir para reintentar después
+      if (!response.ok) {
+        throw new Error(`Sync failed: ${response.status}`);
       }
-  }
 
-  // Si todos los pedidos se enviaron correctamente, limpiar `localStorage`
-  localStorage.removeItem("pendingOrders");
-  this.setState({ pedidosPendientes: [] });
+      alert("Order synced: " + JSON.stringify(order));
+      pendingOrders.shift(); // Remove successfully synced order
+    }
+
+    // Clear localStorage and state after successful sync
+    localStorage.removeItem("pendingOrders");
+    this.setState({ pedidosPendientes: [] });
+    alert("All pending orders synced successfully.");
+  } catch (error) {
+    alert("Error syncing orders: " + error.message);
+  }
 };
 
 cuentasSeguimiento(){  
@@ -1135,76 +1158,6 @@ printerPedidosConnect(cmdsAux, costoDomi, flagDomi){
       .catch((error) => {
         console.error("Error en la promesa:", error);
       });
-    
-    
-    /*
-    const deviceConnection = navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,    
-      optionalServices: ["0000eee2-0000-1000-8000-00805f9b34fb"]
-    })    
-
-    deviceConnection
-      .then(device => device.gatt.connect())
-      .then(server => {
-        // Getting Service…
-        return server.getPrimaryService('0000eee2-0000-1000-8000-00805f9b34fb');
-      })
-      .then(service => {
-        // Getting Characteristic…
-        return service.getCharacteristic('0000eee3-0000-1000-8000-00805f9b34fb');
-      })
-      .then((characteristic) => {
-        // Enviamos datos !!!…
-        // Aqui crer los datos::::  
-        let tamaniodato = cmds.length / 512
-        let tamaniodatoaux = cmds.length/Math.ceil(tamaniodato)
-    
-        let cmdsAux = ""
-        let countAux = 0
-    
-        var enc = new TextEncoder() 
-        //console.log('Tamanio Dato: ' + cmds.length)
-        //console.log('Numero de iteraciones: ' + Math.ceil(tamaniodato))
-    
-        const forloop = async () => {
-
-          for(let i=1; i<=Math.ceil(tamaniodato); i++){
-    
-            //console.log(`iteracion ${i},  countAux:` + countAux)
-            //console.log(`iteracion ${i},  tamaniodatoaux:` + tamaniodatoaux)
-      
-            for(let j=countAux; j<=tamaniodatoaux; j++){
-              if(cmds[j]){
-                cmdsAux = cmdsAux + cmds[j]
-                countAux = countAux + 1
-              }else{
-      
-              }        
-            }
-    
-            if(i === Math.ceil(tamaniodato)){
-              cmdsAux = cmdsAux + newLine; 
-              cmdsAux = cmdsAux + newLine;
-              cmdsAux = cmdsAux + newLine;
-            }
-      
-            await characteristic.writeValue(enc.encode(cmdsAux))           
-            
-            tamaniodatoaux = tamaniodatoaux + countAux    
-            //console.log('Tamanio del dato: ' + cmdsAux.length)
-            //console.log('Datos: ' + cmdsAux)
-            cmdsAux = "";
-          }
-          
-        }
-        forloop()    
-        this.toggleModalAceptar()  
-        //Aqui hacemos un reset de la pagina
-        //window.location.reload(false);
-        //console.log(localStorage)
-      })
-      .catch(error => { console.error(error); }); 
-      */
 }
 
 costoPedidoCompleto(){
@@ -1261,6 +1214,31 @@ costoPedidoCompleto(){
             <Button onClick={this.confirmarPedidoOrden} color="success">Confirmar Pedido</Button>
           </div>
         </div>
+
+      {/* Pending Orders at the bottom */}
+      <div style={{
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#f0f0f0',
+        padding: '10px',
+        borderTop: '1px solid #ccc',
+        overflowY: 'auto',
+        maxHeight: '200px' // Limits height on small screens
+      }}>
+        <h3>Pending Orders ({this.state.pedidosPendientes.length})</h3>
+        {this.state.pedidosPendientes.length > 0 ? (
+          <ul>
+            {this.state.pedidosPendientes.map((order, index) => (
+              <li key={index}>
+                {JSON.stringify(order, null, 2)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No pending orders.</p>
+        )}
+      </div>
 
       </BrowserRouter>
       <Modal isOpen={this.state.modalPedido}>                        
