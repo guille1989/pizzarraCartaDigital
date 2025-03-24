@@ -10,7 +10,7 @@ import MenuBebidas from './components/cali_refugio/MenuBebidas';
 import MenuEntradas from './components/cali_refugio/MenuEntradas';
 import Pedido from './components/cali_refugio/Pedido';
 import SegCuentas from './components/cali_refugio/SegCuentas';
-import InicioAppCali from './components/cali_refugio/appCali';
+import InicioAppCali from './components/cali_refugio_vf/appCaliVf';
 
 
 //POPAYAN
