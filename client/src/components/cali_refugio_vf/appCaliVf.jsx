@@ -541,7 +541,7 @@ generateUniqueId = () => {
 
 generateSequentialId = async () => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/leernumeropedidos/${Moment().format('YYYY-MM-DD')}/Popayan-Centro`);
+    const response = await fetch(`${process.env.REACT_APP_URL_PRODUCCION}/api/leernumeropedidos/${Moment().format('YYYY-MM-DD')}/Cali-Refugio`);
     const data = await response.json();
     console.log("generateSequentialId", data);
 
