@@ -92,7 +92,7 @@ class appCali extends Component {
         let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,
+            {local: process.env.REACT_APP_LOCAL_CALI,
             tipo_pedido: "MESA", 
             mesa: this.state.mesaOrden, 
             estado_pedido: "SIN PAGO", 
@@ -104,7 +104,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,            
+            {local: process.env.REACT_APP_LOCAL_CALI,            
             tipo_pedido: "MESA", 
             mesa: this.state.mesaOrden, 
             estado_pedido: "SIN PAGO", 
@@ -135,7 +135,7 @@ class appCali extends Component {
         let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,
+            {local: process.env.REACT_APP_LOCAL_CALI,
             tipo_pedido: "DOMICILIO", 
             domi_nombre: this.state.DomiNombre, 
             domi_telefono: this.state.DomiTelefono,
@@ -150,7 +150,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,
+            {local: process.env.REACT_APP_LOCAL_CALI,
             tipo_pedido: "DOMICILIO", 
             domi_nombre: this.state.DomiNombre, 
             domi_telefono: this.state.DomiTelefono,
@@ -182,7 +182,7 @@ class appCali extends Component {
       let aux = [];
         if(this.state.opcionCortesia === 'Si'){
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,
+            {local: process.env.REACT_APP_LOCAL_CALI,
             tipo_pedido: "RECOGEN", 
             recoge_nombre: this.state.RecogeNombre, 
             recoge_telefono: this.state.RecogeTelefono, 
@@ -195,7 +195,7 @@ class appCali extends Component {
           ]
         }else{
           aux = [
-            {local: process.env.REACT_APP_LOCAL_POPAYAN,
+            {local: process.env.REACT_APP_LOCAL_CALI,
             tipo_pedido: "RECOGEN", 
             recoge_nombre: this.state.RecogeNombre, 
             recoge_telefono: this.state.RecogeTelefono, 
@@ -226,7 +226,7 @@ if(this.state.opcionOrden === "ROOM SERVICE"){
     let aux = [];
       if(this.state.opcionCortesia === 'Si'){
         aux = [
-          {local: process.env.REACT_APP_LOCAL_POPAYAN,
+          {local: process.env.REACT_APP_LOCAL_CALI,
           tipo_pedido: "ROOM SERVICE", 
           habitacion: this.state.Habitacion, 
           estado_pedido: "SIN PAGO", 
@@ -238,7 +238,7 @@ if(this.state.opcionOrden === "ROOM SERVICE"){
         ]
       }else{
         aux = [
-          {local: process.env.REACT_APP_LOCAL_POPAYAN,
+          {local: process.env.REACT_APP_LOCAL_CALI,
           tipo_pedido: "ROOM SERVICE", 
           recoge_nombre: this.state.Habitacion, 
           estado_pedido: "SIN PAGO", 
@@ -265,7 +265,7 @@ console.log(this.state.opcionOrden)
 if(this.state.opcionOrden === "CARTA FAMILIA"){
   let aux = [];
   aux = [
-    {local: process.env.REACT_APP_LOCAL_POPAYAN,
+    {local: process.env.REACT_APP_LOCAL_CALI,
     tipo_pedido: "CARTA FAMILIA", 
     recoge_nombre: this.state.Habitacion, 
     estado_pedido: "SIN PAGO", 
