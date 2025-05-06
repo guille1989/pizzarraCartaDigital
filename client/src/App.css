@@ -574,6 +574,44 @@
   box-shadow: 0 3px #999;
 }
 
+.buttonPromo {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #6beb09;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonPromo:hover {background-color: #6beb09}
+
+.buttonPromo:active {
+  background-color: #6beb09;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.buttonSinPromo {  
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #eb9c09;
+  border-radius: 10px;
+  box-shadow: 0 3px #999;
+}
+
+.buttonSinPromo:hover {background-color: #eb9c09}
+
+.buttonSinPromo:active {
+  background-color: #eb9c09;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
 .buttonBolognesa:hover {background-color: #eb2f09}
 
 .buttonBolognesa:active {
