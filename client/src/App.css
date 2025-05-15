@@ -297,8 +297,8 @@
 
 .saborItem{
   margin: 3px;
-  width: 70px;
-  height: 40px;
+  width: 100px;
+  height: 70px;
   background-color: white;
   border-radius: 10px;
   border-width: 1px;
@@ -311,7 +311,7 @@
 }
 
 .pizzaOpcionSabor{
-  font-size: 70%;
+  font-size: 100%;
 }
 
 .adicion{
