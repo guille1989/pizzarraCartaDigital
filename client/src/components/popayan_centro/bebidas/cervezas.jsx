@@ -28,6 +28,7 @@ class cervezas extends Component {
       modalCerveza: false,
       producto: "CERVEZA",
       costoCerveza: process.env.REACT_APP_CERVEZA_NACIONAL_COSTO,
+      costoCervezaAux: 0,
     };
   }
 
@@ -42,6 +43,7 @@ class cervezas extends Component {
   handlePoker = () => {
     this.setState({
       producto: "POKER",
+      costoCervezaAux: 0,
     });
 
     //Toggle Modal
@@ -88,6 +90,7 @@ class cervezas extends Component {
   handleAguila = () => {
     this.setState({
       producto: "AGUILA",
+      costoCervezaAux: 0,
     });
 
     //Toggle Modal
@@ -123,6 +126,7 @@ class cervezas extends Component {
   handleClub = () => {
     this.setState({
       producto: "CLUB COLOMBIA",
+      costoCervezaAux: 0,
     });
 
     //Toggle Modal
@@ -159,9 +163,7 @@ class cervezas extends Component {
 
     this.setState({
       producto: tipo,
-    });
-
-    this.setState({
+      costoCervezaAux: 7000,
       modalCerveza: !this.state.modalCerveza,
     });
   }
@@ -217,7 +219,7 @@ class cervezas extends Component {
         key_id: 1,
         tipo: "CERVEZA " + dato + " X " + this.state.cantidadProducto,
         mod_sabor_cerveza: this.state.textoBoton,
-        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto,
+        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto + this.state.costoCervezaAux,
         id_pedido: "Pedido_Cerveza_0",
       };
       localStorage.setItem("Pedido_Cerveza_0", JSON.stringify(pedidoPizza));
@@ -227,7 +229,7 @@ class cervezas extends Component {
         key_id: contPersonales[0].Numero + 1,
         tipo: "CERVEZA " + dato + " X " + this.state.cantidadProducto,
         mod_sabor_cerveza: this.state.textoBoton,
-        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto,
+        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto + this.state.costoCervezaAux,
         id_pedido: `Pedido_Cerveza_${contPersonales[0].Numero}`,
       };
       localStorage.setItem(
