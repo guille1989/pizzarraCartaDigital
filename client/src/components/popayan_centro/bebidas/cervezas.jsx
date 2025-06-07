@@ -28,6 +28,7 @@ class cervezas extends Component {
       modalCerveza: false,
       producto: "CERVEZA",
       costoCerveza: process.env.REACT_APP_CERVEZA_NACIONAL_COSTO,
+      costoCervezaBase: 0,
       costoCervezaAux: 0,
     };
   }
@@ -44,41 +45,7 @@ class cervezas extends Component {
     this.setState({
       producto: "POKER",
       costoCervezaAux: 0,
-    });
-
-    //Toggle Modal
-    this.setState({
-      modalCerveza: !this.state.modalCerveza,
-    });
-    /*
-    var dato = "POKER"
-    let pedidoPizza = [];    
-    //Guardamos en local Storag 
-    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Cervezas'))]    
-    if(contPersonales[0] === null){
-        //Guardamos en local Storage
-        pedidoPizza = { 'key_id' : 1,
-                    'tipo' : 'CERVEZA ' + dato ,   
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                  
-                    'costo_cerveza' : 8000,
-                    'id_pedido': 'Pedido_Cerveza_0'};
-        localStorage.setItem('Pedido_Cerveza_0', JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': 1}))
-    }else{
-        pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
-                    'tipo' : 'CERVEZA ' + dato ,  
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                    
-                    'costo_cerveza' : 8000,                       
-                    'id_pedido': `Pedido_Cerveza_${contPersonales[0].Numero}`};
-        localStorage.setItem(`Pedido_Cerveza_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
-    }  
-    */
-  };
-
-  handlePokerJuancho = () => {
-    this.setState({
-      producto: "POKER JUANCHO",
+      costoCerveza: parseInt(process.env.REACT_APP_CERVEZA_NACIONAL_COSTO),
     });
 
     //Toggle Modal
@@ -91,82 +58,36 @@ class cervezas extends Component {
     this.setState({
       producto: "AGUILA",
       costoCervezaAux: 0,
+      costoCerveza: parseInt(process.env.REACT_APP_CERVEZA_NACIONAL_COSTO),
     });
 
     //Toggle Modal
     this.setState({
       modalCerveza: !this.state.modalCerveza,
     });
-    /*
-    var dato = "AGUILA"
-    let pedidoPizza = [];    
-    //Guardamos en local Storag 
-    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Cervezas'))]    
-    if(contPersonales[0] === null){
-        //Guardamos en local Storage
-        pedidoPizza = { 'key_id' : 1,
-                    'tipo' : 'CERVEZA ' + dato ,   
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                  
-                    'costo_cerveza' : 8000,
-                    'id_pedido': 'Pedido_Cerveza_0'};
-        localStorage.setItem('Pedido_Cerveza_0', JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': 1}))
-    }else{
-        pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
-                    'tipo' : 'CERVEZA ' + dato ,  
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                    
-                    'costo_cerveza' : 8000,                       
-                    'id_pedido': `Pedido_Cerveza_${contPersonales[0].Numero}`};
-        localStorage.setItem(`Pedido_Cerveza_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
-    }   
-    */
   };
 
   handleClub = () => {
     this.setState({
       producto: "CLUB COLOMBIA",
       costoCervezaAux: 0,
+      costoCerveza: parseInt(process.env.REACT_APP_CERVEZA_NACIONAL_COSTO),
     });
 
     //Toggle Modal
     this.setState({
       modalCerveza: !this.state.modalCerveza,
     });
-    /*
-    var dato = "CLUB COLOMBIA"
-    let pedidoPizza = [];    
-    //Guardamos en local Storag 
-    let contPersonales = [JSON.parse(localStorage.getItem('Numero_Cervezas'))]    
-    if(contPersonales[0] === null){
-        //Guardamos en local Storage
-        pedidoPizza = { 'key_id' : 1,
-                    'tipo' : 'CERVEZA ' + dato ,   
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                  
-                    'costo_cerveza' : 8000,
-                    'id_pedido': 'Pedido_Cerveza_0'};
-        localStorage.setItem('Pedido_Cerveza_0', JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': 1}))
-    }else{
-        pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
-                    'tipo' : 'CERVEZA ' + dato ,  
-                    'mod_sabor_cerveza' : this.state.textoBoton ,                    
-                    'costo_cerveza' : 8000,                       
-                    'id_pedido': `Pedido_Cerveza_${contPersonales[0].Numero}`};
-        localStorage.setItem(`Pedido_Cerveza_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
-        localStorage.setItem('Numero_Cervezas', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
-    }   
-    */
   };
 
   handleRepublica = (tipo) => {
-
     this.setState({
       producto: tipo,
-      costoCervezaAux: 7000,
+      costoCervezaAux: 0,
+      costoCerveza: parseInt(process.env.REACT_APP_CERVEZA_IMPERIAL_COSTO),
       modalCerveza: !this.state.modalCerveza,
     });
-  }
+  };
 
   agregaraCuentaMitadCombinada = (dato, porcion) => {
     this.props.cuentamitad(porcion, dato);
@@ -177,20 +98,18 @@ class cervezas extends Component {
   };
 
   esPromocion = () => {
+    let costoC = this.state.costoCerveza;
     if (this.state.promo === false) {
       this.setState({
         promo: true,
         textoBoton: "Michelar",
         classSalsa: "buttonQueso",
-        costoCerveza:
-          parseInt(process.env.REACT_APP_CERVEZA_NACIONAL_COSTO) + 1000,
       });
     } else
       this.setState({
         promo: false,
         textoBoton: "Sin Michelada",
         classSalsa: "buttonBolognesa",
-        costoCerveza: process.env.REACT_APP_CERVEZA_NACIONAL_COSTO,
       });
   };
 
@@ -211,6 +130,7 @@ class cervezas extends Component {
   toggleModalAceptarCerveza = () => {
     var dato = this.state.producto;
     let pedidoPizza = [];
+    let costoMich = this.state.promo ? 1000 : 0;
     //Guardamos en local Storag
     let contPersonales = [JSON.parse(localStorage.getItem("Numero_Cervezas"))];
     if (contPersonales[0] === null) {
@@ -219,7 +139,9 @@ class cervezas extends Component {
         key_id: 1,
         tipo: "CERVEZA " + dato + " X " + this.state.cantidadProducto,
         mod_sabor_cerveza: this.state.textoBoton,
-        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto + this.state.costoCervezaAux,
+        costo_cerveza:
+          (this.state.costoCerveza + costoMich) * this.state.cantidadProducto +
+          this.state.costoCervezaAux,
         id_pedido: "Pedido_Cerveza_0",
       };
       localStorage.setItem("Pedido_Cerveza_0", JSON.stringify(pedidoPizza));
@@ -229,7 +151,9 @@ class cervezas extends Component {
         key_id: contPersonales[0].Numero + 1,
         tipo: "CERVEZA " + dato + " X " + this.state.cantidadProducto,
         mod_sabor_cerveza: this.state.textoBoton,
-        costo_cerveza: this.state.costoCerveza * this.state.cantidadProducto + this.state.costoCervezaAux,
+        costo_cerveza:
+          (this.state.costoCerveza + costoMich) * this.state.cantidadProducto +
+          this.state.costoCervezaAux,
         id_pedido: `Pedido_Cerveza_${contPersonales[0].Numero}`,
       };
       localStorage.setItem(
@@ -283,28 +207,34 @@ class cervezas extends Component {
                   </div>
 
                   <div>
-                    <div className="saborItem" onClick={() => this.handleRepublica("TRIGO")}>
+                    <div
+                      className="saborItem"
+                      onClick={() => this.handleRepublica("TRIGO")}
+                    >
                       <h1 className="pizzaOpcionSabor">REPUBLICA-TRIGO</h1>
                     </div>
 
-                    <div className="saborItem" onClick={() => this.handleRepublica("CANNABIS")}>
+                    <div
+                      className="saborItem"
+                      onClick={() => this.handleRepublica("CANNABIS")}
+                    >
                       <h1 className="pizzaOpcionSabor">REPUBLICA-CANNABIS</h1>
                     </div>
 
-                    <div className="saborItem" onClick={() => this.handleRepublica("IMPERIAL")}>
+                    <div
+                      className="saborItem"
+                      onClick={() => this.handleRepublica("IMPERIAL")}
+                    >
                       <h1 className="pizzaOpcionSabor">REPUBLICA-IMPERIAL</h1>
                     </div>
 
-                    <div className="saborItem" onClick={() => this.handleRepublica("IPA")}>
+                    <div
+                      className="saborItem"
+                      onClick={() => this.handleRepublica("IPA")}
+                    >
                       <h1 className="pizzaOpcionSabor">REPUBLICA-IPA</h1>
                     </div>
                   </div>
-
-                  {/*  
-                            <div className="saborItem" onClick={this.handlePokerJuancho}>
-                                <h1 className="pizzaOpcionSabor">PokerTioJuancho</h1>
-                            </div>   
-                            */}
                 </div>
                 <p onClick={this.onClickBack} className="atras">
                   atras..
