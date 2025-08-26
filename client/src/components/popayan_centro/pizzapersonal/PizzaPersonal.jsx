@@ -46,14 +46,14 @@ toggleModalAceptar = () => {
         //Guardamos en local Storage
         pedidoPizza = { 'key_id' : 1,
                     'tipo' : ' PIZZA FESTIVAL X ' + this.state.cantidadProducto,                        
-                    'costo_pizza_festival' : process.env.REACT_APP_PIZZA_PERSONAL_COSTO_FESTIVAL * this.state.cantidadProducto,
+                    'costo_pizza_festival' : parseInt(process.env.REACT_APP_PIZZA_PERSONAL_COSTO_FESTIVAL) * this.state.cantidadProducto,
                     'id_pedido': 'Pedido_PizzaEspecial_0'};
         localStorage.setItem('Pedido_PizzaEspecial_0', JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_PizzaEspecial', JSON.stringify({'Numero': 1}))
     }else{
         pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                     'tipo' : ' PIZZA FESTIVAL X ' + this.state.cantidadProducto,                        
-                    'costo_pizza_festival' : process.env.REACT_APP_PIZZA_PERSONAL_COSTO_FESTIVAL * this.state.cantidadProducto,                     
+                    'costo_pizza_festival' : parseInt(process.env.REACT_APP_PIZZA_PERSONAL_COSTO_FESTIVAL) * this.state.cantidadProducto,                     
                     'id_pedido': `Pedido_PizzaEspecial_${contPersonales[0].Numero}`};
         localStorage.setItem(`Pedido_PizzaEspecial_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
         localStorage.setItem('Numero_PizzaEspecial', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
