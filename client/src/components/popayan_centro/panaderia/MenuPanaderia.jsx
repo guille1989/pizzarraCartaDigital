@@ -101,7 +101,7 @@ class MenuPanaderia extends Component{
                                 </div> 
                             </div>
                             <div>
-                                <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "MASAS PER. 5", 7500))}>
+                                <div className="pizzaItem" onClick={(e) => ( this.togglePanAjo(e, "MASAS PER. 5", 10000))}>
                                     <h1 className="pizzaOpcion">MASAS PER. X5</h1>
                                 </div>     
                             </div>
