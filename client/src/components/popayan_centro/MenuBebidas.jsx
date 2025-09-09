@@ -194,14 +194,14 @@ class MenuBebidas extends Component {
             //Guardamos en local Storage
             pedidoPizza = { 'key_id' : 1,
                         'tipo' : ' BOTELLA VINO X ' + this.state.cantidadProducto,                        
-                        'costo_vino' : 40000 * this.state.cantidadProducto,
+                        'costo_vino' : 45000 * this.state.cantidadProducto,
                         'id_pedido': 'Pedido_Vino_0'};
             localStorage.setItem('Pedido_Vino_0', JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_Vinos', JSON.stringify({'Numero': 1}))
         }else{
             pedidoPizza = { 'key_id' : contPersonales[0].Numero + 1,
                         'tipo' : ' BOTELLA VINO X ' + this.state.cantidadProducto,                  
-                        'costo_vino' : 40000 * this.state.cantidadProducto,                       
+                        'costo_vino' : 45000 * this.state.cantidadProducto,                       
                         'id_pedido': `Pedido_Vino_${contPersonales[0].Numero}`};
             localStorage.setItem(`Pedido_Vino_${contPersonales[0].Numero}`, JSON.stringify(pedidoPizza))
             localStorage.setItem('Numero_Vinos', JSON.stringify({'Numero': contPersonales[0].Numero + 1}))
