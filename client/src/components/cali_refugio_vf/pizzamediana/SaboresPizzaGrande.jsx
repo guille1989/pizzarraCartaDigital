@@ -101,6 +101,13 @@ handleCombinada = () => {
     this.setState({estado: 'combinada', comDosTresIngredientes: '2', combinada: 'true'})
 }
 
+handleAnchoas = () => {
+    var dato = "ANCHOAS"
+    var porcion = this.props.porcion
+    this.props.cuentamitad(porcion, dato);
+    this.props.atrasMenuPersonalSabor(dato, porcion);
+}
+
 handleCombinadaTresIngredientes = () => {
     var dato = "COMBINADA"
     var porcion = this.props.porcion
@@ -189,6 +196,9 @@ atrasPersonalSabor = (dato, porcion) => {
                             </div>
                             <div className="saborItem" onClick={this.handleCombinada}>
                                 <h1 className="pizzaOpcionSabor">Combinada 2 Ingredientes</h1>
+                            </div>
+                            <div className="saborItem" onClick={this.handleAnchoas}>
+                                <h1 className="pizzaOpcionSabor">Anchoas</h1>
                             </div>
                         </div>
                         <div>
