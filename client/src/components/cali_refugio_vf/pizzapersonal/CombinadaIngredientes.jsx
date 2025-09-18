@@ -492,6 +492,36 @@ class CombinadaIngredientes extends Component {
         }
     }
 
+    handleAnchoas = () => {
+        if(this.props.combinada === 'true'){
+            if(this.state.ingredientes === 0){
+                this.setState({
+                    ingredientes: this.state.ingredientes+1,                    
+                    dato : this.state.dato + " + " + "Anchoas"})
+            }
+            else{
+                this.setState({
+                    ingredientes: this.state.ingredientes+1,                    
+                    dato : this.state.dato + " + " + "Anchoas"})
+                    if(this.state.ingredientes === parseInt(this.props.comDosTresIngre)){
+                        var porcion = this.props.porcion
+                        setTimeout(() => {
+                            this.props.cuentamitad(this.state.dato, this.props.porcion);
+                            this.props.atrasMenuPersonalSabor(this.state.dato, porcion);
+                        }, 100);
+                    }
+            }
+        }else if(this.props.opcioncuarto === "ingredientemenos"){
+            var dato = "-Sin Anchoas"
+            var porcion = this.props.porcion
+            this.props.atrasMenuPersonalSabor(dato, porcion);
+        }else{
+            var dato = "+Adicion Anchoas"
+            var porcion = this.props.porcion
+            this.props.atrasMenuPersonalSabor(dato, porcion);
+        }
+    }
+
     handleJalapenios = () => {
         if(this.props.combinada === 'true'){
             if(this.state.ingredientes === 0){
@@ -604,6 +634,9 @@ class CombinadaIngredientes extends Component {
                     </div>
                     <div className="saborItem" onClick={this.handleLechuga}>
                         <h1 className="pizzaOpcionSabor">Lechuga</h1>
+                    </div>
+                    <div className="saborItem" onClick={this.handleAnchoas}>
+                        <h1 className="pizzaOpcionSabor">Anchoas</h1>
                     </div>
                 </div>
                 <div>
