@@ -57,7 +57,7 @@ handleCocaColaZero = () => {
 handleAguila = () => {
     this.setState({
         producto: 'COCA COLA LITRO/4',
-        contAux: 7000
+        contAux: 9000
     })
 
     //Toggle Modal

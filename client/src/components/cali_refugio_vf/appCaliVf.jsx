@@ -303,17 +303,17 @@ changeOpcion = (e) => {
 
     let aux = this.state.datoOrden.map((item) => {
       if(item.tipo.includes('PIZZA PERSONAL')){
-        item.costo_personal = 10000
+        item.costo_personal = 13000
       }else if(item.tipo.includes('PIZZA PANTALON')){
-        item.costo_pantalon = 10000
+        item.costo_pantalon = 13000
       }else if(item.tipo.includes('PIZZA PANCOOK')){
-        item.costo_pancook = 10000
+        item.costo_pancook = 13000
       }else if(item.tipo.includes('LASAGNA')){
-        item.costo_lasagna = 10000
+        item.costo_lasagna = 13000
       }else if(item.tipo.includes('PASTA')){
-        item.costo_pasta = 10000
+        item.costo_pasta = 13000
       }else if(item.tipo.includes('RAVIOLI')){
-        item.costo_ravioli = 10000
+        item.costo_ravioli = 13000
       }
       return item
     })
