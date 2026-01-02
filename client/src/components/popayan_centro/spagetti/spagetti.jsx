@@ -184,7 +184,7 @@ pasSalsa = () => {
             promoS: true,
             textoBotonSalsa: 'SALSA BLANCA',
             classTipo: 'buttonQueso',
-            costoSpaghettiSalsa: 6000
+            costoSpaghettiSalsa: 7000
         })
     }else(
         this.setState({
