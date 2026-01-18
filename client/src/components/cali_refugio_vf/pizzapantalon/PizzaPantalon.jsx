@@ -121,7 +121,7 @@ class PizzaPantalon extends Component {
     if (this.state.saborpizzaadicion !== "") {
       for (let i = 0; i < this.state.saborpizzaadicion.length; i++) {
         if (this.state.saborpizzaadicion[i] === "+") {
-          costoadicion = costoadicion + 2000;
+          costoadicion = costoadicion + 3000;
         }
       }
     }

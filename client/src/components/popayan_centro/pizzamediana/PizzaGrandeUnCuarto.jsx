@@ -205,28 +205,28 @@ toggleModalAceptar = () => {
     if(this.state.uncuartosaboradicion !== ''){
         for (let i = 0; i < this.state.uncuartosaboradicion.length; i++) {
             if(this.state.uncuartosaboradicion[i] === '+'){
-                costoadicion = costoadicion + 2000
+                costoadicion = costoadicion + 3000
             }
         }
     }
     if(this.state.doscuartosaboradicion !== ''){
         for (let i = 0; i < this.state.doscuartosaboradicion.length; i++) {
             if(this.state.doscuartosaboradicion[i] === '+'){
-                costoadicion = costoadicion + 2000
+                costoadicion = costoadicion + 3000
             }
         } 
     }
     if(this.state.trescuartosaboradicion !== ''){
         for (let i = 0; i < this.state.trescuartosaboradicion.length; i++) {
             if(this.state.trescuartosaboradicion[i] === '+'){
-                costoadicion = costoadicion + 2000
+                costoadicion = costoadicion + 3000
             }
         } 
     }
     if(this.state.cuatrocuartosaboradicion !== ''){
         for (let i = 0; i < this.state.cuatrocuartosaboradicion.length; i++) {
             if(this.state.cuatrocuartosaboradicion[i] === '+'){
-                costoadicion = costoadicion + 2000
+                costoadicion = costoadicion + 3000
             }
         } 
     }

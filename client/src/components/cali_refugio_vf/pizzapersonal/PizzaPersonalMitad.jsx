@@ -156,14 +156,14 @@ toggleModalAceptar = () => {
     if(this.state.mitadunoadicion !== ''){
         for (let i = 0; i < this.state.mitadunoadicion.length; i++) {
             if(this.state.mitadunoadicion[i] === '+'){
-                costoadicion = costoadicion + 1000
+                costoadicion = costoadicion + 3000
             }
         }
     }
     if(this.state.mitaddosadicion !== ''){
         for (let i = 0; i < this.state.mitaddosadicion.length; i++) {
             if(this.state.mitaddosadicion[i] === '+'){
-                costoadicion = costoadicion + 1000
+                costoadicion = costoadicion + 3000
             }
         } 
     }

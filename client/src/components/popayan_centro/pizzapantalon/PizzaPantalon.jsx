@@ -121,7 +121,7 @@ class PizzaPantalon extends Component {
     if (this.state.saborpizzaadicion !== "") {
       for (let i = 0; i < this.state.saborpizzaadicion.length; i++) {
         if (this.state.saborpizzaadicion[i] === "+") {
-          costoadicion = costoadicion + 2000;
+          costoadicion = costoadicion + 3000;
         }
       }
     }
@@ -178,7 +178,7 @@ class PizzaPantalon extends Component {
       this.setState({
         promo2X1: true,
         classPromo2X1: "buttonPromo",
-        ajusteCostoPromo: 3500,
+        ajusteCostoPromo: 5000,
       });
     } else
       this.setState({
