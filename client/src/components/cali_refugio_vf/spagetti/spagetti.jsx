@@ -222,7 +222,7 @@ class spagetti extends Component {
         promoPasta: true,
         textoBotonPromo: "PROMO",
         classPromo: "buttonQueso",
-        ajusteCostoPromo: 34000,
+        ajusteCostoPromo: 29000,
       });
     } else
       this.setState({
