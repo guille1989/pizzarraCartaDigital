@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prueba impresora BLE</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #fafafa; color: #222; }
+  h1 { font-size: 20px; margin: 0 0 12px; }
+  button { font-size: 16px; padding: 12px 14px; margin: 4px 4px 4px 0; border: 0; border-radius: 8px; background: #2b6cb0; color: #fff; }
+  button.sec { background: #555; }
+  button.ok { background: #2f855a; }
+  button:disabled { opacity: .4; }
+  label { display: block; margin: 10px 0 4px; font-weight: 600; font-size: 14px; }
+  select, input { font-size: 16px; padding: 8px; width: 100%; box-sizing: border-box; }
+  #log { white-space: pre-wrap; word-break: break-all; font: 12px ui-monospace, monospace; background: #111; color: #9f9; padding: 10px; border-radius: 8px; margin-top: 12px; max-height: 45vh; overflow: auto; }
+  .row { display: flex; gap: 8px; } .row > div { flex: 1; }
+  p.hint { font-size: 13px; color: #555; margin: 6px 0; }
+</style>
+</head>
+<body>
+<h1>Prueba de impresora BLE</h1>
+<p class="hint">1) Conectar. 2) Pulsa "Probar TODAS": imprime un ticket por cada característica escribible indicando cuál es. Anota cuáles salieron en papel.</p>
+
+<button id="btnConnect">1. Conectar</button>
+<button id="btnAll" class="ok" disabled>2. Probar TODAS</button>
+<button id="btnDisc" class="sec" disabled>Desconectar</button>
+
+<label for="selChar">Característica (prueba manual)</label>
+<select id="selChar" disabled></select>
+
+<div class="row">
+  <div><label for="selMode">Modo</label>
+    <select id="selMode"><option value="auto">Automático</option><option value="resp">Con respuesta</option><option value="noresp">Sin respuesta</option></select></div>
+  <div><label for="inChunk">Bloque (bytes)</label><input id="inChunk" type="number" value="20" min="1" max="512" /></div>
+  <div><label for="inDelay">Pausa (ms)</label><input id="inDelay" type="number" value="30" min="0" max="1000" /></div>
+</div>
+
+<label for="selText">Contenido</label>
+<select id="selText">
+  <option value="simple">Texto simple ASCII</option>
+  <option value="esc">ESC/POS: ESC @ + doble tamaño</option>
+  <option value="utf8">Con tildes (UTF-8)</option>
+  <option value="cp858">Con tildes (CP858, ESC t 19)</option>
+</select>
+<button id="btnPrint" disabled>Imprimir prueba manual</button>
+
+<div id="log"></div>
+
+<script>
+(function () {
+  var SERVICES = [
+    '0000eee2-0000-1000-8000-00805f9b34fb', '000018f0-0000-1000-8000-00805f9b34fb',
+    '0000ff00-0000-1000-8000-00805f9b34fb', '0000fff0-0000-1000-8000-00805f9b34fb',
+    '0000ffe0-0000-1000-8000-00805f9b34fb', '0000ffe6-0000-1000-8000-00805f9b34fb',
+    '0000ae30-0000-1000-8000-00805f9b34fb', '0000ff80-0000-1000-8000-00805f9b34fb',
+    '49535343-fe7d-4ae5-8fa9-9fafd205e455', 'e7810a71-73ae-499d-8c15-faa9aef0c3f2'
+  ];
+  var device = null, chars = [];
+  var $ = function (id) { return document.getElementById(id); };
+  var logEl = $('log');
+  function log(m) { logEl.textContent += m + '\n'; logEl.scrollTop = logEl.scrollHeight; console.log(m); }
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  function short(u) { return u.length > 8 ? u.slice(0, 8) + '…' + u.slice(-4) : u; }
+  function propsOf(c) {
+    var p = c.properties, a = [];
+    if (p.write) a.push('write'); if (p.writeWithoutResponse) a.push('noResp');
+    if (p.notify) a.push('notify'); if (p.indicate) a.push('indicate'); if (p.read) a.push('read');
+    return a.join(',');
+  }
+
+  var CP858 = { 'É': 0x90, 'é': 0x82, 'á': 0xA0, 'í': 0xA1, 'ó': 0xA2, 'ú': 0xA3, 'ñ': 0xA4, 'Ñ': 0xA5,
+                'Á': 0xB5, 'Í': 0xD6, 'Ó': 0xE0, 'Ú': 0xE9, 'ü': 0x81, '¿': 0xA8, '¡': 0xAD, 'ä': 0x84 };
+  function cp858(str) {
+    var out = [];
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i], code = str.charCodeAt(i);
+      out.push(code < 128 ? code : (CP858[ch] !== undefined ? CP858[ch] : 0x3F));
+    }
+    return new Uint8Array(out);
+  }
+  function concat(a, b) { var o = new Uint8Array(a.length + b.length); o.set(a, 0); o.set(b, a.length); return o; }
+  function build(kind, title) {
+    var enc = new TextEncoder();
+    var ESC_AT = new Uint8Array([0x1B, 0x40]);
+    var NL = '\n';
+    if (kind === 'simple') return enc.encode(title + NL + 'Linea de prueba 1234567890' + NL + NL + NL);
+    if (kind === 'esc') {
+      var t = concat(ESC_AT, new Uint8Array([0x1B, 0x21, 0x38]));
+      t = concat(t, enc.encode(title + NL));
+      t = concat(t, new Uint8Array([0x1B, 0x21, 0x00]));
+      return concat(t, enc.encode('Normal: ABC 123' + NL + NL + NL));
+    }
+    if (kind === 'utf8') return concat(ESC_AT, enc.encode(title + NL + 'CAFÉ Dirección año Ñandú' + NL + NL + NL));
+    return concat(concat(ESC_AT, new Uint8Array([0x1B, 0x74, 19])), cp858(title + NL + 'CAFÉ Dirección año Ñandú' + NL + NL + NL));
+  }
+
+  async function sendBytes(c, bytes, mode, chunk, delay) {
+    var useResp;
+    if (mode === 'resp') useResp = true; else if (mode === 'noresp') useResp = false;
+    else useResp = c.properties.write && !c.properties.writeWithoutResponse;
+    if (useResp && !c.properties.write) throw new Error('no soporta write con respuesta');
+    if (!useResp && !c.properties.writeWithoutResponse) throw new Error('no soporta write sin respuesta');
+    for (var i = 0; i < bytes.length; i += chunk) {
+      var part = bytes.slice(i, i + chunk);
+      if (useResp) {
+        if (c.writeValueWithResponse) await c.writeValueWithResponse(part);
+        else await c.writeValue(part);
+      } else {
+        await c.writeValueWithoutResponse(part);
+      }
+      await sleep(delay);
+    }
+    return useResp ? 'con respuesta' : 'sin respuesta';
+  }
+
+  $('btnConnect').onclick = async function () {
+    try {
+      if (!navigator.bluetooth) { log('Este navegador no tiene Web Bluetooth (usa Chrome en Android).'); return; }
+      log('Buscando dispositivo…');
+      device = await navigator.bluetooth.requestDevice({ acceptAllDevices: true, optionalServices: SERVICES });
+      device.addEventListener('gattserverdisconnected', function () { log('> Desconectado'); });
+      log('Conectando a ' + device.name + '…');
+      var server = null, err;
+      for (var a = 1; a <= 3 && !server; a++) {
+        try { server = await device.gatt.connect(); } catch (e) { err = e; log('Intento ' + a + ' fallo: ' + e.message); await sleep(1500); }
+      }
+      if (!server) throw err;
+      chars = [];
+      var services = await server.getPrimaryServices();
+      var sel = $('selChar'); sel.innerHTML = '';
+      for (var s of services) {
+        log('SERVICIO ' + s.uuid);
+        var cs = await s.getCharacteristics();
+        for (var c of cs) {
+          log('   ' + c.uuid + '  [' + propsOf(c) + ']');
+          if (c.properties.write || c.properties.writeWithoutResponse) {
+            chars.push(c);
+            var o = document.createElement('option');
+            o.value = chars.length - 1; o.textContent = short(s.uuid) + ' / ' + short(c.uuid) + ' [' + propsOf(c) + ']';
+            sel.appendChild(o);
+          }
+        }
+      }
+      log('Caracteristicas escribibles: ' + chars.length);
+      ['btnAll', 'btnDisc', 'btnPrint', 'selChar'].forEach(function (id) { $(id).disabled = false; });
+    } catch (e) { log('ERROR: ' + (e && e.message ? e.message : e)); }
+  };
+
+  $('btnAll').onclick = async function () {
+    var chunk = +$('inChunk').value || 20, delay = +$('inDelay').value || 30, kind = $('selText').value;
+    for (var i = 0; i < chars.length; i++) {
+      var c = chars[i], modes = [];
+      if (c.properties.writeWithoutResponse) modes.push('noresp');
+      if (c.properties.write) modes.push('resp');
+      for (var m of modes) {
+        var title = 'C' + (i + 1) + (m === 'resp' ? 'R' : 'N') + ' ' + short(c.uuid);
+        try {
+          var used = await sendBytes(c, build(kind, title), m, chunk, delay);
+          log('Enviado ' + title + ' (' + used + ')');
+        } catch (e) { log('FALLO ' + title + ': ' + e.message); }
+        await sleep(1200);
+      }
+    }
+    log('Listo. Mira en el papel cuales salieron (C1R = caracteristica 1 con respuesta, C1N = sin respuesta).');
+  };
+
+  $('btnPrint').onclick = async function () {
+    try {
+      var c = chars[+$('selChar').value];
+      var title = 'PRUEBA MANUAL ' + short(c.uuid);
+      var used = await sendBytes(c, build($('selText').value, title), $('selMode').value, +$('inChunk').value || 20, +$('inDelay').value || 30);
+      log('Enviado a ' + c.uuid + ' (' + used + ')');
+    } catch (e) { log('ERROR: ' + e.message); }
+  };
+
+  $('btnDisc').onclick = function () { if (device && device.gatt.connected) device.gatt.disconnect(); };
+})();
+</script>
+</body>
+</html>
