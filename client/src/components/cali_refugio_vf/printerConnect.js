@@ -29,8 +29,8 @@ const PREFERRED_CHARACTERISTICS = [
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// TEMPORAL: muestra un alert con la caracteristica usada. Poner en false cuando imprima bien.
-const DEBUG_PRINT = true;
+// Si es true, muestra un alert con la caracteristica BLE usada (solo para depurar impresoras).
+const DEBUG_PRINT = false;
 let lastFound = [];
 
 export async function onScanButtonClick(cmds, flagDomi) {

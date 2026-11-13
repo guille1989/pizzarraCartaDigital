@@ -459,7 +459,7 @@ writeUserData = async (pedido, pedidoAux, retries = 3, delay = 2000) => {
       }
 
       const data = await response.json();
-      alert("Order sent successfully: " + JSON.stringify(data));
+      console.log("Order sent successfully:", data);
       return; // Exit on success
     } catch (error) {
       alert(`Attempt ${attempt} failed: ${error.message}`);
