@@ -19,6 +19,14 @@ const KNOWN_SERVICES = [
 ];
 
 const LEGACY_CHARACTERISTIC = '0000eee3-0000-1000-8000-00805f9b34fb';
+
+// Caracteristicas de datos de impresion conocidas, en orden de prioridad.
+// - eee3: impresora anterior.
+// - 49535343-8841-...: UART transparente ISSC/Microchip (DigitalPOS DIG-M324).
+const PREFERRED_CHARACTERISTICS = [
+  LEGACY_CHARACTERISTIC,
+  '49535343-8841-43f4-a8d4-ecbe34729bb3',
+];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // TEMPORAL: muestra un alert con la caracteristica usada. Poner en false cuando imprima bien.
@@ -63,9 +71,15 @@ async function findWritableCharacteristic(server) {
       if (c.properties.writeWithoutResponse) props.push('writeNoResp');
       found.push(service.uuid + ' / ' + c.uuid + ' [' + props.join(',') + ']');
       if (!(c.properties.write || c.properties.writeWithoutResponse)) continue;
-      // Prioridad: caracteristica historica; luego el orden de KNOWN_SERVICES; al final el resto.
+      // Prioridad: caracteristicas de impresion conocidas; luego el orden de KNOWN_SERVICES; al final el resto.
+      const pref = PREFERRED_CHARACTERISTICS.indexOf(c.uuid);
       const idx = KNOWN_SERVICES.indexOf(service.uuid);
-      const rank = c.uuid === LEGACY_CHARACTERISTIC ? -1 : idx === -1 ? KNOWN_SERVICES.length : idx;
+      const rank =
+        pref !== -1
+          ? pref - PREFERRED_CHARACTERISTICS.length
+          : idx === -1
+          ? KNOWN_SERVICES.length
+          : idx;
       if (rank < candidateRank) {
         candidate = c;
         candidateRank = rank;
@@ -100,7 +114,13 @@ async function connect(cmds, flagDomi) {
   console.log('Total bytes:', bytes.length);
 
   // Con respuesta: bloques grandes. Sin respuesta: bloques pequenos (limite del MTU BLE).
-  const useResponse = !!characteristic.properties.write;
+  // La caracteristica historica siempre con respuesta (comportamiento anterior); el resto
+  // prefiere sin respuesta cuando esta disponible (asi funcionan las impresoras ISSC).
+  const props = characteristic.properties;
+  const useResponse =
+    characteristic.uuid === LEGACY_CHARACTERISTIC
+      ? !!props.write
+      : !!props.write && !props.writeWithoutResponse;
   const CHUNK_SIZE = useResponse ? 256 : 20;
   const DELAY = useResponse ? 100 : 30;
 
