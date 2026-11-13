@@ -43,6 +43,8 @@
   <option value="esc">ESC/POS: ESC @ + doble tamaño</option>
   <option value="utf8">Con tildes (UTF-8)</option>
   <option value="cp858">Con tildes (CP858, ESC t 19)</option>
+  <option value="cpcl">CPCL (Zebra, modo etiquetas)</option>
+  <option value="tspl">TSPL (etiquetas)</option>
 </select>
 <button id="btnPrint" disabled>Imprimir prueba manual</button>
 
@@ -94,6 +96,14 @@
     var enc = new TextEncoder();
     var ESC_AT = new Uint8Array([0x1B, 0x40]);
     var NL = '\n';
+    title = title.replace(/…/g, '..'); // solo ASCII en el titulo
+    if (kind === 'cpcl') {
+      // CPCL: ! offset hdpi vdpi alto cantidad / TEXT fuente tamano x y texto / PRINT
+      return enc.encode('! 0 200 200 300 1\r\nTEXT 4 0 20 20 ' + title + '\r\nTEXT 4 0 20 90 Prueba CPCL\r\nTEXT 4 0 20 160 1234567890\r\nPRINT\r\n');
+    }
+    if (kind === 'tspl') {
+      return enc.encode('SIZE 72 mm,60 mm\r\nGAP 0,0\r\nCLS\r\nTEXT 20,20,"3",0,1,1,"' + title + '"\r\nTEXT 20,80,"3",0,1,1,"Prueba TSPL"\r\nPRINT 1,1\r\n');
+    }
     if (kind === 'simple') return enc.encode(title + NL + 'Linea de prueba 1234567890' + NL + NL + NL);
     if (kind === 'esc') {
       var t = concat(ESC_AT, new Uint8Array([0x1B, 0x21, 0x38]));
