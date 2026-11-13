@@ -611,7 +611,7 @@ printerPedidosConnect(cmdsAux, costoDomi){
   //Create ESP/POS commands for sample label
   var esc = '\x1B'; //ESC byte in hex notation
   var newLine = '\x0A'; //LF byte in hex notation
-  let cmds
+  let cmds = ''
 
   cmds += cmdsAux
   cmds += esc + '!' + '\x16'
