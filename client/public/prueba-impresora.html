@@ -25,6 +25,7 @@
 <button id="btnConnect">1. Conectar</button>
 <button id="btnAll" class="ok" disabled>2. Probar TODAS</button>
 <button id="btnDisc" class="sec" disabled>Desconectar</button>
+<button id="btnClear" class="sec">Limpiar registro</button>
 
 <label for="selChar">Característica (prueba manual)</label>
 <select id="selChar" disabled></select>
@@ -61,6 +62,15 @@
   var logEl = $('log');
   function log(m) { logEl.textContent += m + '\n'; logEl.scrollTop = logEl.scrollHeight; console.log(m); }
   var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+
+  // Evita pruebas simultaneas: dos escrituras a la vez dan "GATT operation failed" y tickets revueltos.
+  var busy = false;
+  function setBusy(b) {
+    busy = b;
+    $('btnAll').disabled = b || !chars.length;
+    $('btnPrint').disabled = b || !chars.length;
+    $('btnAll').textContent = b ? 'Imprimiendo… NO toques nada' : '2. Probar TODAS';
+  }
   function short(u) { return u.length > 8 ? u.slice(0, 8) + '…' + u.slice(-4) : u; }
   function propsOf(c) {
     var p = c.properties, a = [];
@@ -148,6 +158,10 @@
   };
 
   $('btnAll').onclick = async function () {
+    if (busy) { log('Ya hay una prueba en curso. Espera a que diga "Listo".'); return; }
+    setBusy(true);
+    log('--- INICIO prueba de todas (tarda ~15 s, espera a "Listo") ---');
+    try {
     var chunk = +$('inChunk').value || 20, delay = +$('inDelay').value || 30, kind = $('selText').value;
     for (var i = 0; i < chars.length; i++) {
       var c = chars[i], modes = [];
@@ -162,16 +176,22 @@
         await sleep(1200);
       }
     }
-    log('Listo. Mira en el papel cuales salieron (C1R = caracteristica 1 con respuesta, C1N = sin respuesta).');
+    log('LISTO. Mira en el papel cuales salieron (C1R = caracteristica 1 con respuesta, C1N = sin respuesta).');
+    } finally { setBusy(false); }
   };
 
+  $('btnClear').onclick = function () { logEl.textContent = ''; };
+
   $('btnPrint').onclick = async function () {
+    if (busy) { log('Ya hay una prueba en curso.'); return; }
+    setBusy(true);
     try {
       var c = chars[+$('selChar').value];
       var title = 'PRUEBA MANUAL ' + short(c.uuid);
       var used = await sendBytes(c, build($('selText').value, title), $('selMode').value, +$('inChunk').value || 20, +$('inDelay').value || 30);
       log('Enviado a ' + c.uuid + ' (' + used + ')');
     } catch (e) { log('ERROR: ' + e.message); }
+    finally { setBusy(false); }
   };
 
   $('btnDisc').onclick = function () { if (device && device.gatt.connected) device.gatt.disconnect(); };
