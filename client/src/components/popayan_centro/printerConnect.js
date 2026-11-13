@@ -21,6 +21,10 @@ const KNOWN_SERVICES = [
 const LEGACY_CHARACTERISTIC = '0000eee3-0000-1000-8000-00805f9b34fb';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// TEMPORAL: muestra un alert con la caracteristica usada. Poner en false cuando imprima bien.
+const DEBUG_PRINT = true;
+let lastFound = [];
+
 export async function onScanButtonClick(cmds, flagDomi) {
   bluetoothDevice = null;
   // Se reinicia el estado: antes un 'ok' viejo podia dar por impreso un pedido que fallo.
@@ -49,6 +53,7 @@ async function findWritableCharacteristic(server) {
   const services = await server.getPrimaryServices();
   const found = [];
   let candidate = null;
+  let candidateRank = Infinity;
 
   for (const service of services) {
     const characteristics = await service.getCharacteristics();
@@ -58,12 +63,16 @@ async function findWritableCharacteristic(server) {
       if (c.properties.writeWithoutResponse) props.push('writeNoResp');
       found.push(service.uuid + ' / ' + c.uuid + ' [' + props.join(',') + ']');
       if (!(c.properties.write || c.properties.writeWithoutResponse)) continue;
-      // Preferimos la caracteristica historica si existe; si no, la primera escribible.
-      if (c.uuid === LEGACY_CHARACTERISTIC || !candidate) {
+      // Prioridad: caracteristica historica; luego el orden de KNOWN_SERVICES; al final el resto.
+      const idx = KNOWN_SERVICES.indexOf(service.uuid);
+      const rank = c.uuid === LEGACY_CHARACTERISTIC ? -1 : idx === -1 ? KNOWN_SERVICES.length : idx;
+      if (rank < candidateRank) {
         candidate = c;
+        candidateRank = rank;
       }
     }
   }
+  lastFound = found;
   console.log('Servicios/caracteristicas encontrados:', found);
 
   if (!candidate) {
@@ -114,6 +123,16 @@ async function connect(cmds, flagDomi) {
   }
 
   localStorage.setItem('con', 'ok');
+
+  if (DEBUG_PRINT) {
+    alert(
+      'DIAGNOSTICO IMPRESORA\n' +
+        'Enviados: ' + bytes.length + ' bytes' + (flagDomi ? ' x2' : '') + '\n' +
+        'Escribi en: ' + characteristic.service.uuid + ' / ' + characteristic.uuid + '\n' +
+        'Modo: ' + (useResponse ? 'con respuesta' : 'sin respuesta') + '\n' +
+        'Todas: ' + lastFound.join(' | ')
+    );
+  }
 }
 
 export function onDisconnectButtonClick() {
