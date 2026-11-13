@@ -48,6 +48,10 @@ export async function onScanButtonClick(cmds, flagDomi) {
     await connect(cmds, flagDomi);
   } catch (error) {
     console.error('Error de impresion:', error);
+    // Liberamos la conexion para que el siguiente intento no encuentre la impresora ocupada.
+    try {
+      if (bluetoothDevice && bluetoothDevice.gatt.connected) bluetoothDevice.gatt.disconnect();
+    } catch (e) { /* nada que liberar */ }
     // Si el usuario cancela el selector no mostramos error.
     if (error && error.name === 'NotFoundError' && /cancel/i.test(error.message || '')) {
       return;
@@ -99,9 +103,28 @@ async function findWritableCharacteristic(server) {
   return candidate;
 }
 
+// Abre la conexion GATT con reintentos: "Connection attempt failed" suele ser transitorio
+// (la impresora aun tiene abierta la conexion anterior o esta ocupada).
+async function connectGatt(device) {
+  const ATTEMPTS = 3;
+  let lastError;
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    try {
+      if (device.gatt.connected) return device.gatt;
+      return await device.gatt.connect();
+    } catch (error) {
+      lastError = error;
+      console.warn('Intento de conexion ' + attempt + '/' + ATTEMPTS + ' fallo:', error);
+      try { device.gatt.disconnect(); } catch (e) { /* ya desconectado */ }
+      if (attempt < ATTEMPTS) await sleep(1500);
+    }
+  }
+  throw lastError;
+}
+
 async function connect(cmds, flagDomi) {
   console.log('Connecting to Bluetooth Device...');
-  const server = await bluetoothDevice.gatt.connect();
+  const server = await connectGatt(bluetoothDevice);
   const characteristic = await findWritableCharacteristic(server);
 
   const encoder = new TextEncoder();
