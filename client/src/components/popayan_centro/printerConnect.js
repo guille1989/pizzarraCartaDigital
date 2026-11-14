@@ -131,7 +131,17 @@ async function connect(cmds, flagDomi) {
   const newLine = '\x0A';
 
   // Convertimos cmds a string si no lo es
-  const dataString = Array.isArray(cmds) ? cmds.join('') : cmds;
+  let dataString = Array.isArray(cmds) ? cmds.join('') : cmds;
+  // Limita el area de impresion al ancho real del rollo (GS W nL nH). Debe ir despues de
+  // ESC @ porque este ultimo la reinicia. Si el texto se sigue cortando a la derecha,
+  // baja PRINT_WIDTH_DOTS; si queda mucho espacio libre, subelo (max 576 en 80mm).
+  const PRINT_WIDTH_DOTS = 360;
+  const areaCmd = '\x1D\x57' + String.fromCharCode(PRINT_WIDTH_DOTS & 0xff, PRINT_WIDTH_DOTS >> 8);
+  if (dataString.startsWith('\x1B@')) {
+    dataString = '\x1B@' + areaCmd + dataString.slice(2);
+  } else {
+    dataString = areaCmd + dataString;
+  }
   // Newlines solo al final; los bloques se miden en BYTES (con tildes, 1 caracter > 1 byte).
   const bytes = encoder.encode(dataString + newLine + newLine + newLine);
   console.log('Total bytes:', bytes.length);
